@@ -4,13 +4,20 @@ public class User extends Entity{
     private long userId;
     private String login;
     private String password;
-    private String name;
+    private UserRole role;
 
-    public User(long userId, String login, String password, String name) {
+    public User(long userId, String login, String password) {
         this.userId = userId;
         this.login = login;
         this.password = password;
-        this.name = name;
+        this.role = UserRole.CLIENT;
+    }
+
+    public User(long userId, String login, String password, UserRole role) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.role = role;
     }
 
     public long getUserId() {
@@ -37,12 +44,12 @@ public class User extends Entity{
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     @Override
@@ -59,7 +66,7 @@ public class User extends Entity{
         return userId == user.userId
                 && login.equals(user.login)
                 && password.equals(user.password)
-                && name.equals(user.name);
+                && role == user.role;
     }
 
     @Override
@@ -68,14 +75,14 @@ public class User extends Entity{
         result += 37 * userId;
         result += 37 * login.hashCode();
         result += 37 * password.hashCode();
-        result += 37 * name.hashCode();
+        result += 37 * role.ordinal();
 
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("User %d: login %s, name %s",
-                userId, login, name);
+        return String.format("User %d: login %s, role %s",
+                userId, login, role.name());
     }
 }

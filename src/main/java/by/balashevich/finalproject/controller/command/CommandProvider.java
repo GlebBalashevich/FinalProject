@@ -1,4 +1,4 @@
-package by.balashevich.finalproject.controller;
+package by.balashevich.finalproject.controller.command;
 
 public class CommandProvider {
     public ActionCommand defineCommand(String commandName){

@@ -1,19 +1,20 @@
 package by.balashevich.finalproject.model.dao.impl;
 
-import by.balashevich.finalproject.exception.ConnectionDatabaseException;
 import by.balashevich.finalproject.exception.DaoProjectException;
-import by.balashevich.finalproject.model.connection.ConnectionPool;
+import by.balashevich.finalproject.model.entity.UserRole;
+import by.balashevich.finalproject.model.pool.ConnectionPool;
 import by.balashevich.finalproject.model.dao.BaseDao;
-import by.balashevich.finalproject.model.dao.UserTableColumn;
+import by.balashevich.finalproject.model.dao.TableColumnName;
 import by.balashevich.finalproject.model.entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class UserDaoImpl implements BaseDao<User> {
-    private static final String FIND_ALL_QUERY_SQL = "SELECT userid, login, password, name FROM user";
+    private static final String FIND_ALL_QUERY_SQL = "SELECT userid, login, password, role FROM user";
     private static final String FIND_BY_LOGIN_QUERY_SQL = FIND_ALL_QUERY_SQL + " WHERE login = ?";
 
     @Override
@@ -36,8 +37,8 @@ public class UserDaoImpl implements BaseDao<User> {
         return null;
     }
 
-    public User findByLogin(String targetLogin) throws DaoProjectException {
-        User targetUser = null; //todo may be optional
+    public Optional<User> findByLogin(String targetLogin) throws DaoProjectException {
+        Optional<User> targetUser = Optional.empty();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         try (Connection connection = connectionPool.getConnection();
@@ -45,13 +46,13 @@ public class UserDaoImpl implements BaseDao<User> {
             statement.setString(1, targetLogin);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                long userId = resultSet.getLong(UserTableColumn.USERID.getColumnName());
-                String login = resultSet.getString(UserTableColumn.LOGIN.getColumnName());
-                String password = resultSet.getString(UserTableColumn.PASSWORD.getColumnName());
-                String name = resultSet.getString(UserTableColumn.NAME.getColumnName());
-                targetUser = new User(userId, login, password, name);
+                long userId = resultSet.getLong(TableColumnName.USERID);
+                String login = resultSet.getString(TableColumnName.LOGIN);
+                String password = resultSet.getString(TableColumnName.PASSWORD);
+                UserRole role = UserRole.valueOf(resultSet.getString(TableColumnName.ROLE));
+                targetUser = Optional.of(new User(userId, login, password, role));
             }
-        } catch (SQLException | ConnectionDatabaseException e) {
+        } catch (SQLException e) {
             throw new DaoProjectException("Error during searching user by login", e);
         }
 

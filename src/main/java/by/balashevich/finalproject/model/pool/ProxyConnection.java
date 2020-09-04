@@ -1,4 +1,4 @@
-package by.balashevich.finalproject.model.connection;
+package by.balashevich.finalproject.model.pool;
 
 import java.sql.*;
 import java.util.Map;

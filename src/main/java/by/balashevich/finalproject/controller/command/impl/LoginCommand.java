@@ -1,7 +1,7 @@
-package by.balashevich.finalproject.controller.impl;
+package by.balashevich.finalproject.controller.command.impl;
 
-import by.balashevich.finalproject.controller.ActionCommand;
-import by.balashevich.finalproject.controller.PageName;
+import by.balashevich.finalproject.controller.command.ActionCommand;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.controller.SessionRequestContent;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.User;
@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class LoginCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
@@ -31,7 +32,7 @@ public class LoginCommand implements ActionCommand {
             Optional<User> verifyingUser = userService.verifyUser(userLogin, userPassword);
             if (verifyingUser.isPresent()){
                 page = PageName.WELCOME.getPath();
-                String userName = verifyingUser.get().getName();
+                String userName = verifyingUser.toString();
                 requestContent.setAttribute(MESSAGE_ATTRIBUTE, String.format(WELCOME_MESSAGE, userName));
             } else{
                 page = PageName.LOGIN.getPath();

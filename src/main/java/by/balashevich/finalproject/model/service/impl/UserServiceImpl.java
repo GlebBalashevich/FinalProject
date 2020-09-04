@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> verifyingUser = Optional.empty();
 
         try{
-            User user = userDao.findByLogin(login);
-            if (user != null){
-                String encryptedPassword = user.getPassword(); //todo change logic
-                String decryptedPassword = PasswordEncryption.decryptPassword(encryptedPassword);
-                if (decryptedPassword.equals(password)){
-                    verifyingUser = Optional.of(user);
+            Optional<User> user = userDao.findByLogin(login);
+            if (user.isPresent()){
+                String userPassword = user.get().getPassword();
+                String verifyingPassword = PasswordEncryption.encryptPassword(password);
+                if (userPassword.equals(verifyingPassword)){
+                    verifyingUser = user;
                 }
             }
         } catch (DaoProjectException e){

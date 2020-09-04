@@ -1,4 +1,4 @@
-package by.balashevich.finalproject.controller;
+package by.balashevich.finalproject.controller.command;
 
 public enum PageName {
     INDEX("/index.jsp"),
