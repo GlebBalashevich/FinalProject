@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class ConnectionPool {
     private static final Logger logger = LogManager.getLogger();
-    private static final String PROPERTIES_FILENAME = "src/main/datares/config/database";
+    private static final String PROPERTIES_FILENAME = "config/database";
     private static final String DRIVER_NAME = "db.driver";
     private static final String URL = "db.url";
     private static final String LOGIN = "db.login";

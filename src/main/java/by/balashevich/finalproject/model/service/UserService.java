@@ -5,12 +5,11 @@ import by.balashevich.finalproject.model.entity.User;
 
 import java.util.Optional;
 
-public interface UserService {
-    boolean add(User user) throws ServiceProjectException;
+public interface UserService <T extends User> {
+    boolean add(T user, String userPassword) throws ServiceProjectException;
 
-    boolean remove(User user) throws ServiceProjectException;
+    boolean remove(T user) throws ServiceProjectException;
 
-    User update(User user) throws ServiceProjectException;
+    T update(T user) throws ServiceProjectException;
 
-    Optional<User> verifyUser(String login, String password) throws ServiceProjectException;
 }

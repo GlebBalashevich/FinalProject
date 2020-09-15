@@ -3,8 +3,9 @@ package by.balashevich.finalproject.controller.command;
 public enum PageName {
     INDEX("/index.jsp"),
     LOGIN("/jsp/login.jsp"),
+    REGISTER("/jsp/register.jsp"),
     ERROR("/jsp/error.jsp"),
-    WELCOME("/jsp/welcome.jsp");  // TODO: 01.09.2020 May be rename Welcome page
+    HOME("/jsp/home.jsp");
 
     private String path;
 

@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class LoginCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
@@ -29,14 +28,18 @@ public class LoginCommand implements ActionCommand {
         String page;
 
         try {
-            Optional<User> verifyingUser = userService.verifyUser(userLogin, userPassword);
-            if (verifyingUser.isPresent()){
-                page = PageName.WELCOME.getPath();
-                String userName = verifyingUser.toString();
-                requestContent.setAttribute(MESSAGE_ATTRIBUTE, String.format(WELCOME_MESSAGE, userName));
+            if (userService.verifyUser(userLogin, userPassword)) {
+                Optional<User> loggedUser = userService.findUserByLogin(userLogin);
+                if (loggedUser.isPresent()) {
+                    page = PageName.HOME.getPath();
+                    //todo create session
+                } else {
+                    page = PageName.LOGIN.getPath();
+                    requestContent.setAttribute(MESSAGE_ATTRIBUTE, INVALID_VALUES_MESSAGE); //todo message to try later
+                }
             } else{
                 page = PageName.LOGIN.getPath();
-                requestContent.setAttribute(MESSAGE_ATTRIBUTE, INVALID_VALUES_MESSAGE);
+                requestContent.setAttribute(MESSAGE_ATTRIBUTE, INVALID_VALUES_MESSAGE); //todo message to incorrect password
             }
         } catch (ServiceProjectException e){
             page = PageName.ERROR.getPath();

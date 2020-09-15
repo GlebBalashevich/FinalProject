@@ -3,20 +3,27 @@ package by.balashevich.finalproject.model.entity;
 public class User extends Entity{
     private long userId;
     private String login;
-    private String password;
     private UserRole role;
 
-    public User(long userId, String login, String password) {
-        this.userId = userId;
+    public User(String login) {
         this.login = login;
-        this.password = password;
         this.role = UserRole.CLIENT;
     }
 
-    public User(long userId, String login, String password, UserRole role) {
+    public User(long userId, String login) {
         this.userId = userId;
         this.login = login;
-        this.password = password;
+        this.role = UserRole.CLIENT;
+    }
+
+    public User(String login, UserRole role) {
+        this.login = login;
+        this.role = role;
+    }
+
+    public User(long userId, String login, UserRole role) {
+        this.userId = userId;
+        this.login = login;
         this.role = role;
     }
 
@@ -34,14 +41,6 @@ public class User extends Entity{
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public UserRole getRole() {
@@ -65,24 +64,22 @@ public class User extends Entity{
 
         return userId == user.userId
                 && login.equals(user.login)
-                && password.equals(user.password)
                 && role == user.role;
     }
 
     @Override
     public int hashCode() {
         int result = 1;
-        result += 37 * userId;
+        result += 37 * Long.hashCode(userId);
         result += 37 * login.hashCode();
-        result += 37 * password.hashCode();
-        result += 37 * role.ordinal();
+        result += 37 * role.hashCode();
 
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("User %d: login %s, role %s",
+        return String.format("Id %d: login %s, role %s",
                 userId, login, role.name());
     }
 }
