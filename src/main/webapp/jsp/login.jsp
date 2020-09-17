@@ -21,8 +21,8 @@
                 aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
         <div class="collapse navbar-collapse text-success" id="navbarResponsive" style="font-size: 19px;">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
-                        class="nav-link js-scroll-trigger" href="process_controller?command=move_home_page">home</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><button
+                        class="nav-link js-scroll-trigger" href="process_controller?command=move_home_page">home</button></li>
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
                         class="nav-link js-scroll-trigger" href="#cars">cars</a></li>
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
