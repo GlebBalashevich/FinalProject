@@ -4,7 +4,7 @@ import by.balashevich.finalproject.controller.SessionRequestContent;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.PageName;
 
-public class MoveHomePage implements ActionCommand {
+public class HomePageCommand implements ActionCommand {
     @Override
     public String execute(SessionRequestContent requestContent) {
         return PageName.HOME.getPath();

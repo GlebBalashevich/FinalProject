@@ -5,7 +5,10 @@ public enum PageName {
     LOGIN("/jsp/login.jsp"),
     REGISTER("/jsp/register.jsp"),
     ERROR("/jsp/error.jsp"),
-    HOME("/jsp/home.jsp");
+    HOME("/jsp/home.jsp"),
+    ADMIN_OFFICE("/jsp/admin_office.jsp"),
+    CLIENT_GARAGE("/jsp/client_garage.jsp"),
+    MANAGER_OFFICE("/jsp/manager_office.jsp");
 
     private String path;
 

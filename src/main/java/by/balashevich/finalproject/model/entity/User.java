@@ -1,29 +1,31 @@
 package by.balashevich.finalproject.model.entity;
 
+import java.util.Arrays;
+
 public class User extends Entity{
+
+    public enum Role {
+        ADMIN,
+        CLIENT,
+        MANAGER;
+
+        public static Role getUserRole(int index){
+            return Arrays.stream(Role.values()).filter(r -> r.ordinal() == index).findFirst().get();
+        }
+    }
+
     private long userId;
-    private String login;
-    private UserRole role;
+    private String email;
+    private Role role;
 
-    public User(String login) {
-        this.login = login;
-        this.role = UserRole.CLIENT;
-    }
-
-    public User(long userId, String login) {
-        this.userId = userId;
-        this.login = login;
-        this.role = UserRole.CLIENT;
-    }
-
-    public User(String login, UserRole role) {
-        this.login = login;
+    public User(String email, Role role) {
+        this.email = email;
         this.role = role;
     }
 
-    public User(long userId, String login, UserRole role) {
+    public User(long userId, String email, Role role) {
         this.userId = userId;
-        this.login = login;
+        this.email = email;
         this.role = role;
     }
 
@@ -35,19 +37,19 @@ public class User extends Entity{
         this.userId = userId;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public UserRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -63,7 +65,7 @@ public class User extends Entity{
         User user = (User) o;
 
         return userId == user.userId
-                && login.equals(user.login)
+                && email.equals(user.email)
                 && role == user.role;
     }
 
@@ -71,7 +73,7 @@ public class User extends Entity{
     public int hashCode() {
         int result = 1;
         result += 37 * Long.hashCode(userId);
-        result += 37 * login.hashCode();
+        result += 37 * result + email.hashCode();
         result += 37 * role.hashCode();
 
         return result;
@@ -79,7 +81,7 @@ public class User extends Entity{
 
     @Override
     public String toString() {
-        return String.format("Id %d: login %s, role %s",
-                userId, login, role.name());
+        return String.format("Id %d: email %s, role %s",
+                userId, email, role.name());
     }
 }

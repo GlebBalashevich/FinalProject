@@ -21,14 +21,16 @@
                 aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
         <div class="collapse navbar-collapse text-success" id="navbarResponsive" style="font-size: 19px;">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><button
-                        class="nav-link js-scroll-trigger" href="process_controller?command=move_home_page">home</button></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
-                        class="nav-link js-scroll-trigger" href="#cars">cars</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
-                        class="nav-link js-scroll-trigger" href="#download">download</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
-                        class="nav-link js-scroll-trigger" href="#default">default</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link js-scroll-trigger" href="process_controller?command=move_home_page">home</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link js-scroll-trigger" href="#cars">cars</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link js-scroll-trigger" href="#download">download</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link js-scroll-trigger" href="#default">default</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link active js-scroll-trigger" href="process_controller?command=move_register_page">Register</a></li>
             </ul>
         </div>
     </div>
@@ -40,18 +42,21 @@
                 <form action="process_controller" method="post" class="shadow-lg custom-form">
                     <label class="alert-danger">${message}</label>
                     <div class="form-row form-group">
-                        <div class="col-sm-4 label-column"><label class="col-form-label">LOGIN</label></div>
-                        <div class="col-sm-4 input-column"><input class="form-control" name="login" type="text" autofocus required></div>
+                        <div class="col-sm-4 label-column"><label class="col-form-label">EMAIL</label></div>
+                        <div class="col-sm-4 input-column">
+                            <input class="form-control" name="email" type="email" autofocus required>
+                        </div>
                     </div>
                     <div class="form-row form-group">
-                        <div class="col-sm-4 label-column"><label class="col-form-label">PASSWORD</label>
+                        <div class="col-sm-4 label-column"><label class="col-form-label">PASSWORD</label></div>
+                        <div class="col-sm-4 input-column">
+                            <input class="form-control" name="password" type="password" required>
                         </div>
-                        <div class="col-sm-4 input-column"><input class="form-control" name="password" type="password" required></div>
                     </div>
                     <input type="hidden" name="command" value="log_in_user">
                     <button class="btn btn-light submit-button" type="submit">LOG In</button>
                 </form>
-                <a class="shadow-sm" href="process_controller?command=move_register_page">you have no account?</a></div>
+            </div>
         </div>
     </div>
 </header>

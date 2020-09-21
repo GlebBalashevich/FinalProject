@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 
@@ -23,7 +24,14 @@
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#cars">cars</a></li>
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#download">download</a></li>
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#default">default</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link active js-scroll-trigger" href="process_controller?command=move_login_page">Log in</a></li>
+                <c:choose>
+                    <c:when test="${sessionScope.user_role==null}">
+                        <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link active js-scroll-trigger" href="process_controller?command=move_login_page">Log in</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link active js-scroll-trigger" href="process_controller?command=log_out_user">Log out</a></li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>

@@ -2,29 +2,21 @@ package by.balashevich.finalproject.validator;
 
 import java.util.Map;
 
+import static by.balashevich.finalproject.util.ParameterKey.*;
+
 public class UserValidator {
     private static final String EMPTY_VALUE = "";
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
-    private static final String CONFIRM_PASSWORD = "confirm_password";
-    private static final String FIRST_NAME = "first_name";
-    private static final String SECOND_NAME = "second_name";
-    private static final String DRIVER_LICENSE = "driver_license";
-    private static final String EMAIL = "email";
-    private static final String PHONE_NUMBER = "phone_number";
-
-    private static final String LOGIN_PATTERN = "^[\\p{Alnum}._-]{3,25}$";
+    private static final String EMAIL_PATTERN = "^\\p{Alnum}+[._-]?\\p{Alnum}+@\\p{Alnum}+\\.\\p{Alpha}{2,4}";
     private static final String PASSWORD_PATTERN = "((?=.*\\p{Digit})(?=.*\\p{Lower})(?=.*\\p{Upper})(?=.*[_-])?.{8,})";
     private static final String NAME_PATTERN = "[\\p{Alpha}-]{1,20}";
     private static final String DRIVER_LICENSE_PATTERN = "(\\p{Digit}?\\p{Alpha}{2}\\s?\\p{Digit}{6})";
-    private static final String EMAIL_PATTERN = "^\\p{Alnum}+[._-]?\\p{Alnum}+@\\p{Alnum}+\\.\\p{Alpha}{2,4}";
     private static final String PHONE_NUMBER_PATTERN = "^(\\+)?([-_():\\s]?\\d[-_():\\s]?){12}?$";
 
     public boolean validateClientParameters(Map<String, String> clientParameters) {
         boolean isParametersCorrect = true;
-        if (!validateLogin(clientParameters.get(LOGIN))) {
+        if(!validateEmail(clientParameters.get(EMAIL))){
             isParametersCorrect = false;
-            clientParameters.put(LOGIN, EMPTY_VALUE);
+            clientParameters.put(EMAIL, EMPTY_VALUE);
         }
         if (!validatePasswords(clientParameters.get(PASSWORD), clientParameters.get(CONFIRM_PASSWORD))) {
             isParametersCorrect = false;
@@ -42,10 +34,6 @@ public class UserValidator {
             isParametersCorrect = false;
             clientParameters.put(DRIVER_LICENSE, EMPTY_VALUE);
         }
-        if(!validateEmail(clientParameters.get(EMAIL))){
-            isParametersCorrect = false;
-            clientParameters.put(EMAIL, EMPTY_VALUE);
-        }
         if (!validatePhoneNumber(clientParameters.get(PHONE_NUMBER))){
             isParametersCorrect = false;
             clientParameters.put(PHONE_NUMBER, EMPTY_VALUE);
@@ -54,13 +42,13 @@ public class UserValidator {
         return isParametersCorrect;
     }
 
-    public boolean validateLogin(String login) {
-        boolean isLoginCorrect = false;
-        if (login != null && !login.isEmpty()) {
-            isLoginCorrect = login.matches(LOGIN_PATTERN);
+    public boolean validateEmail(String email) {
+        boolean isEmailCorrect = false;
+        if (email != null && !email.isEmpty()) {
+            isEmailCorrect = email.matches(EMAIL_PATTERN);
         }
 
-        return isLoginCorrect;
+        return isEmailCorrect;
     }
 
     public boolean validatePasswords(String password, String confirmPassword) {
@@ -90,15 +78,6 @@ public class UserValidator {
         }
 
         return isLicenseCorrect;
-    }
-
-    public boolean validateEmail(String email) {
-        boolean isEmailCorrect = false;
-        if (email != null && !email.isEmpty()) {
-            isEmailCorrect = email.matches(EMAIL_PATTERN);
-        }
-
-        return isEmailCorrect;
     }
 
     public boolean validatePhoneNumber(String phoneNumber) {

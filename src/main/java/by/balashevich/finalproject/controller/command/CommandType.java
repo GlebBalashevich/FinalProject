@@ -4,9 +4,10 @@ import by.balashevich.finalproject.controller.command.impl.*;
 
 public enum CommandType {
     LOG_IN_USER(new LoginCommand()),
-    MOVE_LOGIN_PAGE(new MoveLoginPage()),
-    MOVE_REGISTER_PAGE(new MoveRegisterPage()),
-    MOVE_HOME_PAGE(new MoveHomePage()),
+    LOG_OUT_USER(new LogoutCommand()),
+    MOVE_LOGIN_PAGE(new LoginPageCommand()),
+    MOVE_REGISTER_PAGE(new RegisterPageCommand()),
+    MOVE_HOME_PAGE(new HomePageCommand()),
     REGISTER_CLIENT(new RegisterClientCommand());
 
     private ActionCommand command;

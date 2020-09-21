@@ -27,12 +27,14 @@
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
                         class="nav-link js-scroll-trigger" href="process_controller?command=move_home_page">home</a>
                 </li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
-                        class="nav-link js-scroll-trigger" href="#cars">cars</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
-                        class="nav-link js-scroll-trigger" href="#download">download</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a
-                        class="nav-link js-scroll-trigger" href="#default">default</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link js-scroll-trigger" href="#cars">cars</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link js-scroll-trigger" href="#download">download</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link js-scroll-trigger" href="#default">default</a></li>
+                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                    <a class="nav-link active js-scroll-trigger" href="process_controller?command=move_login_page">Log in</a></li>
             </ul>
         </div>
     </div>
@@ -43,10 +45,10 @@
     <div class="col-md-8 offset-md-2">
         <form action="process_controller" method="post" class="shadow-lg custom-form" id="register" style="background-color: rgba(0,0,0,0.08);">
             <div class="form-row form-group" style="margin: 0px -5px 15px;">
-                <div class="col-sm-3 label-column"><label class="col-form-label">LOGIN</label></div>
+                <div class="col-sm-3 label-column"><label class="col-form-label">EMAIL</label></div>
                 <div class="col-sm-6 input-column">
-                    <input class="form-control" name="login" type="text"
-                           autofocus required value="${registerParameters.get("login")}">
+                    <input class="form-control" name="email" type="email"
+                           autofocus required value="${registerParameters.get("email")}">
                 </div>
             </div>
             <div class="form-row form-group">
@@ -64,38 +66,29 @@
                 </div>
             </div>
             <div class="form-row form-group">
-                <div class="col label-column"><label class="col-form-label">FIRST NAME</label></div>
-                <div class="col input-column">
+                <div class="col-sm-2 label-column"><label class="col-form-label">FIRST NAME</label></div>
+                <div class="col-sm-3 input-column">
                     <input class="form-control" name="first_name" type="text"
                            required value="${registerParameters.get("first_name")}">
                 </div>
-                <div class="col label-column"><label class="col-form-label label-column">SECOND NAME</label>
+                <div class="col-sm-2 label-column"><label class="col-form-label label-column">SECOND NAME</label>
                 </div>
-                <div class="col input-column">
+                <div class="col-sm-3 input-column">
                     <input class="form-control" name="second_name" type="text"
                            required value="${registerParameters.get("second_name")}">
                 </div>
             </div>
             <div class="form-row form-group">
-                <div class="col label-column"><label class="col-form-label">DRIVER LICENSE</label></div>
-                <div class="col input-column">
+                <div class="col-sm-2 label-column"><label class="col-form-label">DRIVER LICENSE</label></div>
+                <div class="col-sm-3 input-column">
                     <input class="form-control" name="driver_license" type="text"
                            required value="${registerParameters.get("driver_license")}">
                 </div>
-                <div class="col label-column"><label class="col-form-label label-column">EMAIL</label></div>
-                <div class="col input-column">
-                    <input class="form-control" name="email" type="email"
-                           required value="${registerParameters.get("email")}">
-                </div>
-            </div>
-            <div class="form-row form-group">
-                <div class="col label-column"><label class="col-form-label">PHONE NUMBER</label></div>
-                <div class="col input-column">
+                <div class="col-sm-2 label-column"><label class="col-form-label">PHONE NUMBER</label></div>
+                <div class="col-sm-3 input-column">
                     <input class="form-control" name="phone_number" type="tel"
                            pattern="^\d{12}" value="${registerParameters.get("phone_number")}">
                 </div>
-                <div class="col label-column"><label class="col-form-label"></label></div>
-                <div class="col"><label class="col-form-label"></label></div>
             </div>
             <input type="hidden" name="command" value="register_client">
             <button class="btn btn-light submit-button" type="submit">REGISTER</button>

@@ -4,9 +4,9 @@ import by.balashevich.finalproject.controller.SessionRequestContent;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.PageName;
 
-public class MoveRegisterPage implements ActionCommand {
+public class LoginPageCommand implements ActionCommand {
     @Override
     public String execute(SessionRequestContent requestContent) {
-        return PageName.REGISTER.getPath();
+        return PageName.LOGIN.getPath();
     }
 }

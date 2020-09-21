@@ -4,45 +4,49 @@ import by.balashevich.finalproject.controller.SessionRequestContent;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
+import by.balashevich.finalproject.model.entity.User;
 import by.balashevich.finalproject.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
+import static by.balashevich.finalproject.util.ParameterKey.*;
+
 public class RegisterClientCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
-    private static final String LOGIN_PARAMETER = "login";
-    private static final String PASSWORD_PARAMETER = "password";
-    private static final String CONFIRM_PASSWORD_PARAMETER = "confirm_password";
-    private static final String FIRST_NAME_PARAMETER = "first_name";
-    private static final String SECOND_NAME_PARAMETER = "second_name";
-    private static final String DRIVER_LICENSE_PARAMETER = "driver_license";
-    private static final String EMAIL_PARAMETER = "email";
-    private static final String PHONE_NUMBER_PARAMETER = "phone_number";
 
     @Override
     public String execute(SessionRequestContent requestContent) {
         UserServiceImpl userService = new UserServiceImpl();
         Map<String, String> clientParameters = new HashMap();
-        clientParameters.put(LOGIN_PARAMETER, requestContent.getParameter(LOGIN_PARAMETER));
-        clientParameters.put(PASSWORD_PARAMETER, requestContent.getParameter(PASSWORD_PARAMETER));
-        clientParameters.put(CONFIRM_PASSWORD_PARAMETER, requestContent.getParameter(CONFIRM_PASSWORD_PARAMETER));
-        clientParameters.put(FIRST_NAME_PARAMETER, requestContent.getParameter(FIRST_NAME_PARAMETER));
-        clientParameters.put(SECOND_NAME_PARAMETER, requestContent.getParameter(SECOND_NAME_PARAMETER));
-        clientParameters.put(DRIVER_LICENSE_PARAMETER, requestContent.getParameter(DRIVER_LICENSE_PARAMETER));
-        clientParameters.put(EMAIL_PARAMETER, requestContent.getParameter(EMAIL_PARAMETER));
-        clientParameters.put(PHONE_NUMBER_PARAMETER, requestContent.getParameter(PHONE_NUMBER_PARAMETER));
+        clientParameters.put(EMAIL, requestContent.getParameter(EMAIL));
+        clientParameters.put(PASSWORD, requestContent.getParameter(PASSWORD));
+        clientParameters.put(CONFIRM_PASSWORD, requestContent.getParameter(CONFIRM_PASSWORD));
+        clientParameters.put(FIRST_NAME, requestContent.getParameter(FIRST_NAME));
+        clientParameters.put(SECOND_NAME, requestContent.getParameter(SECOND_NAME));
+        clientParameters.put(DRIVER_LICENSE, requestContent.getParameter(DRIVER_LICENSE));
+        clientParameters.put(PHONE_NUMBER, requestContent.getParameter(PHONE_NUMBER));
+        HttpSession session;
         String page;
 
         try {
-            if (userService.addClient(clientParameters)){
-                page = PageName.HOME.getPath();
+            if (userService.existUser(clientParameters.get(EMAIL))) {
+                if (userService.add(clientParameters)) {
+                    session = requestContent.getSession();
+                    session.setAttribute(ROLE, User.Role.CLIENT.name());
+                    page = PageName.HOME.getPath();
+
+                } else {
+                    page = PageName.REGISTER.getPath();
+                    requestContent.setAttribute("registerParameters", clientParameters);
+                }
             } else{
                 page = PageName.REGISTER.getPath();
-                requestContent.setAttribute("registerParameters", clientParameters);
+                requestContent.setAttribute("message", null); // TODO: 21.09.2020  define message
             }
         } catch (ServiceProjectException e) {
             page = PageName.ERROR.getPath();
