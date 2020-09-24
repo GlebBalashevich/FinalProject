@@ -7,8 +7,6 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayDeque;
-import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -24,7 +22,7 @@ public class ConnectionPool {
     private static ConnectionPool connectionPool = new ConnectionPool();
     private ResourceBundle bundle;
     private BlockingQueue<ProxyConnection> freeConnections;
-    private Queue<ProxyConnection> givenConnections;
+    private BlockingQueue<ProxyConnection> givenConnections;
 
     public static ConnectionPool getInstance(){
         return connectionPool;
@@ -35,7 +33,7 @@ public class ConnectionPool {
             bundle = ResourceBundle.getBundle(PROPERTIES_FILENAME);
             Class.forName(bundle.getString(DRIVER_NAME));
             freeConnections = new LinkedBlockingQueue<>(POOL_SIZE);
-            givenConnections = new ArrayDeque<>(POOL_SIZE);
+            givenConnections = new LinkedBlockingQueue<>(POOL_SIZE);
             for(int i = 0; i < POOL_SIZE; i++){
                 Connection connection = DriverManager.getConnection(bundle.getString(URL),
                         bundle.getString(LOGIN), bundle.getString(PASSWORD));

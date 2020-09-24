@@ -11,9 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @WebServlet(urlPatterns = "/process_controller")
 public class ProcessController extends HttpServlet {
@@ -29,8 +27,7 @@ public class ProcessController extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CommandProvider commandProvider = new CommandProvider();
-        ActionCommand command = commandProvider.defineCommand(request.getParameter(COMMAND_PARAMETER));
+        ActionCommand command = CommandProvider.defineCommand(request.getParameter(COMMAND_PARAMETER));
         SessionRequestContent sessionRequestContent = new SessionRequestContent(request);
 
         String page = command.execute(sessionRequestContent);

@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService<User> {
         return null;
     }
 
+    @Override
     public Optional<User> findUserByEmail(String email) throws ServiceProjectException {
         UserValidator userValidator = new UserValidator();
         Optional<User> targetUser;
@@ -70,6 +71,7 @@ public class UserServiceImpl implements UserService<User> {
         return targetUser;
     }
 
+    @Override
     public boolean verifyUser(String email, String password) throws ServiceProjectException {
         UserValidator userValidator = new UserValidator();
         boolean isApproved = false;
@@ -91,6 +93,7 @@ public class UserServiceImpl implements UserService<User> {
         return isApproved;
     }
 
+    @Override
     public boolean existUser(String email) throws ServiceProjectException {
         UserValidator userValidator = new UserValidator();
         boolean isExist = false;

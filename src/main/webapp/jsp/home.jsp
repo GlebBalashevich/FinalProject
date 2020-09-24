@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 
 <head>
     <meta charset="utf-8">
+    <fmt:setLocale value="${sessionScope.locale}"/>
+    <fmt:setBundle basename="prop.pagecontent"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Home - Car|Book</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
@@ -25,7 +28,7 @@
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#download">download</a></li>
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#default">default</a></li>
                 <c:choose>
-                    <c:when test="${sessionScope.user_role==null}">
+                    <c:when test="${empty sessionScope.user_role}">
                         <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link active js-scroll-trigger" href="process_controller?command=move_login_page">Log in</a></li>
                     </c:when>
                     <c:otherwise>

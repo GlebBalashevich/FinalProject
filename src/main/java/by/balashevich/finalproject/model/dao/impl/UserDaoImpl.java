@@ -2,9 +2,9 @@ package by.balashevich.finalproject.model.dao.impl;
 
 import by.balashevich.finalproject.exception.DaoProjectException;
 import by.balashevich.finalproject.factory.UserFactory;
+import by.balashevich.finalproject.model.dao.UserDao;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
-import by.balashevich.finalproject.model.dao.BaseDao;
 import by.balashevich.finalproject.model.entity.User;
 
 import java.sql.Connection;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
-public class UserDaoImpl implements BaseDao<User> {
+public class UserDaoImpl implements UserDao {
     private static final String EMPTY_VALUE = "";
     private static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) where email =";
     private static final String FIND_BY_EMAIL = "SELECT user_id, email, user_role, first_name, second_name," +
@@ -69,6 +69,7 @@ public class UserDaoImpl implements BaseDao<User> {
         return null;
     }
 
+    @Override
     public boolean updatePassword(User user, String changingPassword) throws DaoProjectException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         String changePasswordFullQuery = CHANGE_PASSWORD + user.getEmail();
@@ -85,6 +86,7 @@ public class UserDaoImpl implements BaseDao<User> {
         return isPasswordChanged;
     }
 
+    @Override
     public Optional<User> findByEmail(String targetEmail) throws DaoProjectException {
         Optional<User> targetUser = Optional.empty();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -113,6 +115,7 @@ public class UserDaoImpl implements BaseDao<User> {
         return targetUser;
     }
 
+    @Override
     public String findPasswordByEmail(String targetEmail) throws DaoProjectException {
         String userPassword = EMPTY_VALUE;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -131,6 +134,7 @@ public class UserDaoImpl implements BaseDao<User> {
         return userPassword;
     }
 
+    @Override
     public String existEmail(String targetEmail) throws DaoProjectException {
         String email = EMPTY_VALUE;
         ConnectionPool connectionPool = ConnectionPool.getInstance();

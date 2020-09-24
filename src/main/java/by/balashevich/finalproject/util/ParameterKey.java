@@ -1,7 +1,7 @@
 package by.balashevich.finalproject.util;
 
 public class ParameterKey {
-    public static final String USER_ID = "user_id";                      //table users
+    public static final String USER_ID = "user_id";                     //table users
     public static final String PASSWORD = "password";                   //table users
     public static final String CONFIRM_PASSWORD = "confirm_password";   //table users
     public static final String ROLE = "user_role";                      //table users
