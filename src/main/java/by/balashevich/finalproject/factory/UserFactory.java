@@ -32,7 +32,6 @@ public class UserFactory {
     private static Client createClient(Map<String, Object> clientParameters){
         long clientId = (long)clientParameters.get(USER_ID);
         String email = (String)clientParameters.get(EMAIL);
-        User.Role role = User.Role.CLIENT;
         String firstName = (String)clientParameters.get(FIRST_NAME);
         String secondName = (String)clientParameters.get(SECOND_NAME);
         String driverLicense = (String)clientParameters.get(DRIVER_LICENSE);

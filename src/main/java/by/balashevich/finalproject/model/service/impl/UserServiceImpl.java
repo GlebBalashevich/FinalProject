@@ -53,6 +53,23 @@ public class UserServiceImpl implements UserService<User> {
         return null;
     }
 
+    public boolean updateClientStatus(String email, Client.Status status) throws ServiceProjectException {
+        boolean isParameterUpdated = false;
+
+        try {
+            Client.Status currentStatus = userDao.findStatusByEmail(email);
+            if (currentStatus != null) {
+                if (currentStatus == Client.Status.PENDING) {
+                    isParameterUpdated = userDao.updateClientStatus(email, status);
+                }
+            }
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("An error occurred while updating user parameter", e);
+        }
+
+        return isParameterUpdated;
+    }
+
     @Override
     public Optional<User> findUserByEmail(String email) throws ServiceProjectException {
         UserValidator userValidator = new UserValidator();
@@ -108,4 +125,6 @@ public class UserServiceImpl implements UserService<User> {
 
         return isExist;
     }
+
+
 }

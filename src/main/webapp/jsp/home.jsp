@@ -1,86 +1,85 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="prop.contentpage"/>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <fmt:setLocale value="${sessionScope.locale}"/>
-    <fmt:setBundle basename="prop.pagecontent"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Car|Book</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/font-awesome.min.css">
+    <title><fmt:message key="title.home"/> - Car|Book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pretty-Registration-Form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
 <body id="page-top">
-<nav class="navbar navbar-light navbar-expand-md navbar navbar-expand-lg fixed-top" id="mainNav">
-    <div class="container"><a class="navbar-brand shadow-none js-scroll-trigger" href="process_controller?command=move_home_page">Car|Book</a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false"
-                                                                                                              aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
-        <div class="collapse navbar-collapse text-success" id="navbarResponsive">
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="process_controller?command=move_home_page">home</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#cars">cars</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#download">download</a></li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#default">default</a></li>
-                <c:choose>
-                    <c:when test="${empty sessionScope.user_role}">
-                        <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link active js-scroll-trigger" href="process_controller?command=move_login_page">Log in</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link active js-scroll-trigger" href="process_controller?command=log_out_user">Log out</a></li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
-        </div>
-    </div>
-</nav>
+<c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/>
 <header class="masthead">
     <div class="shadow intro-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h1 class="brand-heading"><strong>You rent more than a car.</strong></h1>
-                    <p class="intro-text">We ready to help you 24/7. <br>Only new cars, only excellent service</p><a class="btn btn-link btn-circle" role="button" href="#carchoose"><i class="fa fa-angle-double-down animated"></i></a></div>
+        <div class="container" id="carouselMainContainer">
+        <div id="carouselMain" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" id="carouselMainInner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_1.png" alt="Первый слайд">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Travelling</h3>
+                        <p>It's every time pleasure</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_2.png" alt="Второй слайд">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Travelling</h3>
+                        <p>It's every time pleasure</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_3.png" alt="Третий слайд">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Travelling</h3>
+                        <p>It's every time pleasure</p>
+                    </div>
+                </div>
             </div>
+            <a class="carousel-control-prev" href="#carouselMain" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselMain" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        </div>
+        <div class="container" id="pics">
+        <div class="row" id="logosFeat">
+             <div class="col"><i class="fas fa-car"></i>
+             <figure class="figure"></figure></div>
+             <div class="col"><i class="far fa-credit-card"></i></div>
+             <div class="col"><i class="far fa-handshake"></i></div>
+             <div class="col"><i class="far fa-calendar-check"></i></div>
+        </div>
+        <div class="row">
+            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;">We got a lot of cars of different types to la lal&nbsp;</label></div>
+            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;">Our service high quality and normal cost</label></div>
+            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;">We are open for you around 24|7</label></div>
+            <div class="col"><label class="col-form-label" style="font-size: 25px;">you can be sure that you will got a car</label></div>
+        </div>
         </div>
     </div>
 </header>
-<section id="carchoose" class="content-section text-center">
-    <div class="container">
-        <h1><strong>Let us find the perfect car for you</strong></h1>
-        <div class="row register-form">
-            <div class="col-md-8 offset-md-2">
-                <form class="shadow-lg custom-form">
-                    <div class="form-row form-group">
-                        <div class="col-sm-4 label-column"><label class="col-form-label">DATE FROM</label></div>
-                        <div class="col-sm-6 input-column"><input class="form-control" type="date"></div>
-                    </div>
-                    <div class="form-row form-group">
-                        <div class="col-sm-4 label-column"><label class="col-form-label">DATE TO</label></div>
-                        <div class="col-sm-6 input-column"><input class="form-control" type="date"></div>
-                    </div>
-                    <div class="form-row form-group">
-                        <div class="col-sm-4 label-column"><label class="col-form-label" style="font-family: Cabin, sans-serif;">CAR TYPE</label></div>
-                        <div class="col-sm-4 input-column">
-                            <div class="dropdown"><button class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Dropdown </button>
-                                <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
-                            </div>
-                        </div>
-                    </div><button class="btn btn-light submit-button" type="button">SEARCH A CAR</button></form>
-            </div>
-        </div>
-    </div>
-</section>
-<footer style="background-image: url(/img/footer.png);">
-    <div class="container text-center">
-        <p>Copyright ©&nbsp;Car|Book 2020</p>
-    </div>
-</footer>
+
+<c:import url="${pageContext.request.contextPath}/jsp/fragment/footer.jsp"/>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>

@@ -5,6 +5,7 @@ import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.User;
+import by.balashevich.finalproject.model.service.ClientOperationService;
 import by.balashevich.finalproject.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
+import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class RegisterClientCommand implements ActionCommand {
@@ -22,6 +24,7 @@ public class RegisterClientCommand implements ActionCommand {
     @Override
     public String execute(SessionRequestContent requestContent) {
         UserServiceImpl userService = new UserServiceImpl();
+        ClientOperationService clientOperationService;
         Map<String, String> clientParameters = new HashMap();
         clientParameters.put(EMAIL, requestContent.getParameter(EMAIL));
         clientParameters.put(PASSWORD, requestContent.getParameter(PASSWORD));
@@ -30,23 +33,26 @@ public class RegisterClientCommand implements ActionCommand {
         clientParameters.put(SECOND_NAME, requestContent.getParameter(SECOND_NAME));
         clientParameters.put(DRIVER_LICENSE, requestContent.getParameter(DRIVER_LICENSE));
         clientParameters.put(PHONE_NUMBER, requestContent.getParameter(PHONE_NUMBER));
-        HttpSession session;
+        HttpSession session = requestContent.getSession();
         String page;
 
         try {
-            if (userService.existUser(clientParameters.get(EMAIL))) {
+            if (!userService.existUser(clientParameters.get(EMAIL))) {
                 if (userService.add(clientParameters)) {
-                    session = requestContent.getSession();
                     session.setAttribute(ROLE, User.Role.CLIENT.name());
+                    clientOperationService = new ClientOperationService();
+                    clientOperationService.registerMailNotification(clientParameters.get(EMAIL),
+                            (String)session.getAttribute(LOCALE),clientParameters.get(FIRST_NAME));
                     page = PageName.HOME.getPath();
-
                 } else {
-                    page = PageName.REGISTER.getPath();
                     requestContent.setAttribute("registerParameters", clientParameters);
+                    page = PageName.REGISTER.getPath();
+                    logger.log(Level.INFO,"form not pass validation");
                 }
             } else{
-                page = PageName.REGISTER.getPath();
                 requestContent.setAttribute("message", null); // TODO: 21.09.2020  define message
+                page = PageName.REGISTER.getPath();
+                logger.log(Level.INFO,"user exist");
             }
         } catch (ServiceProjectException e) {
             page = PageName.ERROR.getPath();

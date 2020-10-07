@@ -8,7 +8,9 @@ public enum CommandType {
     MOVE_LOGIN_PAGE(new LoginPageCommand()),
     MOVE_REGISTER_PAGE(new RegisterPageCommand()),
     MOVE_HOME_PAGE(new HomePageCommand()),
-    REGISTER_CLIENT(new RegisterClientCommand());
+    REGISTER_CLIENT(new RegisterClientCommand()),
+    SWITCH_LOCALE(new SwitchLocaleCommand()),
+    ACTIVATE_CLIENT(new ActivateClientCommand());
 
     private ActionCommand command;
 

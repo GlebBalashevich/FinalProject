@@ -1,12 +1,18 @@
 package by.balashevich.finalproject.controller;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SessionRequestContent {
+    private static final Logger logger = LogManager.getLogger();
     private Map<String, Object> requestAttributes;
     private Map<String, String[]> requestParameters;
     private ServletContext servletContext;

@@ -19,10 +19,12 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class UserDaoImpl implements UserDao {
     private static final String EMPTY_VALUE = "";
-    private static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) where email =";
-    private static final String FIND_BY_EMAIL = "SELECT user_id, email, user_role, first_name, second_name," +
+    private static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) where email=";
+    private static final String CHANGE_STATUS = "UPDATE users SET status = (?) where email=(?)";
+    private static final String FIND_ALL_BY_EMAIL = "SELECT user_id, email, user_role, first_name, second_name," +
             "driver_license, phone_number, status FROM users WHERE email = ?";
     private static final String FIND_PASSWORD_BY_EMAIL = "SELECT password FROM users WHERE email = ?";
+    private static final String FIND_STATUS_BY_EMAIL = "SELECT status FROM users WHERE email = ?";
     private static final String FIND_EMAIL = "SELECT email FROM users WHERE email = ?";
     private static final String ADD_CLIENT = "INSERT INTO users(email, password, user_role, first_name, " +
             "second_name, driver_license, phone_number, status)VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -34,8 +36,8 @@ public class UserDaoImpl implements UserDao {
         User.Role role = User.Role.valueOf(userParameters.get(ROLE));
         String addUserQuery = (role == User.Role.CLIENT) ? ADD_CLIENT : null; //todo Manager query
 
-        try(Connection connection = connectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(addUserQuery)){
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(addUserQuery)) {
             statement.setString(1, userParameters.get(EMAIL));
             statement.setString(2, userParameters.get(PASSWORD));
             statement.setInt(3, role.ordinal());
@@ -43,7 +45,7 @@ public class UserDaoImpl implements UserDao {
                 statement.setString(4, userParameters.get(FIRST_NAME));
                 statement.setString(5, userParameters.get(SECOND_NAME));
                 statement.setString(6, userParameters.get(DRIVER_LICENSE));
-                statement.setInt(7, Integer.parseInt(userParameters.get(PHONE_NUMBER)));
+                statement.setLong(7, Long.parseLong(userParameters.get(PHONE_NUMBER)));
                 statement.setInt(8, Client.Status.valueOf(userParameters.get(STATUS)).ordinal());
             }
             isClientAdded = statement.executeUpdate() > 0;
@@ -70,29 +72,48 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean updatePassword(User user, String changingPassword) throws DaoProjectException {
+    public boolean updateClientStatus(String email, Client.Status status) throws DaoProjectException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        String changePasswordFullQuery = CHANGE_PASSWORD + user.getEmail();
-        boolean isPasswordChanged;
+        boolean isParameterChanged;
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(changePasswordFullQuery)) {
-            statement.setString(1, changingPassword);
-            isPasswordChanged = statement.executeUpdate() > 0;
+             PreparedStatement statement = connection.prepareStatement(CHANGE_STATUS)) {
+            statement.setInt(1, status.ordinal());
+            statement.setString(2, email);
+            isParameterChanged = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoProjectException("Error during changing password in database", e);
         }
 
-        return isPasswordChanged;
+        return isParameterChanged;
     }
 
     @Override
+    public Client.Status findStatusByEmail(String targetEmail) throws DaoProjectException {
+        Client.Status targetStatus = null;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_STATUS_BY_EMAIL)) {
+            statement.setString(1, targetEmail);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                targetStatus = Client.Status.getClientStatus(resultSet.getInt(1));
+            }
+        } catch(SQLException e){
+            throw new DaoProjectException("Error during searching client status by email", e);
+        }
+
+        return targetStatus;
+    }
+
+        @Override
     public Optional<User> findByEmail(String targetEmail) throws DaoProjectException {
         Optional<User> targetUser = Optional.empty();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_BY_EMAIL)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_BY_EMAIL)) {
             statement.setString(1, targetEmail);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
