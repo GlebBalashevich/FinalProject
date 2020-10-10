@@ -1,7 +1,7 @@
 package by.balashevich.finalproject.model.dao.impl;
 
 import by.balashevich.finalproject.exception.DaoProjectException;
-import by.balashevich.finalproject.factory.UserFactory;
+import by.balashevich.finalproject.builder.UserBuilder;
 import by.balashevich.finalproject.model.dao.UserDao;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -67,7 +68,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findById(long id) throws DaoProjectException {
+    public Optional<User> findById(long id) throws DaoProjectException {
+        return null;
+    }
+
+    @Override
+    public List<User> findAll() throws DaoProjectException {
         return null;
     }
 
@@ -100,14 +106,14 @@ public class UserDaoImpl implements UserDao {
             if (resultSet.next()) {
                 targetStatus = Client.Status.getClientStatus(resultSet.getInt(1));
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             throw new DaoProjectException("Error during searching client status by email", e);
         }
 
         return targetStatus;
     }
 
-        @Override
+    @Override
     public Optional<User> findByEmail(String targetEmail) throws DaoProjectException {
         Optional<User> targetUser = Optional.empty();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -127,7 +133,7 @@ public class UserDaoImpl implements UserDao {
                 userParameters.put(PHONE_NUMBER, resultSet.getLong(PHONE_NUMBER));
                 userParameters.put(STATUS, Client.Status.getClientStatus(resultSet.getInt(STATUS)));
 
-                targetUser = Optional.of(UserFactory.createUser(userParameters));
+                targetUser = Optional.of(UserBuilder.buildUser(userParameters));
             }
         } catch (SQLException e) {
             throw new DaoProjectException("Error during searching user by email", e);

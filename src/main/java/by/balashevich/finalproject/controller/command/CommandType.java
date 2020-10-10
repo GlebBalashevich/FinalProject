@@ -8,6 +8,8 @@ public enum CommandType {
     MOVE_LOGIN_PAGE(new LoginPageCommand()),
     MOVE_REGISTER_PAGE(new RegisterPageCommand()),
     MOVE_HOME_PAGE(new HomePageCommand()),
+    MOVE_CARS_PAGE(new CarsPageCommand()),
+    MOVE_USER_OFFICE_PAGE(new UserOfficePageCommand()),
     REGISTER_CLIENT(new RegisterClientCommand()),
     SWITCH_LOCALE(new SwitchLocaleCommand()),
     ACTIVATE_CLIENT(new ActivateClientCommand());

@@ -18,17 +18,6 @@ public class User extends Entity{
     private String email;
     private Role role;
 
-    public User(String email, Role role) {
-        this.email = email;
-        this.role = role;
-    }
-
-    public User(long userId, String email, Role role) {
-        this.userId = userId;
-        this.email = email;
-        this.role = role;
-    }
-
     public long getUserId() {
         return userId;
     }

@@ -2,8 +2,6 @@ package by.balashevich.finalproject.controller;
 
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.CommandProvider;
-import by.balashevich.finalproject.util.ParameterKey;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,12 +30,9 @@ public class ProcessController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ActionCommand command = CommandProvider.defineCommand(request.getParameter(COMMAND_PARAMETER));
-        SessionRequestContent sessionRequestContent = new SessionRequestContent(request);
-        String page = command.execute(sessionRequestContent);
-        HttpSession session = sessionRequestContent.getSession();
-
+        String page = command.execute(request);
+        HttpSession session = request.getSession();
         session.setAttribute(CURRENT_PAGE, page);
-        sessionRequestContent.restoreRequest(request);
 
         request.getRequestDispatcher(page).forward(request, response);
     }

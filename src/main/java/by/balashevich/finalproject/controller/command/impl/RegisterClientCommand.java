@@ -1,6 +1,5 @@
 package by.balashevich.finalproject.controller.command.impl;
 
-import by.balashevich.finalproject.controller.SessionRequestContent;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
@@ -11,6 +10,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,18 +22,18 @@ public class RegisterClientCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(SessionRequestContent requestContent) {
+    public String execute(HttpServletRequest request) {
         UserServiceImpl userService = new UserServiceImpl();
         ClientOperationService clientOperationService;
         Map<String, String> clientParameters = new HashMap();
-        clientParameters.put(EMAIL, requestContent.getParameter(EMAIL));
-        clientParameters.put(PASSWORD, requestContent.getParameter(PASSWORD));
-        clientParameters.put(CONFIRM_PASSWORD, requestContent.getParameter(CONFIRM_PASSWORD));
-        clientParameters.put(FIRST_NAME, requestContent.getParameter(FIRST_NAME));
-        clientParameters.put(SECOND_NAME, requestContent.getParameter(SECOND_NAME));
-        clientParameters.put(DRIVER_LICENSE, requestContent.getParameter(DRIVER_LICENSE));
-        clientParameters.put(PHONE_NUMBER, requestContent.getParameter(PHONE_NUMBER));
-        HttpSession session = requestContent.getSession();
+        clientParameters.put(EMAIL, request.getParameter(EMAIL));
+        clientParameters.put(PASSWORD, request.getParameter(PASSWORD));
+        clientParameters.put(CONFIRM_PASSWORD, request.getParameter(CONFIRM_PASSWORD));
+        clientParameters.put(FIRST_NAME, request.getParameter(FIRST_NAME));
+        clientParameters.put(SECOND_NAME, request.getParameter(SECOND_NAME));
+        clientParameters.put(DRIVER_LICENSE, request.getParameter(DRIVER_LICENSE));
+        clientParameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
+        HttpSession session = request.getSession();
         String page;
 
         try {
@@ -45,12 +45,12 @@ public class RegisterClientCommand implements ActionCommand {
                             (String)session.getAttribute(LOCALE),clientParameters.get(FIRST_NAME));
                     page = PageName.HOME.getPath();
                 } else {
-                    requestContent.setAttribute("registerParameters", clientParameters);
+                    request.setAttribute("registerParameters", clientParameters);
                     page = PageName.REGISTER.getPath();
                     logger.log(Level.INFO,"form not pass validation");
                 }
             } else{
-                requestContent.setAttribute("message", null); // TODO: 21.09.2020  define message
+                request.setAttribute("message", null); // TODO: 21.09.2020  define message
                 page = PageName.REGISTER.getPath();
                 logger.log(Level.INFO,"user exist");
             }

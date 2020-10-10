@@ -6,6 +6,6 @@
 </head>
 <footer style="background-color: #688181">
     <div class="container text-center">
-        <p><fmt:message key="footer.copyright"/> ©&nbsp;Car|Book 2020</p>
+        <p><fmt:message key="footer.copyright"/></p>
     </div>
 </footer>

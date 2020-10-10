@@ -63,7 +63,6 @@ public class UserValidator {
     }
 
     public boolean validateName(String name) {
-        System.out.println(name);
         boolean isNameCorrect = false;
         if (name != null && !name.isEmpty()) {
             isNameCorrect = name.matches(NAME_PATTERN);

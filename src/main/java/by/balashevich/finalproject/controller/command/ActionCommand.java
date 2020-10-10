@@ -1,7 +1,7 @@
 package by.balashevich.finalproject.controller.command;
 
-import by.balashevich.finalproject.controller.SessionRequestContent;
+import javax.servlet.http.HttpServletRequest;
 
 public interface ActionCommand {
-    String execute(SessionRequestContent requestContent);
+    String execute(HttpServletRequest request);
 }

@@ -20,26 +20,6 @@ public class Client extends User {
     private long phoneNumber;
     private Status status;
 
-    public Client(String email, String firstName, String secondName,
-                  String driverLicense, long phoneNumber, Status status) {
-        super(email, Role.CLIENT);
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.driverLicense = driverLicense;
-        this.phoneNumber = phoneNumber;
-        this.status = status;
-    }
-
-    public Client(long userId, String email,  String firstName, String secondName,
-                  String driverLicense, long phoneNumber, Status status) {
-        super(userId, email, Role.CLIENT);
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.driverLicense = driverLicense;
-        this.phoneNumber = phoneNumber;
-        this.status = status;
-    }
-
     public String getFirstName() {
         return firstName;
     }

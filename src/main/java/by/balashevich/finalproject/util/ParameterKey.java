@@ -12,5 +12,14 @@ public class ParameterKey {
     public static final String PHONE_NUMBER = "phone_number";           //table users
     public static final String STATUS = "status";                       //table users
 
+    public static final String CAR_ID = "car_id";                       //table cars
+    public static final String MODEL = "model";                         //table cars
+    public static final String CAR_TYPE = "type";                       //table cars
+    public static final String NUMBER_SEATS = "number_seats";           //table cars
+    public static final String RENT_COST = "rent_cost";                 //table cars
+    public static final String FUEL_TYPE = "fuel_type";                 //table cars
+    public static final String FUEL_CONSUMPTION = "fuel_consumption";   //table cars
+    public static final String CAR_AVAILABLE = "is_available";       //table cars
+
     private ParameterKey(){}
 }

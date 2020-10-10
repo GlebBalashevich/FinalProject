@@ -7,9 +7,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title><fmt:message key="title.login"/> - Car|Book</title>
+    <title><fmt:message key="title.login"/></title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
@@ -26,6 +25,12 @@
         <form action="process_controller" method="post" class="shadow-lg custom-form" style="font-family: Nunito">
             <c:if test="${not empty successfulAuthorization && !successfulAuthorization}">
                 <label class="alert-danger"><fmt:message key="login.not_authorized"/></label>
+            </c:if>
+            <c:if test="${not empty successfulActivation && successfulActivation}">
+                <label class="alert-success"><fmt:message key="login.activated_user"/></label>
+            </c:if>
+            <c:if test="${not empty successfulActivation && !successfulActivation}">
+                <label class="alert-warning"><fmt:message key="login.not_activated_user"/></label>
             </c:if>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
