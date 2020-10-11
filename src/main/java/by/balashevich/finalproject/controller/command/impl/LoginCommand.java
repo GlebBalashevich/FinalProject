@@ -28,7 +28,7 @@ public class LoginCommand implements ActionCommand {
         String page;
 
         try {
-            if (userService.verifyUser(userEmail, userPassword)) {
+            if (userService.authorizeUser(userEmail, userPassword)) {
                 User authorizedUser = userService.findUserByEmail(userEmail).get();
                 page = switch (authorizedUser.getRole()) {
                     case ADMIN -> PageName.ADMIN_OFFICE.getPath();

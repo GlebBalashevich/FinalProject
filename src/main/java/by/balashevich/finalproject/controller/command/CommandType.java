@@ -12,7 +12,8 @@ public enum CommandType {
     MOVE_USER_OFFICE_PAGE(new UserOfficePageCommand()),
     REGISTER_CLIENT(new RegisterClientCommand()),
     SWITCH_LOCALE(new SwitchLocaleCommand()),
-    ACTIVATE_CLIENT(new ActivateClientCommand());
+    ACTIVATE_CLIENT(new ActivateClientCommand()),
+    FILTER_CARS(new FilterCarsCommand());
 
     private ActionCommand command;
 

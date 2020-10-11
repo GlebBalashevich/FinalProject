@@ -15,44 +15,54 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.skin.css" />
 </head>
 
 <body id="page-top">
 <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/>
 <header class="masthead">
     <div class="intro-body">
-    <div class="row register-form">
-        <div class="col-md-4 offset-1">
+    <div class="row register-form" id="carPage">
+        <div class="col-4 offset-1">
             <form action="process_controller" method="post" class="shadow-none custom-form" id="carsFilter" style="font-family: Nunito">
                 <div class="form-row form-group">
-                    <div class="col-sm-3 label-column">
+                    <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_from"/></label></div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" id="dateFrom" type="datetime-local" required>
+                    <div class="col-7 input-column">
+                        <input class="form-control" name="date_from" id="dateFrom" type="datetime-local"
+                               value="${carParameters.get("date_from")}" required>
                     </div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-3 label-column">
+                    <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_to"/></label></div>
-                    <div class="col-sm-6 input-column">
-                        <input class="form-control" id="dateTo" type="datetime-local" required>
+                    <div class="col-7 input-column">
+                        <input class="form-control" name="date_to" id="dateTo" type="datetime-local"
+                               value="${carParameters.get("date_to")}" required>
                     </div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-6 offset-3 dropdown input-column">
-                        <select class="form-control" name="car-select" id="car-select">
-                            <option value=""><fmt:message key="cars.type"/></option>
-                            <option value="img/vehicle1.jpg">VW Golf VII</option>
-                            <option value="img/vehicle2.jpg">Audi A1 S-LINE</option>
-                            <option value="img/vehicle3.jpg">Toyota Camry</option>
-                            <option value="img/vehicle4.jpg">BMW 320 ModernLine</option>
-                            <option value="img/vehicle5.jpg">Mercedes-Benz GLK</option>
-                            <option value="img/vehicle6.jpg">VW Passat CC</option>
+                    <div class="col-4 label-column">
+                        <label class="col-form-label"><fmt:message key="cars.type"/></label></div>
+                    <div class="col-7 dropdown input-column">
+                        <select class="form-control" name="car_type" id="car-select">
+                            <option value=""><fmt:message key="cars.car_type.any"/></option>
+                            <option value="SUV"><fmt:message key="cars.car_type.suv"/></option>
+                            <option value="SEDAN"><fmt:message key="cars.car_type.sedan"/></option>
+                            <option value="MINIVAN"><fmt:message key="cars.car_type.minivan"/></option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-sm-4 offset-4 input-column">
+                    <div class="col-4 label-column">
+                        <label class="col-form-label"><fmt:message key="cars.price_range"/></label></div>
+                    <div class="col-7 input-column">
+                        <input type="text" name="price_range" value="${carParameters.get("price_range")}" id="range_03">
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-4 offset-4 input-column">
                         <button class="submit-button" type="submit" id="butt">
                             <fmt:message key="cars.filter"/></button>
                     </div>
@@ -60,29 +70,35 @@
                 <input type="hidden" name="command" value="filter_cars">
             </form>
         </div>
-        <div class="col-md-7 shadow-sm">
+        <div class="col-7 shadow-sm">
             <div class="form-row form-group">
-                <div class="col-sm-3">
+            <c:choose>
+                <c:when test="${not empty carList}">
+                <c:forEach var="carElement" items="${carList}">
+                <div class="col-3">
                     <img src="${pageContext.request.contextPath}/img/cars/5030mercedes.png"/>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-6">
                     <div class="row">
                         <div class="col">
-                            <p>Mercedes GLS 2.0Turbo</p>
+                            <p>${carElement.model}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
-                            <p>SEDAN</p>
+                        <div class="col-3">
+                            <p>${carElement.type.name()}</p>
                         </div>
-                        <div class="col-sm-3">
-                            <p>5l/100km</p>
+                        <div class="col-3">
+                            <p>${carElement.fuelConsumption}l/100km</p>
+                        </div>
+                        <div class="col-3">
+                            <p>${carElement.fuelType.name()}l/100km</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-3">
                     <div class="row">
-                        <p>100 $ per day</p>
+                        <p>${carElement.rentCost}$ per day</p>
                     </div>
                     <div class="form-row form-group">
                     <div class="row input-column" >
@@ -91,6 +107,17 @@
                     </div>
                     </div>
                 </div>
+                </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${empty noCars}">
+                        <label class="col-form-label"><fmt:message key="cars.choose_params"/></label></div>
+                    </c:if>
+                    <c:if test="${not empty noCars && !noCars}">
+                        <label class="col-form-label"><fmt:message key="cars.nothing_to_show"/></label></div>
+                    </c:if>
+                </c:otherwise>
+            </c:choose>
             </div>
         </div>
     </div>
@@ -103,6 +130,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/grayscale.js"></script>
 <script src="${pageContext.request.contextPath}/js/moment.js"></script>
-<script src="${pageContext.request.contextPath}/js/datetime.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/price_range.js"></script>
 </body>
 </html>

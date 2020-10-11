@@ -15,7 +15,7 @@ public interface UserService<T extends User> {
 
     Optional<T> findUserByEmail(String email) throws ServiceProjectException;
 
-    boolean verifyUser(String email, String password) throws ServiceProjectException;
+    boolean authorizeUser(String email, String password) throws ServiceProjectException;
 
     boolean existUser(String email) throws ServiceProjectException;
 

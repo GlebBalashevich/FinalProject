@@ -15,10 +15,15 @@ import java.util.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class CarDaoImpl implements CarDao {
-    private static final String FIND_BY_ID = "SELECT car_id, model, type, number_seats, rent_cost, " +
-            "fuel_type, fuel_consumption, is_available FROM cars WHERE car_id = ?";
-    private static final String FIND_ALL = "SELECT car_id, model, type, number_seats, rent_cost, " +
+    private static final String FIND_ALL = "SELECT car_id, model, car_type, number_seats, rent_cost, " +
             "fuel_type, fuel_consumption, is_available FROM cars";
+    private static final String FIND_BY_ID = FIND_ALL + " WHERE car_id = ?";
+    private static final String CHECK_CAR_TYPE = " AND car_type=?";
+    private static final String CHECK_PRICE_RANGE = " AND (rent_cost BETWEEN ? AND ?)";
+    private static final String CHECK_ORDERS_DATE_RANGE = " AND NOT EXISTS (SELECT date_from, date_to, " +
+            "cars_id FROM orders WHERE cars.car_id = orders.cars_id AND " +
+            "((? BETWEEN date_from AND date_to) OR (? BETWEEN date_from AND date_to)))";
+    private static final String FIND_AVAILABLE_ORDER_CAR = FIND_ALL + " WHERE is_available=true";
 
     @Override
     public boolean add(Map<String, String> parameters) throws DaoProjectException {
@@ -40,26 +45,14 @@ public class CarDaoImpl implements CarDao {
         ConnectionPool pool = ConnectionPool.getInstance();
         List<Car> carList = new ArrayList<>();
 
-        try(Connection connection = pool.getConnection();
-        PreparedStatement statement = connection.prepareStatement(FIND_ALL)){
+        try (Connection connection = pool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL)) {
             ResultSet resultSet = statement.executeQuery();
-            Optional<Car> targetCar;
-            while(resultSet.next()){
-                Map<String, Object> carParameters = new HashMap<>();
-                carParameters.put(CAR_ID, resultSet.getLong(CAR_ID));
-                carParameters.put(MODEL, resultSet.getString(MODEL));
-                carParameters.put(CAR_TYPE, Car.Type.getType(resultSet.getInt(CAR_TYPE)));
-                carParameters.put(NUMBER_SEATS, resultSet.getInt(NUMBER_SEATS));
-                carParameters.put(RENT_COST, resultSet.getInt(RENT_COST));
-                carParameters.put(FUEL_TYPE, Car.FuelType.getFuelType(resultSet.getInt(FUEL_TYPE)));
-                carParameters.put(FUEL_CONSUMPTION, resultSet.getInt(FUEL_CONSUMPTION));
-                carParameters.put(CAR_AVAILABLE, resultSet.getBoolean(CAR_AVAILABLE));
-
-                targetCar = Optional.of(CarBuilder.buildCar(carParameters));
-                targetCar.ifPresent(carList::add);
+            while (resultSet.next()) {
+                carList.add(createCar(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("error during searching all cars", e);
+            throw new DaoProjectException("Error during searching all cars", e);
         }
 
         return carList;
@@ -70,27 +63,67 @@ public class CarDaoImpl implements CarDao {
         ConnectionPool pool = ConnectionPool.getInstance();
         Optional<Car> targetCar = Optional.empty();
 
-        try(Connection connection = pool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)){
+        try (Connection connection = pool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()){
-                Map<String, Object> carParameters = new HashMap<>();
-                carParameters.put(CAR_ID, resultSet.getLong(CAR_ID));
-                carParameters.put(MODEL, resultSet.getString(MODEL));
-                carParameters.put(CAR_TYPE, Car.Type.getType(resultSet.getInt(CAR_TYPE)));
-                carParameters.put(NUMBER_SEATS, resultSet.getInt(NUMBER_SEATS));
-                carParameters.put(RENT_COST, resultSet.getInt(RENT_COST));
-                carParameters.put(FUEL_TYPE, Car.FuelType.getFuelType(resultSet.getInt(FUEL_TYPE)));
-                carParameters.put(FUEL_CONSUMPTION, resultSet.getInt(FUEL_CONSUMPTION));
-                carParameters.put(CAR_AVAILABLE, resultSet.getBoolean(CAR_AVAILABLE));
-
-                targetCar = Optional.of(CarBuilder.buildCar(carParameters));
+            if (resultSet.next()) {
+                targetCar = Optional.of(createCar(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("error while searching car by ID", e);
+            throw new DaoProjectException("Error while searching car by ID", e);
         }
 
         return targetCar;
+    }
+
+    public List<Car> findAvailableOrderCars(Map<String, Object> carParameters) throws DaoProjectException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        List<Car> carList = new ArrayList<>();
+        StringBuilder filteringAvailableCarsQuery = new StringBuilder();
+        filteringAvailableCarsQuery.append(FIND_AVAILABLE_ORDER_CAR);
+        if (carParameters.containsKey(PRICE_FROM) && carParameters.containsKey(PRICE_TO)){
+            filteringAvailableCarsQuery.append(CHECK_PRICE_RANGE);
+        }
+        if (carParameters.containsKey(CAR_TYPE)){
+            filteringAvailableCarsQuery.append(CHECK_CAR_TYPE);
+        }
+        filteringAvailableCarsQuery.append(CHECK_ORDERS_DATE_RANGE);
+
+        try (Connection connection = pool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(filteringAvailableCarsQuery.toString())) {
+            int parameterIndex = 0;
+            if (carParameters.containsKey(PRICE_FROM) && carParameters.containsKey(PRICE_TO)){
+                statement.setInt(++parameterIndex, (int)carParameters.get(PRICE_FROM));
+                statement.setInt(++parameterIndex, (int)carParameters.get(PRICE_TO));
+            }
+            if (carParameters.containsKey(CAR_TYPE)){
+                statement.setInt(++parameterIndex, ((Car.Type)carParameters.get(CAR_TYPE)).ordinal());
+            }
+            statement.setLong(++parameterIndex, ((Date)carParameters.get(DATE_FROM)).getTime());
+            statement.setLong(++parameterIndex, ((Date)carParameters.get(DATE_TO)).getTime());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                carList.add(createCar(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DaoProjectException("Error during searching all available cars", e);
+        }
+
+        return carList;
+    }
+
+    private Car createCar(ResultSet resultSet) throws SQLException {
+        Map<String, Object> carParameters = new HashMap<>();
+        carParameters.put(CAR_ID, resultSet.getLong(CAR_ID));
+        carParameters.put(MODEL, resultSet.getString(MODEL));
+        carParameters.put(CAR_TYPE, Car.Type.getType(resultSet.getInt(CAR_TYPE)));
+        carParameters.put(NUMBER_SEATS, resultSet.getInt(NUMBER_SEATS));
+        carParameters.put(RENT_COST, resultSet.getInt(RENT_COST));
+        carParameters.put(FUEL_TYPE, Car.FuelType.getFuelType(resultSet.getInt(FUEL_TYPE)));
+        carParameters.put(FUEL_CONSUMPTION, resultSet.getInt(FUEL_CONSUMPTION));
+        carParameters.put(CAR_AVAILABLE, resultSet.getBoolean(CAR_AVAILABLE));
+
+        return CarBuilder.buildCar(carParameters);
     }
 }

@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService<User> {
     }
 
     @Override
-    public boolean verifyUser(String email, String password) throws ServiceProjectException {
+    public boolean authorizeUser(String email, String password) throws ServiceProjectException {
         UserValidator userValidator = new UserValidator();
         boolean isApproved = false;
 
