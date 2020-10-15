@@ -24,13 +24,13 @@
 <header class="masthead">
     <div class="intro-body">
     <div class="row register-form" id="carPage">
-        <div class="col-4 offset-1">
+        <div class="col-3">
             <form action="process_controller" method="post" class="shadow-none custom-form" id="carsFilter" style="font-family: Nunito">
                 <div class="form-row form-group">
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_from"/></label></div>
                     <div class="col-7 input-column">
-                        <input class="form-control" name="date_from" id="dateFrom" type="datetime-local"
+                        <input class="form-control" name="date_from" id="dateFrom" type="date"
                                value="${carParameters.get("date_from")}" required>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_to"/></label></div>
                     <div class="col-7 input-column">
-                        <input class="form-control" name="date_to" id="dateTo" type="datetime-local"
+                        <input class="form-control" name="date_to" id="dateTo" type="date"
                                value="${carParameters.get("date_to")}" required>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="form-row form-group">
-                    <div class="col-4 offset-4 input-column">
+                    <div class="col-4 offset-3 input-column">
                         <button class="submit-button" type="submit" id="butt">
                             <fmt:message key="cars.filter"/></button>
                     </div>
@@ -70,44 +70,52 @@
                 <input type="hidden" name="command" value="filter_cars">
             </form>
         </div>
-        <div class="col-7 shadow-sm">
-            <div class="form-row form-group">
+        <!----------------------------------------------->
+        <div class="col-8">
+            <div class="form-row form-group" id="carElement">
             <c:choose>
                 <c:when test="${not empty carList}">
+                <table class="table">
                 <c:forEach var="carElement" items="${carList}">
-                <div class="col-3">
-                    <img src="${pageContext.request.contextPath}/img/cars/5030mercedes.png"/>
-                </div>
-                <div class="col-6">
-                    <div class="row">
-                        <div class="col">
-                            <p>${carElement.model}</p>
+                <tr>
+                    <td>
+                        <img src="/image/${carElement.carView.exteriorSmall}"/>
+                    </td>
+                    <td>
+                        <table class="table table-sm" id="carsListTable">
+                            <tbody>
+                            <tr>
+                                <td><fmt:message key="cars.model"/></td>
+                                <td colspan="2">${carElement.model}</td>
+                                <td><fmt:message key="cars.cost"/></td>
+                                <td>${carElement.rentCost}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><fmt:message key="cars.number_seats"/></td>
+                                <td>${carElement.numberSeats}</td>
+                                <td><fmt:message key="cars.fuel_consumption"/></td>
+                                <td>${carElement.fuelConsumption}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <div class="form-row form-group">
+                            <div class="input-column" >
+                                <form action="process_controller" method="post" style="font-family: Nunito">
+                                    <input type="hidden" name="car_id" value="${carElement.carId}">
+                                    <input type="hidden" name="date_from" value="${carParameters.get("date_from")}">
+                                    <input type="hidden" name="date_to" value="${carParameters.get("date_to")}">
+                                    <input type="hidden" name="command" value="move_order_page">
+                                    <button class="submit-button" type="submit" id="buttOrd">
+                                        <fmt:message key="cars.order"/></button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-3">
-                            <p>${carElement.type.name()}</p>
-                        </div>
-                        <div class="col-3">
-                            <p>${carElement.fuelConsumption}l/100km</p>
-                        </div>
-                        <div class="col-3">
-                            <p>${carElement.fuelType.name()}l/100km</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="row">
-                        <p>${carElement.rentCost}$ per day</p>
-                    </div>
-                    <div class="form-row form-group">
-                    <div class="row input-column" >
-                        <button class="submit-button" type="submit" id="buttOrd">
-                            ORDER</button>
-                    </div>
-                    </div>
-                </div>
+                    </td>
+                </tr>
                 </c:forEach>
+                </table>
                 </c:when>
                 <c:otherwise>
                     <c:if test="${empty noCars}">

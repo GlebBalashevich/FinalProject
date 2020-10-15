@@ -29,6 +29,7 @@ public class Car extends Entity {
     private int rentCost;
     private FuelType fuelType;
     private int fuelConsumption;
+    private CarView carView;
     private boolean available;
 
     public long getCarId() {
@@ -87,6 +88,14 @@ public class Car extends Entity {
         this.fuelConsumption = fuelConsumption;
     }
 
+    public CarView getCarView() {
+        return carView;
+    }
+
+    public void setCarView(CarView carView) {
+        this.carView = carView;
+    }
+
     public boolean isAvailable() {
         return available;
     }
@@ -107,12 +116,13 @@ public class Car extends Entity {
         Car car = (Car) obj;
 
         return carId == car.carId
-                && model.equals(car.model)
+                && (model != null && model.equals(car.model))
                 && type == car.type
                 && numberSeats == car.numberSeats
                 && rentCost == car.rentCost
                 && fuelType == car.fuelType
                 && fuelConsumption == car.fuelConsumption
+                && (carView == car.carView) || (carView != null && carView.equals(car.carView))
                 && available == car.available;
     }
 
@@ -120,12 +130,13 @@ public class Car extends Entity {
     public int hashCode() {
         int result = 1;
         result += 37 * result + Long.hashCode(carId);
-        result += 37 * result + model.hashCode();
-        result += 37 * result + type.hashCode();
+        result += 37 * result + (model == null ? 0 : model.hashCode());
+        result += 37 * result + (type == null ? 0 : type.hashCode());
         result += 37 * result + numberSeats;
         result += 37 * result + rentCost;
-        result += 37 * result + fuelType.hashCode();
+        result += 37 * result + (fuelType == null ? 0 : fuelType.hashCode());
         result += 37 * result + fuelConsumption;
+        result += 37 * result + (carView == null ? 0 : carView.hashCode());
         result += 37 * result + (available ? 1 : 0);
 
         return result;
@@ -133,8 +144,8 @@ public class Car extends Entity {
 
     @Override
     public String toString() {
-        return String.format("Vehicle %d: model %s, type %s, numberSeats %d, rentCost %d, " +
-                        "fuelType %s, fuelConsumption %d, is available %s",
-                carId, model, type.name(), numberSeats, rentCost, fuelType.name(), fuelConsumption, available);
+        return String.format("Car %d: model %s, type %s, numberSeats %d, rentCost %d, " +
+                        "fuelType %s, fuelConsumption %d, carView %s, is available %s",
+                carId, model, type.name(), numberSeats, rentCost, fuelType.name(), fuelConsumption, carView, available);
     }
 }

@@ -9,7 +9,7 @@ public class Client extends User {
         ACTIVE,
         BLOCKED;
 
-        public static Status getClientStatus(int index){
+        public static Status getClientStatus(int index) {
             return Arrays.stream(Status.values()).filter(s -> s.ordinal() == index).findFirst().get();
         }
     }
@@ -72,9 +72,9 @@ public class Client extends User {
         Client client = (Client) obj;
 
         return super.equals(obj)
-                && firstName.equals(client.firstName)
-                && secondName.equals(client.secondName)
-                && driverLicense.equals(client.driverLicense)
+                && (firstName != null && firstName.equals(client.firstName))
+                && (secondName != null && secondName.equals(client.secondName))
+                && (driverLicense != null && driverLicense.equals(client.driverLicense))
                 && phoneNumber == client.phoneNumber
                 && status == client.status;
     }
@@ -83,11 +83,11 @@ public class Client extends User {
     public int hashCode() {
         int result = 1;
         result += super.hashCode();
-        result += 37 * result + firstName.hashCode();
-        result += 37 * result + secondName.hashCode();
-        result += 37 * result + driverLicense.hashCode();
+        result += 37 * result + (firstName == null ? 0 : firstName.hashCode());
+        result += 37 * result + (secondName == null ? 0 : secondName.hashCode());
+        result += 37 * result + (driverLicense == null ? 0 : driverLicense.hashCode());
         result += 37 * result + phoneNumber;
-        result += 37 * result + status.hashCode();
+        result += 37 * result + (status == null ? 0 : status.hashCode());
 
         return result;
     }

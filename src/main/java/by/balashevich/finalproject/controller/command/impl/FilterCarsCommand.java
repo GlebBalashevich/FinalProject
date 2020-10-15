@@ -34,7 +34,7 @@ public class FilterCarsCommand implements ActionCommand {
             List<Car> targetCars = carService.findAvailableOrderCars(carParameters);
             request.setAttribute(AttributeKey.CAR_LIST, targetCars);
             request.setAttribute(AttributeKey.CAR_PARAMETERS, carParameters);
-            if (targetCars.isEmpty()){
+            if (targetCars == null || targetCars.isEmpty()) {
                 request.setAttribute(AttributeKey.CARS_FOUND, false);
             }
             page = PageName.CARS.getPath();

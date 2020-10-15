@@ -24,7 +24,8 @@ public class LoginCommand implements ActionCommand {
         UserServiceImpl userService = new UserServiceImpl();
         String userEmail = request.getParameter(EMAIL);
         String userPassword = request.getParameter(PASSWORD);
-        HttpSession session = request.getSession();;
+        HttpSession session = request.getSession();
+        ;
         String page;
 
         try {

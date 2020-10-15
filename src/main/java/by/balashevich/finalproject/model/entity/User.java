@@ -2,14 +2,14 @@ package by.balashevich.finalproject.model.entity;
 
 import java.util.Arrays;
 
-public class User extends Entity{
+public class User extends Entity {
 
     public enum Role {
         ADMIN,
         CLIENT,
         MANAGER;
 
-        public static Role getUserRole(int index){
+        public static Role getUserRole(int index) {
             return Arrays.stream(Role.values()).filter(r -> r.ordinal() == index).findFirst().get();
         }
     }
@@ -47,23 +47,23 @@ public class User extends Entity{
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
         User user = (User) o;
 
         return userId == user.userId
-                && email.equals(user.email)
+                && (email != null && email.equals(user.email))
                 && role == user.role;
     }
 
     @Override
     public int hashCode() {
         int result = 1;
-        result += 37 * Long.hashCode(userId);
-        result += 37 * result + email.hashCode();
-        result += 37 * role.hashCode();
+        result += 37 * result + Long.hashCode(userId);
+        result += 37 * result + (email == null ? 0 : email.hashCode());
+        result += 37 * result + (role == null ? 0 : role.hashCode());
 
         return result;
     }

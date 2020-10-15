@@ -6,7 +6,10 @@ public class CarValidator {
     private static final String PRICE_PATTERN = "\\d{2,3};\\d{2,3}";
     private static final String PRICE_DELIMITER = ";";
 
-    public boolean validatePriceRangeData(String priceRangeData) {
+    private CarValidator() {
+    }
+
+    public static boolean validatePriceRangeData(String priceRangeData) {
         boolean isPriceRangeValid = false;
 
         if (priceRangeData != null && priceRangeData.matches(PRICE_PATTERN)) {
@@ -21,13 +24,13 @@ public class CarValidator {
         return isPriceRangeValid;
     }
 
-    public boolean validateCarTypeData(String carTypeData){
+    public static boolean validateCarTypeData(String carTypeData) {
         boolean isCarTypeValid = false;
 
-        if (carTypeData != null){
+        if (carTypeData != null) {
             Car.Type[] types = Car.Type.values();
-            for(int i = 0; i < types.length; i++){
-                if (carTypeData.toUpperCase().equals(types[i].name())){
+            for (int i = 0; i < types.length; i++) {
+                if (carTypeData.toUpperCase().equals(types[i].name())) {
                     isCarTypeValid = true;
                 }
             }

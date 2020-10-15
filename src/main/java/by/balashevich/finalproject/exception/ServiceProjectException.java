@@ -1,6 +1,6 @@
 package by.balashevich.finalproject.exception;
 
-public class ServiceProjectException extends Exception{
+public class ServiceProjectException extends Exception {
     public ServiceProjectException() {
         super();
     }

@@ -2,6 +2,7 @@ package by.balashevich.finalproject.controller;
 
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.CommandProvider;
+import by.balashevich.finalproject.model.pool.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,5 +36,10 @@ public class ProcessController extends HttpServlet {
         session.setAttribute(CURRENT_PAGE, page);
 
         request.getRequestDispatcher(page).forward(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().destroyPool();
     }
 }

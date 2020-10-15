@@ -10,6 +10,7 @@ import by.balashevich.finalproject.util.PasswordEncryption;
 import by.balashevich.finalproject.validator.UserValidator;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,19 +23,23 @@ public class UserServiceImpl implements UserService<User> {
 
     @Override
     public boolean add(Map<String, String> clientParameters) throws ServiceProjectException {
-        UserValidator userValidator = new UserValidator();
         boolean isClientAdded = false;
 
-        if (userValidator.validateClientParameters(clientParameters)) {
+        if (UserValidator.validateClientParameters(clientParameters)) {
             try {
+                Map<String, Object> preparedClientParameters = new HashMap<>();
                 String encryptedPassword = PasswordEncryption.encryptPassword(clientParameters.get(PASSWORD));
-                clientParameters.put(PASSWORD, encryptedPassword);
                 String normalizedPhone = clientParameters.get(PHONE_NUMBER).replaceAll(PUNCTUATION_PATTERN, EMPTY_VALUE);
-                clientParameters.put(PHONE_NUMBER, normalizedPhone);
-                clientParameters.put(STATUS, Client.Status.PENDING.name());
-                clientParameters.put(ROLE, User.Role.CLIENT.name());
-
-                isClientAdded = userDao.add(clientParameters);
+                long phoneNumber = Integer.parseInt(normalizedPhone);
+                preparedClientParameters.put(EMAIL, clientParameters.get(EMAIL));
+                preparedClientParameters.put(PASSWORD, encryptedPassword);
+                preparedClientParameters.put(ROLE, User.Role.CLIENT);
+                preparedClientParameters.put(FIRST_NAME, clientParameters.get(FIRST_NAME));
+                preparedClientParameters.put(SECOND_NAME, clientParameters.get(SECOND_NAME));
+                preparedClientParameters.put(DRIVER_LICENSE, clientParameters.get(DRIVER_LICENSE));
+                preparedClientParameters.put(PHONE_NUMBER, phoneNumber);
+                preparedClientParameters.put(USER_STATUS, Client.Status.PENDING.name());
+                isClientAdded = userDao.add(preparedClientParameters);
             } catch (DaoProjectException | NoSuchAlgorithmException e) {
                 throw new ServiceProjectException("Error occurred during adding Client into database", e);
             }
@@ -72,11 +77,10 @@ public class UserServiceImpl implements UserService<User> {
 
     @Override
     public Optional<User> findUserByEmail(String email) throws ServiceProjectException {
-        UserValidator userValidator = new UserValidator();
         Optional<User> targetUser;
 
         try {
-            if (userValidator.validateEmail(email)) {
+            if (UserValidator.validateEmail(email)) {
                 targetUser = userDao.findByEmail(email);
             } else {
                 targetUser = Optional.empty();
@@ -90,11 +94,10 @@ public class UserServiceImpl implements UserService<User> {
 
     @Override
     public boolean authorizeUser(String email, String password) throws ServiceProjectException {
-        UserValidator userValidator = new UserValidator();
         boolean isApproved = false;
 
         try {
-            if (userValidator.validateEmail(email)) {
+            if (UserValidator.validateEmail(email)) {
                 String userPassword = userDao.findPasswordByEmail(email);
                 if (userPassword != null && !userPassword.isEmpty()) {
                     String verifyingPassword = PasswordEncryption.encryptPassword(password);
@@ -112,11 +115,10 @@ public class UserServiceImpl implements UserService<User> {
 
     @Override
     public boolean existUser(String email) throws ServiceProjectException {
-        UserValidator userValidator = new UserValidator();
         boolean isExist = false;
 
         try {
-            if (userValidator.validateEmail(email)) {
+            if (UserValidator.validateEmail(email)) {
                 isExist = !userDao.existEmail(email).isEmpty();
             }
         } catch (DaoProjectException e) {

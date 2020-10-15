@@ -1,6 +1,6 @@
 package by.balashevich.finalproject.exception;
 
-public class DaoProjectException extends Exception{
+public class DaoProjectException extends Exception {
     public DaoProjectException() {
         super();
     }

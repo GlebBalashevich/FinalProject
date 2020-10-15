@@ -12,7 +12,7 @@ public class MailSender {
     private static final String USER_NAME = "mail.user.name";
     private static final String USER_PASSWORD = "mail.user.password";
 
-    private MailSender(){
+    private MailSender() {
     }
 
     public static void sendMail(String recipientAddress, String subject, String text) throws IOException, MessagingException {
@@ -20,7 +20,7 @@ public class MailSender {
         Session session = getSession(properties);
         Message message = new MimeMessage(session);
 
-        message.setFrom(new InternetAddress((String)properties.get(USER_NAME)));
+        message.setFrom(new InternetAddress((String) properties.get(USER_NAME)));
         message.setSubject(subject);
         message.setText(text);
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientAddress));
@@ -41,7 +41,7 @@ public class MailSender {
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication((String)properties.get(USER_NAME), (String)properties.get(USER_PASSWORD));
+                return new PasswordAuthentication((String) properties.get(USER_NAME), (String) properties.get(USER_PASSWORD));
             }
         });
 

@@ -6,7 +6,7 @@ import by.balashevich.finalproject.model.entity.User;
 
 import java.util.Optional;
 
-public interface UserDao extends BaseDao<User>{
+public interface UserDao extends BaseDao<User> {
 
     boolean updateClientStatus(String targetEmail, Client.Status status) throws DaoProjectException;
 

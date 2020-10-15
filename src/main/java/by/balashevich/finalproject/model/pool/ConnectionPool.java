@@ -24,17 +24,17 @@ public class ConnectionPool {
     private BlockingQueue<ProxyConnection> freeConnections;
     private BlockingQueue<ProxyConnection> givenConnections;
 
-    public static ConnectionPool getInstance(){
+    public static ConnectionPool getInstance() {
         return connectionPool;
     }
 
-    private ConnectionPool(){
+    private ConnectionPool() {
         try {
             bundle = ResourceBundle.getBundle(PROPERTIES_FILENAME);
             Class.forName(bundle.getString(DRIVER_NAME));
             freeConnections = new LinkedBlockingQueue<>(POOL_SIZE);
             givenConnections = new LinkedBlockingQueue<>(POOL_SIZE);
-            for(int i = 0; i < POOL_SIZE; i++){
+            for (int i = 0; i < POOL_SIZE; i++) {
                 Connection connection = DriverManager.getConnection(bundle.getString(URL),
                         bundle.getString(LOGIN), bundle.getString(PASSWORD));
                 freeConnections.offer(new ProxyConnection(connection));
@@ -46,7 +46,7 @@ public class ConnectionPool {
         }
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         ProxyConnection connection = null;
 
         try {
@@ -59,9 +59,9 @@ public class ConnectionPool {
         return connection;
     }
 
-    public void releaseConnection(Connection connection){
+    public void releaseConnection(Connection connection) {
         if (connection instanceof ProxyConnection) {
-            if (givenConnections.remove(connection)){
+            if (givenConnections.remove(connection)) {
                 freeConnections.offer((ProxyConnection) connection);
             }
         } else {
@@ -69,7 +69,7 @@ public class ConnectionPool {
         }
     }
 
-    public void destroyPool(){
+    public void destroyPool() {
         try {
             for (int i = 0; i < POOL_SIZE; i++) {
                 freeConnections.take().reallyClose();

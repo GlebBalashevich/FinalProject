@@ -12,7 +12,7 @@ public class UserOfficePageCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(AttributeKey.USER);
-        String page = switch (user.getRole()){
+        String page = switch (user.getRole()) {
             case ADMIN:
                 yield PageName.ADMIN_OFFICE.getPath();
             case CLIENT:

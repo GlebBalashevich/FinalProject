@@ -31,24 +31,20 @@ public class UserDaoImpl implements UserDao {
             "second_name, driver_license, phone_number, status)VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     @Override
-    public boolean add(Map<String, String> userParameters) throws DaoProjectException {
+    public boolean add(Map<String, Object> userParameters) throws DaoProjectException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         boolean isClientAdded;
-        User.Role role = User.Role.valueOf(userParameters.get(ROLE));
-        String addUserQuery = (role == User.Role.CLIENT) ? ADD_CLIENT : null; //todo Manager query
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(addUserQuery)) {
-            statement.setString(1, userParameters.get(EMAIL));
-            statement.setString(2, userParameters.get(PASSWORD));
-            statement.setInt(3, role.ordinal());
-            if (role == User.Role.CLIENT) {
-                statement.setString(4, userParameters.get(FIRST_NAME));
-                statement.setString(5, userParameters.get(SECOND_NAME));
-                statement.setString(6, userParameters.get(DRIVER_LICENSE));
-                statement.setLong(7, Long.parseLong(userParameters.get(PHONE_NUMBER)));
-                statement.setInt(8, Client.Status.valueOf(userParameters.get(STATUS)).ordinal());
-            }
+             PreparedStatement statement = connection.prepareStatement(ADD_CLIENT)) {
+            statement.setString(1, (String) userParameters.get(EMAIL));
+            statement.setString(2, (String) userParameters.get(PASSWORD));
+            statement.setInt(3, ((User.Role) userParameters.get(ROLE)).ordinal());
+            statement.setString(4, (String) userParameters.get(FIRST_NAME));
+            statement.setString(5, (String) userParameters.get(SECOND_NAME));
+            statement.setString(6, (String) userParameters.get(DRIVER_LICENSE));
+            statement.setLong(7, (long) userParameters.get(PHONE_NUMBER));
+            statement.setInt(8, ((Client.Status) userParameters.get(USER_STATUS)).ordinal());
             isClientAdded = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoProjectException("Error during Dao adding client into database", e);
@@ -131,7 +127,7 @@ public class UserDaoImpl implements UserDao {
                 userParameters.put(SECOND_NAME, resultSet.getString(SECOND_NAME));
                 userParameters.put(DRIVER_LICENSE, resultSet.getString(DRIVER_LICENSE));
                 userParameters.put(PHONE_NUMBER, resultSet.getLong(PHONE_NUMBER));
-                userParameters.put(STATUS, Client.Status.getClientStatus(resultSet.getInt(STATUS)));
+                userParameters.put(USER_STATUS, Client.Status.getClientStatus(resultSet.getInt(USER_STATUS)));
 
                 targetUser = Optional.of(UserBuilder.buildUser(userParameters));
             }

@@ -1,6 +1,7 @@
 package by.balashevich.finalproject.controller.command.impl;
 
 import by.balashevich.finalproject.controller.command.ActionCommand;
+import by.balashevich.finalproject.controller.command.AttributeKey;
 import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.User;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class RegisterClientCommand implements ActionCommand {
@@ -42,17 +42,18 @@ public class RegisterClientCommand implements ActionCommand {
                     session.setAttribute(ROLE, User.Role.CLIENT.name());
                     clientOperationService = new ClientOperationService();
                     clientOperationService.registerMailNotification(clientParameters.get(EMAIL),
-                            (String)session.getAttribute(LOCALE),clientParameters.get(FIRST_NAME));
+                            (String) session.getAttribute(AttributeKey.LOCALE),
+                            clientParameters.get(FIRST_NAME), request.getRequestURL().toString());
                     page = PageName.HOME.getPath();
                 } else {
-                    request.setAttribute("registerParameters", clientParameters);
+                    request.setAttribute(AttributeKey.REGISTER_PARAMETERS, clientParameters);
                     page = PageName.REGISTER.getPath();
-                    logger.log(Level.INFO,"form not pass validation");
+                    logger.log(Level.INFO, "form not pass validation");
                 }
-            } else{
+            } else {
                 request.setAttribute("message", null); // TODO: 21.09.2020  define message
                 page = PageName.REGISTER.getPath();
-                logger.log(Level.INFO,"user exist");
+                logger.log(Level.INFO, "user exist");
             }
         } catch (ServiceProjectException e) {
             page = PageName.ERROR.getPath();

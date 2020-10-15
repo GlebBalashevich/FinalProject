@@ -5,28 +5,32 @@ import by.balashevich.finalproject.exception.DaoProjectException;
 import by.balashevich.finalproject.model.dao.CarDao;
 import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
+import by.balashevich.finalproject.util.DateConverter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class CarDaoImpl implements CarDao {
+    private static final String DOT = ".";
     private static final String FIND_ALL = "SELECT car_id, model, car_type, number_seats, rent_cost, " +
-            "fuel_type, fuel_consumption, is_available FROM cars";
+            "fuel_type, fuel_consumption, car_views.exterior, car_views.exterior_small, car_views.interior," +
+            " is_available FROM cars LEFT OUTER JOIN car_views ON car_id = car_views.cars_id";
     private static final String FIND_BY_ID = FIND_ALL + " WHERE car_id = ?";
     private static final String CHECK_CAR_TYPE = " AND car_type=?";
     private static final String CHECK_PRICE_RANGE = " AND (rent_cost BETWEEN ? AND ?)";
     private static final String CHECK_ORDERS_DATE_RANGE = " AND NOT EXISTS (SELECT date_from, date_to, " +
-            "cars_id FROM orders WHERE cars.car_id = orders.cars_id AND " +
+            "cars_id FROM orders WHERE cars.car_id = orders.car_id AND " +
             "((? BETWEEN date_from AND date_to) OR (? BETWEEN date_from AND date_to)))";
     private static final String FIND_AVAILABLE_ORDER_CAR = FIND_ALL + " WHERE is_available=true";
 
     @Override
-    public boolean add(Map<String, String> parameters) throws DaoProjectException {
+    public boolean add(Map<String, Object> parameters) throws DaoProjectException {
         return false;
     }
 
@@ -82,10 +86,10 @@ public class CarDaoImpl implements CarDao {
         List<Car> carList = new ArrayList<>();
         StringBuilder filteringAvailableCarsQuery = new StringBuilder();
         filteringAvailableCarsQuery.append(FIND_AVAILABLE_ORDER_CAR);
-        if (carParameters.containsKey(PRICE_FROM) && carParameters.containsKey(PRICE_TO)){
+        if (carParameters.containsKey(PRICE_FROM) && carParameters.containsKey(PRICE_TO)) {
             filteringAvailableCarsQuery.append(CHECK_PRICE_RANGE);
         }
-        if (carParameters.containsKey(CAR_TYPE)){
+        if (carParameters.containsKey(CAR_TYPE)) {
             filteringAvailableCarsQuery.append(CHECK_CAR_TYPE);
         }
         filteringAvailableCarsQuery.append(CHECK_ORDERS_DATE_RANGE);
@@ -93,15 +97,15 @@ public class CarDaoImpl implements CarDao {
         try (Connection connection = pool.getConnection();
              PreparedStatement statement = connection.prepareStatement(filteringAvailableCarsQuery.toString())) {
             int parameterIndex = 0;
-            if (carParameters.containsKey(PRICE_FROM) && carParameters.containsKey(PRICE_TO)){
-                statement.setInt(++parameterIndex, (int)carParameters.get(PRICE_FROM));
-                statement.setInt(++parameterIndex, (int)carParameters.get(PRICE_TO));
+            if (carParameters.containsKey(PRICE_FROM) && carParameters.containsKey(PRICE_TO)) {
+                statement.setInt(++parameterIndex, (int) carParameters.get(PRICE_FROM));
+                statement.setInt(++parameterIndex, (int) carParameters.get(PRICE_TO));
             }
-            if (carParameters.containsKey(CAR_TYPE)){
-                statement.setInt(++parameterIndex, ((Car.Type)carParameters.get(CAR_TYPE)).ordinal());
+            if (carParameters.containsKey(CAR_TYPE)) {
+                statement.setInt(++parameterIndex, ((Car.Type) carParameters.get(CAR_TYPE)).ordinal());
             }
-            statement.setLong(++parameterIndex, ((Date)carParameters.get(DATE_FROM)).getTime());
-            statement.setLong(++parameterIndex, ((Date)carParameters.get(DATE_TO)).getTime());
+            statement.setLong(++parameterIndex, DateConverter.convertToLong((LocalDate) carParameters.get(DATE_FROM)));
+            statement.setLong(++parameterIndex, DateConverter.convertToLong((LocalDate) carParameters.get(DATE_TO)));
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 carList.add(createCar(resultSet));
@@ -123,6 +127,9 @@ public class CarDaoImpl implements CarDao {
         carParameters.put(FUEL_TYPE, Car.FuelType.getFuelType(resultSet.getInt(FUEL_TYPE)));
         carParameters.put(FUEL_CONSUMPTION, resultSet.getInt(FUEL_CONSUMPTION));
         carParameters.put(CAR_AVAILABLE, resultSet.getBoolean(CAR_AVAILABLE));
+        carParameters.put(EXTERIOR, resultSet.getString(CAR_VIEWS + DOT + EXTERIOR));
+        carParameters.put(EXTERIOR_SMALL, resultSet.getString(CAR_VIEWS + DOT + EXTERIOR_SMALL));
+        carParameters.put(INTERIOR, resultSet.getString(CAR_VIEWS + DOT + INTERIOR));
 
         return CarBuilder.buildCar(carParameters);
     }
