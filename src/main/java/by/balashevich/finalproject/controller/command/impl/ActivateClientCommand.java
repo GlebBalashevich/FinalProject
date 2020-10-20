@@ -2,9 +2,11 @@ package by.balashevich.finalproject.controller.command.impl;
 
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.PageName;
+import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
+import by.balashevich.finalproject.model.entity.User;
+import by.balashevich.finalproject.model.service.UserService;
 import by.balashevich.finalproject.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +21,7 @@ public class ActivateClientCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        UserServiceImpl userService = new UserServiceImpl();
+        UserService<User> userService = new UserServiceImpl();
         String clientEmail = request.getParameter(EMAIL);
         String page;
 

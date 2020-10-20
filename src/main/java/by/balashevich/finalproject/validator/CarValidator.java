@@ -2,11 +2,143 @@ package by.balashevich.finalproject.validator;
 
 import by.balashevich.finalproject.model.entity.Car;
 
+import java.util.Map;
+
+import static by.balashevich.finalproject.util.ParameterKey.*;
+
 public class CarValidator {
     private static final String PRICE_PATTERN = "\\d{2,3};\\d{2,3}";
+    private static final String MODEL_PATTERN = "^[а-яА-Яa-zA-Z0-9\\s-]{2,100}$";
+    private static final String RENT_COST_PATTERN = "^\\d{2,3}$";
+    private static final int RENT_COST_MIN = 10;
+    private static final int RENT_COST_MAX = 200;
+    private static final String NUMBER_SEATS_PATTERN = "^\\d{1,2}$";
+    private static final int NUMBER_SEATS_MIN = 1;
+    private static final int NUMBER_SEATS_MAX = 50;
+    private static final String FUEL_CONSUMPTION_PATTERN = "^\\d{1,2}$";
+    private static final int FUEL_CONSUMPTION_MIN = 1;
+    private static final int FUEL_CONSUMPTION_MAX = 50;
     private static final String PRICE_DELIMITER = ";";
+    private static final String EMPTY_VALUE = "";
+    private static final String BOOLEAN_TRUE = "true";
+    private static final String BOOLEAN_FALSE = "false";
 
     private CarValidator() {
+    }
+
+    public static boolean validateCarParameters(Map<String, String> carParameters) {
+        boolean isParametersCorrect = true;
+
+        if (!validateModel(carParameters.get(MODEL))) {
+            isParametersCorrect = false;
+            carParameters.put(MODEL, EMPTY_VALUE);
+        }
+        if (!validateType(carParameters.get(CAR_TYPE))) {
+            isParametersCorrect = false;
+            carParameters.put(CAR_TYPE, EMPTY_VALUE);
+        }
+        if (!validateNumberSeats(carParameters.get(NUMBER_SEATS))) {
+            isParametersCorrect = false;
+            carParameters.put(NUMBER_SEATS, EMPTY_VALUE);
+        }
+        if (!validateRentCost(carParameters.get(RENT_COST))) {
+            isParametersCorrect = false;
+            carParameters.put(RENT_COST, EMPTY_VALUE);
+        }
+        if (!validateFuelType(carParameters.get(FUEL_TYPE))){
+            isParametersCorrect = false;
+            carParameters.put(FUEL_TYPE, EMPTY_VALUE);
+        }
+        if (!validateFuelConsumption(carParameters.get(FUEL_CONSUMPTION))){
+            isParametersCorrect = false;
+            carParameters.put(FUEL_CONSUMPTION, EMPTY_VALUE);
+        }
+        if (!validateAvailable(carParameters.get(CAR_AVAILABLE))){
+            isParametersCorrect = false;
+            carParameters.put(CAR_AVAILABLE, EMPTY_VALUE);
+        }
+
+        return isParametersCorrect;
+    }
+
+    public static boolean validateModel(String model) {
+        boolean isModelValid = false;
+
+        if (model != null && !model.isEmpty()) {
+            isModelValid = model.matches(MODEL_PATTERN);
+        }
+
+        return isModelValid;
+    }
+
+    public static boolean validateType(String carTypeData) {
+        boolean isCarTypeValid = false;
+
+        if (carTypeData != null && !carTypeData.isEmpty()) {
+            Car.Type[] types = Car.Type.values();
+            for (Car.Type type : types) {
+                if (carTypeData.toUpperCase().equals(type.name())) {
+                    isCarTypeValid = true;
+                }
+            }
+        }
+
+        return isCarTypeValid;
+    }
+
+    public static boolean validateNumberSeats(String numberSeatsData) {
+        boolean isNumberSeatsValid = false;
+
+        if (numberSeatsData != null && !numberSeatsData.isEmpty()) {
+            if (numberSeatsData.matches(NUMBER_SEATS_PATTERN)) {
+                int numberSeats = Integer.parseInt(numberSeatsData);
+                isNumberSeatsValid = numberSeats >= NUMBER_SEATS_MIN && numberSeats <= NUMBER_SEATS_MAX;
+            }
+        }
+
+        return isNumberSeatsValid;
+    }
+
+    public static boolean validateRentCost(String carRentCostData) {
+        boolean isRentCostValid = false;
+
+        if (carRentCostData != null && !carRentCostData.isEmpty()) {
+            if (carRentCostData.matches(RENT_COST_PATTERN)) {
+                int rentCost = Integer.parseInt(carRentCostData);
+                isRentCostValid = rentCost >= RENT_COST_MIN && rentCost <= RENT_COST_MAX;
+            }
+        }
+
+        return isRentCostValid;
+    }
+
+    public static boolean validateFuelType(String fuelTypeData){
+        boolean isFuelTypeValid = false;
+
+        if (fuelTypeData != null && !fuelTypeData.isEmpty()){
+            Car.FuelType[] fuelTypes = Car.FuelType.values();
+            for(Car.FuelType fuelType : fuelTypes){
+                if (fuelTypeData.toUpperCase().equals(fuelType.name())){
+                    isFuelTypeValid = true;
+                }
+            }
+        }
+
+        return isFuelTypeValid;
+    }
+
+    public static boolean validateFuelConsumption(String fuelConsumptionData){
+        boolean isFuelConsumptionValid = false;
+
+        if(fuelConsumptionData != null && !fuelConsumptionData.isEmpty()){
+            if (fuelConsumptionData.matches(FUEL_CONSUMPTION_PATTERN)){
+                int fuelConsumption = Integer.parseInt(fuelConsumptionData);
+                isFuelConsumptionValid = fuelConsumption >= FUEL_CONSUMPTION_MIN
+                        && fuelConsumption <= FUEL_CONSUMPTION_MAX;
+            }
+        }
+
+        return isFuelConsumptionValid;
     }
 
     public static boolean validatePriceRangeData(String priceRangeData) {
@@ -24,19 +156,15 @@ public class CarValidator {
         return isPriceRangeValid;
     }
 
-    public static boolean validateCarTypeData(String carTypeData) {
-        boolean isCarTypeValid = false;
+    public static boolean validateAvailable(String carAvailableData) {
+        boolean isCarAvailableValid = false;
 
-        if (carTypeData != null) {
-            Car.Type[] types = Car.Type.values();
-            for (int i = 0; i < types.length; i++) {
-                if (carTypeData.toUpperCase().equals(types[i].name())) {
-                    isCarTypeValid = true;
-                }
+        if (carAvailableData != null && !carAvailableData.isEmpty()) {
+            if (carAvailableData.equals(BOOLEAN_TRUE) || carAvailableData.equals(BOOLEAN_FALSE)) {
+                isCarAvailableValid = true;
             }
         }
 
-        return isCarTypeValid;
+        return isCarAvailableValid;
     }
-
 }

@@ -1,6 +1,7 @@
 package by.balashevich.finalproject.model.service;
 
 import by.balashevich.finalproject.exception.ServiceProjectException;
+import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.entity.User;
 
 import java.util.Map;
@@ -12,6 +13,8 @@ public interface UserService<T extends User> {
     boolean remove(T user) throws ServiceProjectException;
 
     T update(T user) throws ServiceProjectException;
+
+    boolean updateClientStatus(String email, Client.Status status) throws ServiceProjectException;
 
     Optional<T> findUserByEmail(String email) throws ServiceProjectException;
 

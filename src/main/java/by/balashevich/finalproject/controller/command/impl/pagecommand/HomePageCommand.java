@@ -1,8 +1,7 @@
-package by.balashevich.finalproject.controller.command.impl;
+package by.balashevich.finalproject.controller.command.impl.pagecommand;
 
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

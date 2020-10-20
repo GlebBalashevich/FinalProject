@@ -6,8 +6,7 @@ public class User extends Entity {
 
     public enum Role {
         ADMIN,
-        CLIENT,
-        MANAGER;
+        CLIENT;
 
         public static Role getUserRole(int index) {
             return Arrays.stream(Role.values()).filter(r -> r.ordinal() == index).findFirst().get();

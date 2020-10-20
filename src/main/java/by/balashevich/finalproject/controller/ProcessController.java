@@ -18,7 +18,7 @@ import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 
 @WebServlet(urlPatterns = "/process_controller")
 public class ProcessController extends HttpServlet {
-    Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
     private static final String COMMAND_PARAMETER = "command";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

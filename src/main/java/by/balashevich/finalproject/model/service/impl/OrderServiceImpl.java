@@ -17,6 +17,7 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 public class OrderServiceImpl implements OrderService {
     private static final int DURING_DAY = 1;
 
+    @Override
     public boolean add(Map<String, String> orderParameters) throws ServiceProjectException {
         boolean isOrderAdded;
         OrderDaoImpl orderDao = new OrderDaoImpl();
@@ -40,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
         return isOrderAdded;
     }
 
+    @Override
     public int calculateOrderAmount(int costPerDay, LocalDate dateFrom, LocalDate dateTo) {
         Period period = Period.between(dateFrom, dateTo);
         int rentDays = period.getDays() + DURING_DAY;

@@ -12,7 +12,7 @@ public interface BaseDao<T extends Entity> {
 
     boolean remove(T t) throws DaoProjectException;
 
-    T update(T t) throws DaoProjectException;
+    boolean update(T t) throws DaoProjectException;
 
     Optional<T> findById(long id) throws DaoProjectException;
 

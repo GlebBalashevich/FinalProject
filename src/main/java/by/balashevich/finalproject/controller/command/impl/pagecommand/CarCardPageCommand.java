@@ -1,10 +1,11 @@
-package by.balashevich.finalproject.controller.command.impl;
+package by.balashevich.finalproject.controller.command.impl.pagecommand;
 
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Car;
+import by.balashevich.finalproject.model.service.CarService;
+import by.balashevich.finalproject.model.service.OrderService;
 import by.balashevich.finalproject.model.service.impl.CarServiceImpl;
 import by.balashevich.finalproject.model.service.impl.OrderServiceImpl;
 import by.balashevich.finalproject.validator.OrderValidator;
@@ -19,13 +20,13 @@ import java.util.Optional;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
-public class OrderPageCommand implements ActionCommand {
+public class CarCardPageCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
-        CarServiceImpl carService = new CarServiceImpl();
-        OrderServiceImpl orderService = new OrderServiceImpl();
+        CarService<Car> carService = new CarServiceImpl();
+        OrderService orderService = new OrderServiceImpl();
         long carId = Long.parseLong(request.getParameter(CAR_ID));
         String dateFromData = request.getParameter(DATE_FROM);
         String dateToData = request.getParameter(DATE_TO);
@@ -43,7 +44,7 @@ public class OrderPageCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.CAR, orderingCar.get());
                 request.setAttribute(AttributeKey.DATE_FROM, dateFrom);
                 request.setAttribute(AttributeKey.DATE_TO, dateTo);
-                page = PageName.ORDER.getPath();
+                page = PageName.CAR_CARD.getPath();
             } else {
                 page = PageName.NOTIFICATION.getPath();
                 // FIXME: 14.10.2020 add message about mistake

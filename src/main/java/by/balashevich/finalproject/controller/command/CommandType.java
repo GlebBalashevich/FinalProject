@@ -1,6 +1,7 @@
 package by.balashevich.finalproject.controller.command;
 
 import by.balashevich.finalproject.controller.command.impl.*;
+import by.balashevich.finalproject.controller.command.impl.pagecommand.*;
 
 public enum CommandType {
     LOG_IN_USER(new LoginCommand()),
@@ -9,13 +10,18 @@ public enum CommandType {
     MOVE_REGISTER_PAGE(new RegisterPageCommand()),
     MOVE_HOME_PAGE(new HomePageCommand()),
     MOVE_CARS_PAGE(new CarsPageCommand()),
-    MOVE_ORDER_PAGE(new OrderPageCommand()),
-    MOVE_USER_OFFICE_PAGE(new UserOfficePageCommand()),
+    MOVE_ORDER_PAGE(new CarCardPageCommand()),
+    MOVE_USERS_PAGE(new UsersPageCommand()),
+    MOVE_ORDERS_PAGE(new OrdersPageCommand()),
+    MOVE_CREATE_CARS_PAGE(new CreateCarPageCommand()),
     REGISTER_CLIENT(new RegisterClientCommand()),
     SWITCH_LOCALE(new SwitchLocaleCommand()),
     ACTIVATE_CLIENT(new ActivateClientCommand()),
-    FILTER_CARS(new FilterCarsCommand()),
-    ORDER_CAR(new OrderCarCommand());
+    FIND_AVAILABLE_CARS(new FindAvailableCarsCommand()),
+    FIND_CHECK_CARS(new FindCheckCarsCommand()),
+    ORDER_CAR(new OrderCarCommand()),
+    UPDATE_CAR_PROPERTY(new UpdateCarProperty()),
+    ADD_CAR(new AddCarCommand());
 
     private ActionCommand command;
 

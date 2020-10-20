@@ -20,7 +20,6 @@ public class ClientOperationService {
     private static final String CREATE_ORDER_MAIL_TEXT = "mail.create_order.text";
     private static final String TEXT_SEPARATOR = "\n";
 
-
     public void registerMailNotification(String clientEmail, String clientLocale,
                                          String clientFirstName, String link) throws ServiceProjectException {
         Locale locale = new Locale(clientLocale);

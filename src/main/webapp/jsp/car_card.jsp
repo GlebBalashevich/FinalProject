@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title><fmt:message key="title.order"/></title>
+    <title><fmt:message key="title.car"/></title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pretty-Registration-Form.css">
@@ -22,8 +22,8 @@
 <header class="masthead">
     <div class="intro-body">
         <div class="row register-form" id="carPage">
-            <div class="col-5">
-                <div class="container" id="carouselOrder">
+            <div class="col-5" id="carouselOrder">
+                <div class="container">
                     <div id="carouselMain" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

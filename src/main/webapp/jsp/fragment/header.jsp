@@ -21,14 +21,21 @@
                         <fmt:message key="label.home"/>
                     </a>
                 </li>
+                <c:if test="${sessionScope.user.role.name()=='ADMIN'}">
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                        <a class="nav-link js-scroll-trigger" href="process_controller?command=move_orders_page">
+                            <fmt:message key="label.orders"/>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                        <a class="nav-link js-scroll-trigger" href="process_controller?command=move_users_page">
+                            <fmt:message key="label.users"/>
+                        </a>
+                    </li>
+                </c:if>
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation">
                     <a class="nav-link js-scroll-trigger" href="process_controller?command=move_cars_page">
                         <fmt:message key="label.cars"/>
-                    </a>
-                </li>
-                <li class="nav-item nav-link js-scroll-trigger" role="presentation">
-                    <a class="nav-link js-scroll-trigger" href="process_controller?command=move_user_office_page">
-                        <fmt:message key="label.office"/>
                     </a>
                 </li>
                 <c:choose>

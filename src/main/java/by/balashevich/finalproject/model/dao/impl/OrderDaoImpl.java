@@ -45,8 +45,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order update(Order order) throws DaoProjectException {
-        return null;
+    public boolean update(Order order) throws DaoProjectException {
+        return false;
     }
 
     @Override

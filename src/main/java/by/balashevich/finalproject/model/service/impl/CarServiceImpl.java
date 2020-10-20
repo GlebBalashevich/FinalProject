@@ -2,6 +2,7 @@ package by.balashevich.finalproject.model.service.impl;
 
 import by.balashevich.finalproject.exception.DaoProjectException;
 import by.balashevich.finalproject.exception.ServiceProjectException;
+import by.balashevich.finalproject.model.dao.CarDao;
 import by.balashevich.finalproject.model.dao.impl.CarDaoImpl;
 import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.model.service.CarService;
@@ -15,9 +16,78 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class CarServiceImpl implements CarService<Car> {
     private static final String PRICE_DELIMITER = ";";
+    private static final String DEFAULT_EXTERIOR_SMALL = "default_exterior_small.png";
+    private static final String DEFAULT_EXTERIOR = "default_exterior.png";
+    private static final String DEFAULT_INTERIOR = "default_interior.png";
 
+    @Override
+    public boolean addCar(Map<String, String> carParameters) throws ServiceProjectException {
+        CarDao carDao = new CarDaoImpl();
+        boolean isCarAdded = false;
+
+        try {
+            if (CarValidator.validateCarParameters(carParameters)) {
+                Map<String, Object> carParametersChecked = new HashMap<>();
+                carParametersChecked.put(MODEL, carParameters.get(MODEL));
+                carParametersChecked.put(CAR_TYPE, Car.Type.valueOf(carParameters.get(CAR_TYPE).toUpperCase()));
+                carParametersChecked.put(NUMBER_SEATS, Integer.parseInt(carParameters.get(NUMBER_SEATS)));
+                carParametersChecked.put(RENT_COST, Integer.parseInt(carParameters.get(RENT_COST)));
+                carParametersChecked.put(FUEL_TYPE, Car.FuelType.valueOf(carParameters.get(FUEL_TYPE).toUpperCase()));
+                carParametersChecked.put(FUEL_CONSUMPTION, Integer.parseInt(carParameters.get(FUEL_CONSUMPTION)));
+                carParametersChecked.put(CAR_AVAILABLE, Boolean.parseBoolean(carParameters.get(CAR_AVAILABLE)));
+                String exteriorSmall = carParameters.get(EXTERIOR_SMALL);
+                String exterior = carParameters.get(EXTERIOR);
+                String interior = carParameters.get(INTERIOR);
+                if (exteriorSmall != null && !exteriorSmall.isEmpty()) {
+                    carParametersChecked.put(EXTERIOR_SMALL, carParameters.get(EXTERIOR_SMALL));
+                } else {
+                    carParametersChecked.put(EXTERIOR_SMALL, DEFAULT_EXTERIOR_SMALL);
+                }
+                if (exterior != null && !exterior.isEmpty()) {
+                    carParametersChecked.put(EXTERIOR, carParameters.get(EXTERIOR));
+                } else {
+                    carParametersChecked.put(EXTERIOR, DEFAULT_EXTERIOR);
+                }
+                if (interior != null && !interior.isEmpty()) {
+                    carParametersChecked.put(INTERIOR, carParameters.get(INTERIOR));
+                } else {
+                    carParametersChecked.put(INTERIOR, DEFAULT_INTERIOR);
+                }
+                isCarAdded = carDao.add(carParametersChecked);
+            }
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("Error while adding car to application", e);
+        }
+
+        return isCarAdded;
+    }
+
+    @Override
+    public boolean updateCar(Car updatingCar, Map<String, String> carParameters) throws ServiceProjectException {
+        CarDao carDao = new CarDaoImpl();
+        boolean isCarUpdated;
+        String carRentCostData = carParameters.get(RENT_COST);
+        String carAvailableData = carParameters.get(CAR_AVAILABLE);
+
+        if (CarValidator.validateRentCost(carRentCostData)) {
+            updatingCar.setRentCost(Integer.parseInt(carRentCostData));
+        }
+        if (CarValidator.validateAvailable(carAvailableData)) {
+            updatingCar.setAvailable(Boolean.parseBoolean(carAvailableData));
+        }
+
+        try {
+            isCarUpdated = carDao.update(updatingCar);
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("Error while updating car", e);
+        }
+
+        return isCarUpdated;
+    }
+
+    @Override
     public Optional<Car> findCarById(long carId) throws ServiceProjectException {
-        CarDaoImpl carDao = new CarDaoImpl();
+        CarDao carDao = new CarDaoImpl();
         Optional<Car> targetCar;
 
         try {
@@ -29,21 +99,21 @@ public class CarServiceImpl implements CarService<Car> {
         return targetCar;
     }
 
+    @Override
     public List<Car> findAvailableOrderCars(Map<String, String> carParametersData) throws ServiceProjectException {
-        CarDaoImpl carDao = new CarDaoImpl();
+        CarDao carDao = new CarDaoImpl();
         String dateFromData = carParametersData.get(DATE_FROM);
         String dateToData = carParametersData.get(DATE_TO);
         String priceRangeData = carParametersData.get(PRICE_RANGE);
         String carTypeData = carParametersData.get(CAR_TYPE);
-
-        Map<String, Object> carParametersChecked = new HashMap<>();
         List<Car> targetCars = null;
 
         try {
             if (OrderValidator.validateDateData(dateFromData) && OrderValidator.validateDateData(dateToData)) {
+                Map<String, Object> carParametersChecked = new HashMap<>();
                 LocalDate dateFrom = LocalDate.parse(dateFromData);
                 LocalDate dateTo = LocalDate.parse(dateToData);
-                if (dateFrom.toEpochDay() < dateTo.toEpochDay()) {
+                if (dateFrom.toEpochDay() <= dateTo.toEpochDay()) {
                     carParametersChecked.put(DATE_FROM, dateFrom);
                     carParametersChecked.put(DATE_TO, dateTo);
                     if (CarValidator.validatePriceRangeData(priceRangeData)) {
@@ -51,12 +121,36 @@ public class CarServiceImpl implements CarService<Car> {
                         carParametersChecked.put(PRICE_FROM, Integer.parseInt(prices[0]));
                         carParametersChecked.put(PRICE_TO, Integer.parseInt(prices[1]));
                     }
-                    if (CarValidator.validateCarTypeData(carTypeData)) {
+                    if (CarValidator.validateType(carTypeData)) {
                         carParametersChecked.put(CAR_TYPE, Car.Type.valueOf(carTypeData.toUpperCase()));
                     }
                     targetCars = carDao.findAvailableOrderCars(carParametersChecked);
                 }
             }
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("error while searching available cars by parameters", e);
+        }
+
+        return targetCars;
+    }
+
+    @Override
+    public List<Car> findCheckCars(Map<String, String> carParametersData) throws ServiceProjectException {
+        CarDao carDao = new CarDaoImpl();
+        String carTypeData = carParametersData.get(CAR_TYPE);
+        String carAvailableData = carParametersData.get(CAR_AVAILABLE);
+        Map<String, Object> carParametersChecked = new HashMap<>();
+        List<Car> targetCars = null;
+
+        try {
+            if (CarValidator.validateType(carTypeData)) {
+                carParametersChecked.put(CAR_TYPE, Car.Type.valueOf(carTypeData.toUpperCase()));
+            }
+            if (CarValidator.validateAvailable(carAvailableData)) {
+                carParametersChecked.put(CAR_AVAILABLE, Boolean.valueOf(carAvailableData));
+            }
+            targetCars = carDao.findCheckCars(carParametersChecked);
+
         } catch (DaoProjectException e) {
             throw new ServiceProjectException("error while searching available cars by parameters", e);
         }

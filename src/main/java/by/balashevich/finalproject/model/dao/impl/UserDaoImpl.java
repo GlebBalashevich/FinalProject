@@ -59,8 +59,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User update(User user) throws DaoProjectException {
-        return null;
+    public boolean update(User user) throws DaoProjectException {
+        return false;
     }
 
     @Override

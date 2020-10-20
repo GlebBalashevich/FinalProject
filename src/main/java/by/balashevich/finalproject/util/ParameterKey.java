@@ -24,7 +24,7 @@ public class ParameterKey {
     public static final String PRICE_FROM = "price_from";               //table cars
     public static final String PRICE_TO = "price_to";                   //table cars
 
-    public static final String CAR_VIEWS = "car_views";                 //table name car_views
+    public static final String CAR_VIEWS = "car_views";                 //table car_views
     public static final String EXTERIOR = "exterior";                   //table car_views
     public static final String EXTERIOR_SMALL = "exterior_small";       //table car_views
     public static final String INTERIOR = "interior";                   //table car_views
@@ -33,6 +33,9 @@ public class ParameterKey {
     public static final String DATE_TO = "date_to";                     //table orders
     public static final String AMOUNT = "order_amount";                 //table orders
     public static final String ORDER_STATUS = "status";                 //table orders
+
+    public static final String CAR_INDEX="car_index";                   //car index in car list
+    public static final String IMAGE_TYPE="image_type";                 //boot image controller
 
 
     private ParameterKey() {

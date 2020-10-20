@@ -2,11 +2,12 @@ package by.balashevich.finalproject.controller.command.impl;
 
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.PageName;
+import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.entity.User;
 import by.balashevich.finalproject.model.service.ClientOperationService;
+import by.balashevich.finalproject.model.service.OrderService;
 import by.balashevich.finalproject.model.service.impl.OrderServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +26,7 @@ public class OrderCarCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        OrderServiceImpl orderService = new OrderServiceImpl();
+        OrderService orderService = new OrderServiceImpl();
         ClientOperationService clientOperationService = new ClientOperationService();
         Map<String, String> orderParameters = new HashMap<>();
         orderParameters.put(CAR_ID, request.getParameter(CAR_ID));
@@ -33,14 +34,16 @@ public class OrderCarCommand implements ActionCommand {
         orderParameters.put(DATE_FROM, request.getParameter(DATE_FROM));
         orderParameters.put(DATE_TO, request.getParameter(DATE_TO));
         orderParameters.put(AMOUNT, request.getParameter(AMOUNT));
-        HttpSession httpSession = request.getSession();
+        HttpSession session = request.getSession();
         String page;
 
         try {
             if (orderService.add(orderParameters)) {
-                User user = (Client) httpSession.getAttribute(AttributeKey.USER);
-                String locale = (String) httpSession.getAttribute(AttributeKey.LOCALE);
+                User user = (Client) session.getAttribute(AttributeKey.USER);
+                String locale = (String) session.getAttribute(AttributeKey.LOCALE);
                 clientOperationService.createOrderNotification(user.getEmail(), locale);
+                session.removeAttribute(AttributeKey.CAR_LIST);
+                session.removeAttribute(AttributeKey.CAR_PARAMETERS);
             } else {
                 logger.log(Level.WARN, ""); // TODO: 15.10.2020 message 
             }

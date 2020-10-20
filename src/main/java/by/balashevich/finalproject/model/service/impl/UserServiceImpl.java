@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService<User> {
         return null;
     }
 
+    @Override
     public boolean updateClientStatus(String email, Client.Status status) throws ServiceProjectException {
         boolean isParameterUpdated = false;
 

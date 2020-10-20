@@ -21,7 +21,7 @@
 
 <body id="page-top">
 <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/>
-<header class="masthead">
+<header class="masthead" id="mastHeadCars">
     <div class="intro-body">
     <div class="row register-form" id="carPage">
         <div class="col-3">
@@ -30,16 +30,16 @@
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_from"/></label></div>
                     <div class="col-7 input-column">
-                        <input class="form-control" name="date_from" id="dateFrom" type="date"
-                               value="${carParameters.get("date_from")}" required>
+                        <input class="form-control form-control--date" type="date" name="date_from"
+                               value="${sessionScope.carParameters.get("date_from")}" required>
                     </div>
                 </div>
                 <div class="form-row form-group">
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_to"/></label></div>
                     <div class="col-7 input-column">
-                        <input class="form-control" name="date_to" id="dateTo" type="date"
-                               value="${carParameters.get("date_to")}" required>
+                        <input class="form-control form-control--date" type="date" name="date_to"
+                               value="${sessionScope.carParameters.get("date_to")}" required>
                     </div>
                 </div>
                 <div class="form-row form-group">
@@ -58,7 +58,7 @@
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.price_range"/></label></div>
                     <div class="col-7 input-column">
-                        <input type="text" name="price_range" value="${carParameters.get("price_range")}" id="range_03">
+                        <input type="text" name="price_range" value="${sessionScope.carParameters.get("price_range")}" id="range_03">
                     </div>
                 </div>
                 <div class="form-row form-group">
@@ -67,16 +67,16 @@
                             <fmt:message key="cars.filter"/></button>
                     </div>
                 </div>
-                <input type="hidden" name="command" value="filter_cars">
+                <input type="hidden" name="command" value="find_available_cars">
             </form>
         </div>
         <!----------------------------------------------->
         <div class="col-8">
             <div class="form-row form-group" id="carElement">
             <c:choose>
-                <c:when test="${not empty carList}">
+                <c:when test="${not empty sessionScope.carList}">
                 <table class="table">
-                <c:forEach var="carElement" items="${carList}">
+                <c:forEach var="carElement" items="${sessionScope.carList}">
                 <tr>
                     <td>
                         <img src="/image/${carElement.carView.exteriorSmall}"/>
@@ -133,6 +133,7 @@
 </header>
 <c:import url="${pageContext.request.contextPath}/jsp/fragment/footer.jsp"/>
 
+<script src="${pageContext.request.contextPath}/js/date_range.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>

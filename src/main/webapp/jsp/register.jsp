@@ -94,10 +94,10 @@
     </div>
 </header>
 <c:import url="${pageContext.request.contextPath}/jsp/fragment/footer.jsp"/>
+
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/grayscale.js"></script>
 </body>
-
 </html>
