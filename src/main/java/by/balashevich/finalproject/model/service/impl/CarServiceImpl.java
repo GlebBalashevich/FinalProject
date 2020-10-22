@@ -109,7 +109,7 @@ public class CarServiceImpl implements CarService<Car> {
         List<Car> targetCars = null;
 
         try {
-            if (OrderValidator.validateDateData(dateFromData) && OrderValidator.validateDateData(dateToData)) {
+            if (OrderValidator.validateDate(dateFromData) && OrderValidator.validateDate(dateToData)) {
                 Map<String, Object> carParametersChecked = new HashMap<>();
                 LocalDate dateFrom = LocalDate.parse(dateFromData);
                 LocalDate dateTo = LocalDate.parse(dateToData);
@@ -140,7 +140,7 @@ public class CarServiceImpl implements CarService<Car> {
         String carTypeData = carParametersData.get(CAR_TYPE);
         String carAvailableData = carParametersData.get(CAR_AVAILABLE);
         Map<String, Object> carParametersChecked = new HashMap<>();
-        List<Car> targetCars = null;
+        List<Car> targetCars;
 
         try {
             if (CarValidator.validateType(carTypeData)) {

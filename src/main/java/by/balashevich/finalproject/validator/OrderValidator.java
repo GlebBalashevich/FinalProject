@@ -1,5 +1,7 @@
 package by.balashevich.finalproject.validator;
 
+import by.balashevich.finalproject.model.entity.Order;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,7 +11,7 @@ public class OrderValidator {
     private OrderValidator() {
     }
 
-    public static boolean validateDateData(String dateData) {
+    public static boolean validateDate(String dateData) {
         boolean isDateValid = false;
 
         if (dateData != null && dateData.matches(DATE_PATTERN)) {
@@ -32,5 +34,20 @@ public class OrderValidator {
         }
 
         return isDateValid;
+    }
+
+    public static boolean validateStatus(String orderStatusData) {
+        boolean isOrderStatusValid = false;
+
+        if (orderStatusData != null && !orderStatusData.isEmpty()) {
+            Order.Status[] statuses = Order.Status.values();
+            for (Order.Status status : statuses) {
+                if (orderStatusData.toUpperCase().equals(status.name())) {
+                    isOrderStatusValid = true;
+                }
+            }
+        }
+
+        return isOrderStatusValid;
     }
 }

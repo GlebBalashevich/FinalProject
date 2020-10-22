@@ -21,7 +21,8 @@ public enum CommandType {
     FIND_CHECK_CARS(new FindCheckCarsCommand()),
     ORDER_CAR(new OrderCarCommand()),
     UPDATE_CAR_PROPERTY(new UpdateCarProperty()),
-    ADD_CAR(new AddCarCommand());
+    ADD_CAR(new AddCarCommand()),
+    FIND_CHECK_ORDERS(new FindCheckOrdersCommand());
 
     private ActionCommand command;
 

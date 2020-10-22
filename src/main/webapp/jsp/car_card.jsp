@@ -91,7 +91,7 @@
                                             <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                             <input type="hidden" name="date_from" value="${date_from}">
                                             <input type="hidden" name="date_to" value="${date_to}">
-                                            <input type="hidden" name="order_amount" value="${order_amount}">
+                                            <input type="hidden" name="amount" value="${order_amount}">
                                             <input type="hidden" name="command" value="order_car">
                                             <button class="submit-button" type="submit" id="buttOrd">
                                                 <fmt:message key="order.order_car"/></button>

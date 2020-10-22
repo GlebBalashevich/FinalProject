@@ -1,6 +1,7 @@
 package by.balashevich.finalproject.model.entity;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Order extends Entity {
     public enum Status {
@@ -8,7 +9,11 @@ public class Order extends Entity {
         AWAITING_PAYMENT,
         ACTIVE,
         COMPLETED,
-        DECLINED
+        DECLINED;
+
+        public static Status getStatus(int index){
+            return Arrays.stream(Status.values()).filter(o -> o.ordinal() == index).findFirst().get();
+        }
     }
 
     private long orderId;

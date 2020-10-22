@@ -21,14 +21,14 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 public class UserDaoImpl implements UserDao {
     private static final String EMPTY_VALUE = "";
     private static final String CHANGE_PASSWORD = "UPDATE users SET password = (?) where email=";
-    private static final String CHANGE_STATUS = "UPDATE users SET status = (?) where email=(?)";
+    private static final String CHANGE_STATUS = "UPDATE users SET user_status = (?) where email=(?)";
     private static final String FIND_ALL_BY_EMAIL = "SELECT user_id, email, user_role, first_name, second_name," +
-            "driver_license, phone_number, status FROM users WHERE email = ?";
+            "driver_license, phone_number, user_status FROM users WHERE email = ?";
     private static final String FIND_PASSWORD_BY_EMAIL = "SELECT password FROM users WHERE email = ?";
-    private static final String FIND_STATUS_BY_EMAIL = "SELECT status FROM users WHERE email = ?";
+    private static final String FIND_STATUS_BY_EMAIL = "SELECT user_status FROM users WHERE email = ?";
     private static final String FIND_EMAIL = "SELECT email FROM users WHERE email = ?";
     private static final String ADD_CLIENT = "INSERT INTO users(email, password, user_role, first_name, " +
-            "second_name, driver_license, phone_number, status)VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            "second_name, driver_license, phone_number, user_status)VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public boolean add(Map<String, Object> userParameters) throws DaoProjectException {
@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(5, (String) userParameters.get(SECOND_NAME));
             statement.setString(6, (String) userParameters.get(DRIVER_LICENSE));
             statement.setLong(7, (long) userParameters.get(PHONE_NUMBER));
-            statement.setInt(8, ((Client.Status) userParameters.get(USER_STATUS)).ordinal());
+            statement.setInt(8, ((Client.Status)userParameters.get(USER_STATUS)).ordinal());
             isClientAdded = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoProjectException("Error during Dao adding client into database", e);
@@ -119,17 +119,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(1, targetEmail);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Map<String, Object> userParameters = new HashMap<>();
-                userParameters.put(USER_ID, resultSet.getLong(USER_ID));
-                userParameters.put(EMAIL, resultSet.getString(EMAIL));
-                userParameters.put(ROLE, User.Role.getUserRole(resultSet.getInt(ROLE)));
-                userParameters.put(FIRST_NAME, resultSet.getString(FIRST_NAME));
-                userParameters.put(SECOND_NAME, resultSet.getString(SECOND_NAME));
-                userParameters.put(DRIVER_LICENSE, resultSet.getString(DRIVER_LICENSE));
-                userParameters.put(PHONE_NUMBER, resultSet.getLong(PHONE_NUMBER));
-                userParameters.put(USER_STATUS, Client.Status.getClientStatus(resultSet.getInt(USER_STATUS)));
-
-                targetUser = Optional.of(UserBuilder.buildUser(userParameters));
+                targetUser = Optional.of(createUser(resultSet));
             }
         } catch (SQLException e) {
             throw new DaoProjectException("Error during searching user by email", e);
@@ -174,5 +164,19 @@ public class UserDaoImpl implements UserDao {
         }
 
         return email;
+    }
+
+    private User createUser(ResultSet resultSet) throws SQLException {
+        Map<String, Object> userParameters = new HashMap<>();
+        userParameters.put(USER_ID, resultSet.getLong(USER_ID));
+        userParameters.put(EMAIL, resultSet.getString(EMAIL));
+        userParameters.put(ROLE, User.Role.getUserRole(resultSet.getInt(ROLE)));
+        userParameters.put(FIRST_NAME, resultSet.getString(FIRST_NAME));
+        userParameters.put(SECOND_NAME, resultSet.getString(SECOND_NAME));
+        userParameters.put(DRIVER_LICENSE, resultSet.getString(DRIVER_LICENSE));
+        userParameters.put(PHONE_NUMBER, resultSet.getLong(PHONE_NUMBER));
+        userParameters.put(USER_STATUS, Client.Status.getClientStatus(resultSet.getInt(USER_STATUS)));
+
+        return UserBuilder.buildUser(userParameters);
     }
 }

@@ -34,8 +34,8 @@ public class CarCardPageCommand implements ActionCommand {
 
         try {
             Optional<Car> orderingCar = carService.findCarById(carId);
-            if (orderingCar.isPresent() && OrderValidator.validateDateData(dateFromData)
-                    && OrderValidator.validateDateData(dateToData)) {
+            if (orderingCar.isPresent() && OrderValidator.validateDate(dateFromData)
+                    && OrderValidator.validateDate(dateToData)) {
                 LocalDate dateFrom = LocalDate.parse(dateFromData);
                 LocalDate dateTo = LocalDate.parse(dateToData);
                 Car car = orderingCar.get();

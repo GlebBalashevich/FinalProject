@@ -1,22 +1,35 @@
 package by.balashevich.finalproject.model.dao.impl;
 
+import by.balashevich.finalproject.builder.OrderBuilder;
 import by.balashevich.finalproject.exception.DaoProjectException;
 import by.balashevich.finalproject.model.dao.OrderDao;
+import by.balashevich.finalproject.model.entity.Car;
+import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.entity.Order;
+import by.balashevich.finalproject.model.entity.User;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
+import by.balashevich.finalproject.util.DateConverter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.sql.*;
+import java.util.*;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class OrderDaoImpl implements OrderDao {
-    private static final String ADD_ORDER = "INSERT INTO orders(date_from, date_to, amount, status, car_id, " +
-            "client_id)VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String ADD_ORDER = "INSERT INTO orders(date_from, date_to, amount, order_status, order_car_id, " +
+            "order_client_id) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String FIND_ALL = "SELECT order_id, date_from, date_to, amount, order_status," +
+            "order_car_id, order_client_id, cars.model, cars.car_type, cars.number_seats, cars.rent_cost," +
+            "cars.fuel_type, cars.fuel_consumption, cars.is_available, car_views.exterior_small, car_views.exterior," +
+            "car_views.interior, users.email, users.password, users.user_role, users.first_name, users.second_name," +
+            "users.driver_license, users.phone_number, users.user_status FROM orders JOIN cars ON order_car_id = cars.car_id " +
+            "JOIN car_views ON order_car_id = car_views.cars_id JOIN users ON order_client_id = users.user_id";
+    private static final String CHECK_STATUS = " order_status = ?";
+    private static final String CHECK_CLIENT_EMAIL = " users.email = ?";
+    private static final String CHECK_CAR_MODEL = " cars.model = ?";
+    private static final String WHERE_KEYWORD = " WHERE";
+    private static final String AND_KEYWORD = " AND";
+    private static final String DOT = ".";
 
     @Override
     public boolean add(Map<String, Object> orderParameters) throws DaoProjectException {
@@ -56,6 +69,98 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> findAll() throws DaoProjectException {
-        return null;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        List<Order> targetOrders = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                targetOrders.add(createOrder(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DaoProjectException("Error while searching all orders in database", e);
+        }
+
+        return targetOrders;
+    }
+
+    @Override
+    public List<Order> findOrdersByParameters(Map<String, Object> orderParameters) throws DaoProjectException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        List<Order> targetOrders = new ArrayList<>();
+        StringBuilder findByParametersQuery = new StringBuilder(FIND_ALL);
+        if (!orderParameters.isEmpty())
+            findByParametersQuery.append(WHERE_KEYWORD);
+        Iterator<Map.Entry<String, Object>> entries = orderParameters.entrySet().iterator();
+        while (entries.hasNext()){
+            String key = entries.next().getKey();
+            if(key.equals(MODEL)){
+                findByParametersQuery.append(CHECK_CAR_MODEL);
+            }
+            if(key.equals(EMAIL)){
+                findByParametersQuery.append(CHECK_CLIENT_EMAIL);
+            }
+            if(key.equals(ORDER_STATUS)){
+                findByParametersQuery.append(CHECK_STATUS);
+            }
+            if(entries.hasNext()){
+                findByParametersQuery.append(AND_KEYWORD);
+            }
+        }
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(findByParametersQuery.toString())) {
+            int columnIndex = 0;
+            if (orderParameters.containsKey(MODEL)) {
+                statement.setString(++columnIndex, (String) orderParameters.get(MODEL));
+            }
+            if (orderParameters.containsKey(EMAIL)){
+                statement.setString(++columnIndex, (String)orderParameters.get(EMAIL));
+            }
+            if (orderParameters.containsKey(ORDER_STATUS)){
+                statement.setInt(++columnIndex, ((Order.Status)orderParameters.get(ORDER_STATUS)).ordinal());
+            }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                targetOrders.add(createOrder(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DaoProjectException("Error while searching orders by status in database", e);
+        }
+
+        return targetOrders;
+    }
+
+    private Order createOrder(ResultSet resultSet) throws SQLException {
+        Map<String, Object> orderParameters = new HashMap<>();
+        orderParameters.put(ORDER_ID, resultSet.getLong(ORDER_ID));
+        orderParameters.put(DATE_FROM, DateConverter.convertToDate(resultSet.getLong(DATE_FROM)));
+        orderParameters.put(DATE_TO, DateConverter.convertToDate(resultSet.getLong(DATE_TO)));
+        orderParameters.put(AMOUNT, resultSet.getInt(AMOUNT));
+        orderParameters.put(ORDER_STATUS, Order.Status.getStatus(resultSet.getInt(ORDER_STATUS)));
+
+        orderParameters.put(CAR_ID, resultSet.getLong(ORDER_CAR_ID));
+        orderParameters.put(MODEL, resultSet.getString(CARS + DOT + MODEL));
+        orderParameters.put(CAR_TYPE, Car.Type.getType(resultSet.getInt(CARS + DOT + CAR_TYPE)));
+        orderParameters.put(NUMBER_SEATS, resultSet.getInt(CARS + DOT + NUMBER_SEATS));
+        orderParameters.put(RENT_COST, resultSet.getInt(CARS + DOT + RENT_COST));
+        orderParameters.put(FUEL_TYPE, Car.FuelType.getFuelType(resultSet.getInt(CARS + DOT + FUEL_TYPE)));
+        orderParameters.put(FUEL_CONSUMPTION, resultSet.getInt(CARS + DOT + FUEL_CONSUMPTION));
+        orderParameters.put(CAR_AVAILABLE, resultSet.getBoolean(CARS + DOT + CAR_AVAILABLE));
+
+        orderParameters.put(EXTERIOR, resultSet.getString(CAR_VIEWS + DOT + EXTERIOR));
+        orderParameters.put(EXTERIOR_SMALL, resultSet.getString(CAR_VIEWS + DOT + EXTERIOR_SMALL));
+        orderParameters.put(INTERIOR, resultSet.getString(CAR_VIEWS + DOT + INTERIOR));
+
+        orderParameters.put(USER_ID, resultSet.getLong(ORDER_CLIENT_ID));
+        orderParameters.put(EMAIL, resultSet.getString(USERS + DOT + EMAIL));
+        orderParameters.put(ROLE, User.Role.getUserRole(resultSet.getInt(USERS + DOT + ROLE)));
+        orderParameters.put(FIRST_NAME, resultSet.getString(USERS + DOT + FIRST_NAME));
+        orderParameters.put(SECOND_NAME, resultSet.getString(USERS + DOT + SECOND_NAME));
+        orderParameters.put(DRIVER_LICENSE, resultSet.getString(USERS + DOT + DRIVER_LICENSE));
+        orderParameters.put(PHONE_NUMBER, resultSet.getLong(USERS + DOT + PHONE_NUMBER));
+        orderParameters.put(USER_STATUS, Client.Status.getClientStatus(resultSet.getInt(USERS + DOT + USER_STATUS)));
+
+        return OrderBuilder.buildOrder(orderParameters);
     }
 }

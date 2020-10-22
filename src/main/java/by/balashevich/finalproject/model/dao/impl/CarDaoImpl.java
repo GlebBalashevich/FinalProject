@@ -34,7 +34,7 @@ public class CarDaoImpl implements CarDao {
     private static final String CHECK_CAR_AVAILABLE = " is_available=?";
     private static final String CHECK_PRICE_RANGE = " (rent_cost BETWEEN ? AND ?)";
     private static final String CHECK_ORDERS_DATE_RANGE = " NOT EXISTS (SELECT date_from, date_to, " +
-            "cars_id FROM orders WHERE cars.car_id = orders.car_id AND " +
+            "cars_id FROM orders WHERE cars.car_id = orders.order_car_id AND " +
             "((? BETWEEN date_from AND date_to) OR (? BETWEEN date_from AND date_to)))";
     private static final String FIND_AVAILABLE_ORDER_CAR = FIND_ALL + " WHERE is_available=true";
     private static final String UPDATE_CAR = "UPDATE cars SET model = ?, car_type = ?, number_seats = ?," +
@@ -45,7 +45,7 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public boolean add(Map<String, Object> parameters) throws DaoProjectException {
-        boolean isCarAdded = false;
+        boolean isCarAdded;
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         PreparedStatement carStatement = null;
