@@ -13,34 +13,38 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
-public class FindCheckCarsCommand implements ActionCommand {
+public class UpdateCarPropertyCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
+        CarService carService = new CarServiceImpl();
         Map<String, String> carParameters = new HashMap<>();
-        CarService<Car> carService = new CarServiceImpl();
-        carParameters.put(CAR_TYPE, request.getParameter(CAR_TYPE));
+        carParameters.put(RENT_COST, request.getParameter(RENT_COST));
         carParameters.put(CAR_AVAILABLE, request.getParameter(CAR_AVAILABLE));
+        int carIndex = Integer.parseInt(request.getParameter(CAR_INDEX));
         HttpSession session = request.getSession();
+        Car updatingCar = ((ArrayList<Car>) session.getAttribute(AttributeKey.CAR_LIST)).get(carIndex);
         String page;
 
         try {
-            List<Car> targetCars = carService.findCheckCars(carParameters);
-            session.setAttribute(AttributeKey.CAR_LIST, targetCars);
-            if (targetCars == null || targetCars.isEmpty()) {
-                request.setAttribute(AttributeKey.CARS_FOUND, false);
+            if (carService.updateCar(updatingCar, carParameters)){
+                request.setAttribute(AttributeKey.CAR_UPDATED,true);
+            } else{
+                session.removeAttribute(AttributeKey.CAR_LIST);
+                request.setAttribute(AttributeKey.CAR_UPDATED,false);
             }
             page = PageName.ADMIN_CARS.getPath();
         } catch (ServiceProjectException e) {
+            session.removeAttribute(AttributeKey.CAR_LIST);
+            logger.log(Level.ERROR, "error while updating car", e); // FIXME: 19.10.2020 handle exception
             page = PageName.ERROR.getPath();
-            logger.log(Level.ERROR, "An error occurred during searching cars for check", e);
         }
 
         return page;

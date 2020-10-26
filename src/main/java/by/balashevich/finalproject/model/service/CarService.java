@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface CarService<T extends Car> {
+public interface CarService {
 
     boolean addCar(Map<String, String> carParameters) throws ServiceProjectException;
 
@@ -15,7 +15,7 @@ public interface CarService<T extends Car> {
 
     List<Car> findAvailableOrderCars(Map<String, String> carParametersData) throws ServiceProjectException;
 
-    List<Car> findCheckCars(Map<String, String> carParametersData) throws ServiceProjectException;
+    List<Car> findCarsByParameters(Map<String, String> carParametersData) throws ServiceProjectException;
 
     boolean updateCar(Car updatingCar, Map<String, String> carParameters) throws ServiceProjectException;
 }

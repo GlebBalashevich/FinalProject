@@ -1,5 +1,7 @@
 package by.balashevich.finalproject.validator;
 
+import by.balashevich.finalproject.model.entity.Client;
+
 import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
@@ -90,5 +92,20 @@ public class UserValidator {
         }
 
         return isPhoneNumberCorrect;
+    }
+
+    public static boolean validateClientStatus(String statusData) {
+        boolean isStatusCorrect = false;
+
+        if (statusData != null && !statusData.isEmpty()) {
+            Client.Status[] statuses = Client.Status.values();
+            for(Client.Status status : statuses){
+                if (statusData.toUpperCase().equals(status.name())){
+                    isStatusCorrect = true;
+                }
+            }
+        }
+
+        return isStatusCorrect;
     }
 }

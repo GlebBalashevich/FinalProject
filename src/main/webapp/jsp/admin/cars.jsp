@@ -24,11 +24,29 @@
 <c:import url="${pageContext.request.contextPath}/jsp/fragment/header.jsp"/>
 <header class="masthead" id="mastHeadCars">
     <div class="intro-body">
-        <div class="row register-form" id="carPage">
+        <div class="row register-form" id="adminPage">
             <div class="col-3">
+                <div class="row" id="notificationMessage">
+                    <div class="label-column" style="margin:auto">
+                            <c:if test="${requestScope.carAdded}">
+                                <label class="col-form-label alert-success" style="padding:0 10px"><fmt:message key="admin_cars.created_car"/></label>
+                            </c:if>
+                        <c:if test="${not empty requestScope.carUpdated}">
+                            <c:if test="${requestScope.carUpdated}">
+                                <label class="col-form-label alert-success" style="padding:0 10px"><fmt:message key="admin_cars.updated_car"/></label>
+                            </c:if>
+                            <c:if test="${!requestScope.carUpdated}">
+                                <label class="col-form-label alert-warning" style="padding:0 10px"><fmt:message key="admin_cars.not_updated_car"/></label>
+                            </c:if>
+                        </c:if>
+                    </div>
+                </div>
                 <form action="process_controller" method="post" class="shadow-none custom-form" id="carsFilter"
                       style="font-family: Nunito">
                     <div class="form-row form-group">
+                        <div class="col-12 label-column">
+                            <label class="col-form-label" id="labelPage"><fmt:message key="label.cars"/></label>
+                        </div>
                         <div class="col-4 label-column">
                             <label class="col-form-label"><fmt:message key="admin_cars.type"/></label></div>
                         <div class="col-7 dropdown input-column">
@@ -39,8 +57,6 @@
                                 <option value="MINIVAN"><fmt:message key="admin_cars.car_type.minivan"/></option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-row form-group">
                         <div class="col-4 label-column">
                             <label class="col-form-label"><fmt:message key="admin_cars.status"/></label></div>
                         <div class="col-7 dropdown input-column">
@@ -50,15 +66,12 @@
                                 <option value="false"><fmt:message key="admin_cars.status.not_available"/></option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-row form-group">
-                        <div class="col-4 input-column" id="filterbutton">
+                        <div class="col-12 input" id="filterbutton">
                             <button class="submit-button" type="submit" id="butt">
-                                <fmt:message key="admin_cars.filter"/></button>
+                                <fmt:message key="admin_orders.filter"/></button>
                         </div>
                     </div>
-                    <input type="hidden" name="command" value="find_check_cars">
-
+                    <input type="hidden" name="command" value="filter_cars">
                     <a class="shadow-sm" href="process_controller?command=move_create_cars_page">
                         <fmt:message key="admin_cars.add"/></a>
                 </form>
@@ -139,9 +152,6 @@
                         <label class="col-form-label"><fmt:message key="admin_cars.nothing_to_show"/></label></div>
                     </c:if>
                     </c:if>
-            <c:if test="${requestScope.carAdded}">
-            <label class="col-form-label" style="color:limegreen"><fmt:message key="admin_cars.created_car"/></label>
-        </c:if>
         </c:otherwise>
         </c:choose>
         </div>

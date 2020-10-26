@@ -13,32 +13,34 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
-public class UpdateCarProperty implements ActionCommand {
+public class FilterCarsCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
-        CarService<Car> carService = new CarServiceImpl();
         Map<String, String> carParameters = new HashMap<>();
-        carParameters.put(RENT_COST, request.getParameter(RENT_COST));
+        CarService carService = new CarServiceImpl();
+        carParameters.put(CAR_TYPE, request.getParameter(CAR_TYPE));
         carParameters.put(CAR_AVAILABLE, request.getParameter(CAR_AVAILABLE));
-        int carIndex = Integer.parseInt(request.getParameter(CAR_INDEX));
         HttpSession session = request.getSession();
-        Car updatingCar = ((ArrayList<Car>) session.getAttribute(AttributeKey.CAR_LIST)).get(carIndex);
         String page;
 
         try {
-            carService.updateCar(updatingCar, carParameters);
+            List<Car> targetCars = carService.findCarsByParameters(carParameters);
+            session.setAttribute(AttributeKey.CAR_LIST, targetCars);
+            if (targetCars == null || targetCars.isEmpty()) {
+                request.setAttribute(AttributeKey.CARS_FOUND, false);
+            }
             page = PageName.ADMIN_CARS.getPath();
         } catch (ServiceProjectException e) {
-            logger.log(Level.ERROR, "error while updating car", e); // FIXME: 19.10.2020 handle exception
             page = PageName.ERROR.getPath();
+            logger.log(Level.ERROR, "An error occurred during searching cars for check", e);
         }
 
         return page;

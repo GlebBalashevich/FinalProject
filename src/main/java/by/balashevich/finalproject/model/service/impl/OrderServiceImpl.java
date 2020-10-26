@@ -5,6 +5,7 @@ import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.dao.OrderDao;
 import by.balashevich.finalproject.model.dao.impl.OrderDaoImpl;
 import by.balashevich.finalproject.model.entity.Order;
+import by.balashevich.finalproject.model.service.ClientNotificationService;
 import by.balashevich.finalproject.model.service.OrderService;
 import by.balashevich.finalproject.util.DateConverter;
 import by.balashevich.finalproject.validator.CarValidator;
@@ -19,13 +20,13 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
-public class OrderServiceImpl implements OrderService<Order> {
+public class OrderServiceImpl implements OrderService {
+    OrderDao orderDao = new OrderDaoImpl();
     private static final int DURING_DAY = 1;
 
     @Override
     public boolean add(Map<String, String> orderParameters) throws ServiceProjectException {
         boolean isOrderAdded;
-        OrderDaoImpl orderDao = new OrderDaoImpl();
         Map<String, Object> preparedOrderParameters = new HashMap<>();
         LocalDate dateFrom = LocalDate.parse(orderParameters.get(DATE_FROM));
         LocalDate dateTo = LocalDate.parse(orderParameters.get(DATE_TO));
@@ -47,32 +48,86 @@ public class OrderServiceImpl implements OrderService<Order> {
     }
 
     @Override
+    public boolean declineOrder(Order decliningOrder) throws ServiceProjectException {
+        boolean isOrderDeclined;
+
+        try {
+            isOrderDeclined = orderDao.remove(decliningOrder);
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("Error while declining order", e);
+        }
+
+        return isOrderDeclined;
+    }
+
+    @Override
+    public int deleteExpiredOrders() throws ServiceProjectException {
+        ClientNotificationService notificationService = new ClientNotificationService();
+        List<Order> inspectingOrders;
+
+        try{
+            inspectingOrders = orderDao.findWaitingActionOrders();
+            if (inspectingOrders != null && !inspectingOrders.isEmpty()){
+                LocalDate today = LocalDate.now();
+                for(Order inspectingOrder : inspectingOrders){
+                    if (today.toEpochDay() >= inspectingOrder.getDateFrom().toEpochDay()){
+                        if (orderDao.remove(inspectingOrder)){
+                            notificationService.expiredOrderNotification(inspectingOrder);
+                        }
+                    }
+                }
+            }
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("Error while deleting expired orders", e);
+        }
+
+        return 0;
+    }
+
+    @Override
+    public boolean updateOrderStatus(Order updatingOrder, String statusData) throws ServiceProjectException {
+        boolean isOrderStatusUpdated = false;
+
+        try {
+            if (OrderValidator.validateStatus(statusData)) {
+                Order.Status status = Order.Status.valueOf(statusData);
+                isOrderStatusUpdated = orderDao.updateOrderStatus(updatingOrder.getOrderId(), status);
+                if (isOrderStatusUpdated) {
+                    updatingOrder.setStatus(status);
+                }
+            }
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("Error while updating order status", e);
+        }
+
+        return isOrderStatusUpdated;
+    }
+
+    @Override
     public List<Order> findOrdersByParameters(Map<String, String> orderParameters) throws ServiceProjectException {
-        OrderDao orderDao = new OrderDaoImpl();
-        Map<String, Object> orderParametersChecked = new HashMap<>();
         List<Order> targetOrders;
+        Map<String, Object> orderParametersChecked = new HashMap<>();
 
         String statusData = orderParameters.get(ORDER_STATUS);
         String clientEmailData = orderParameters.get(EMAIL);
         String carModelData = orderParameters.get(MODEL);
 
-        try{
-            if (OrderValidator.validateStatus(statusData)){
+        try {
+            if (OrderValidator.validateStatus(statusData)) {
                 orderParametersChecked.put(ORDER_STATUS, Order.Status.valueOf(statusData.toUpperCase()));
             }
-            if (UserValidator.validateEmail(clientEmailData)){
+            if (UserValidator.validateEmail(clientEmailData)) {
                 orderParametersChecked.put(EMAIL, clientEmailData);
             }
-            if (CarValidator.validateModel(carModelData)){
+            if (CarValidator.validateModel(carModelData)) {
                 orderParametersChecked.put(MODEL, carModelData);
             }
-            if (!orderParametersChecked.isEmpty()){
+            if (!orderParametersChecked.isEmpty()) {
                 targetOrders = orderDao.findOrdersByParameters(orderParametersChecked);
-            }
-            else{
+            } else {
                 targetOrders = orderDao.findAll();
             }
-        } catch(DaoProjectException e){
+        } catch (DaoProjectException e) {
             throw new ServiceProjectException(e);
         }
 

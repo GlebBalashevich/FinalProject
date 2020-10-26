@@ -22,7 +22,7 @@ public class LoginCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        UserService<User> userService = new UserServiceImpl();
+        UserService userService = new UserServiceImpl();
         String userEmail = request.getParameter(EMAIL);
         String userPassword = request.getParameter(PASSWORD);
         HttpSession session = request.getSession();

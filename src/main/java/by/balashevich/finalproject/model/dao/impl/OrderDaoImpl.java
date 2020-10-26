@@ -18,12 +18,15 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 public class OrderDaoImpl implements OrderDao {
     private static final String ADD_ORDER = "INSERT INTO orders(date_from, date_to, amount, order_status, order_car_id, " +
             "order_client_id) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String REMOVE_ORDER = "DELETE FROM orders WHERE order_id = ?";
+    private static final String UPDATE_STATUS = "UPDATE orders SET order_status = (?) WHERE order_id = ?";
     private static final String FIND_ALL = "SELECT order_id, date_from, date_to, amount, order_status," +
             "order_car_id, order_client_id, cars.model, cars.car_type, cars.number_seats, cars.rent_cost," +
             "cars.fuel_type, cars.fuel_consumption, cars.is_available, car_views.exterior_small, car_views.exterior," +
             "car_views.interior, users.email, users.password, users.user_role, users.first_name, users.second_name," +
-            "users.driver_license, users.phone_number, users.user_status FROM orders JOIN cars ON order_car_id = cars.car_id " +
+            "users.driver_license, users.phone_number, users.client_status FROM orders JOIN cars ON order_car_id = cars.car_id " +
             "JOIN car_views ON order_car_id = car_views.cars_id JOIN users ON order_client_id = users.user_id";
+    private static final String FIND_AWAITING_ACTION = FIND_ALL + " WHERE order_status = 0 OR order_status = 1";
     private static final String CHECK_STATUS = " order_status = ?";
     private static final String CHECK_CLIENT_EMAIL = " users.email = ?";
     private static final String CHECK_CAR_MODEL = " cars.model = ?";
@@ -54,17 +57,44 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public boolean remove(Order order) throws DaoProjectException {
-        return false;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        boolean isOrderRemoved;
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(REMOVE_ORDER)) {
+            statement.setLong(1, order.getOrderId());
+            isOrderRemoved = statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoProjectException("Error while removing order from dataBase", e);
+        }
+
+        return isOrderRemoved;
     }
 
     @Override
-    public boolean update(Order order) throws DaoProjectException {
-        return false;
+    public boolean update(Order order) {
+        throw new UnsupportedOperationException("Operation Update not allowed with order");
     }
 
     @Override
-    public Optional<Order> findById(long id) throws DaoProjectException {
-        return Optional.empty();
+    public boolean updateOrderStatus(long orderId, Order.Status status) throws DaoProjectException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        boolean isStatusUpdated;
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_STATUS)) {
+            statement.setInt(1, status.ordinal());
+            statement.setLong(2, orderId);
+            isStatusUpdated = statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new DaoProjectException("Error while updating order status", e);
+        }
+        return isStatusUpdated;
+    }
+
+    @Override
+    public Optional<Order> findById(long id) {
+        throw new UnsupportedOperationException("Operation FindById not allowed with order");
     }
 
     @Override
@@ -86,6 +116,24 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> findWaitingActionOrders() throws DaoProjectException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        List<Order> targetOrders = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_AWAITING_ACTION)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                targetOrders.add(createOrder(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DaoProjectException("Error while searching waiting action orders", e);
+        }
+
+        return targetOrders;
+    }
+
+    @Override
     public List<Order> findOrdersByParameters(Map<String, Object> orderParameters) throws DaoProjectException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         List<Order> targetOrders = new ArrayList<>();
@@ -93,18 +141,18 @@ public class OrderDaoImpl implements OrderDao {
         if (!orderParameters.isEmpty())
             findByParametersQuery.append(WHERE_KEYWORD);
         Iterator<Map.Entry<String, Object>> entries = orderParameters.entrySet().iterator();
-        while (entries.hasNext()){
+        while (entries.hasNext()) {
             String key = entries.next().getKey();
-            if(key.equals(MODEL)){
+            if (key.equals(MODEL)) {
                 findByParametersQuery.append(CHECK_CAR_MODEL);
             }
-            if(key.equals(EMAIL)){
+            if (key.equals(EMAIL)) {
                 findByParametersQuery.append(CHECK_CLIENT_EMAIL);
             }
-            if(key.equals(ORDER_STATUS)){
+            if (key.equals(ORDER_STATUS)) {
                 findByParametersQuery.append(CHECK_STATUS);
             }
-            if(entries.hasNext()){
+            if (entries.hasNext()) {
                 findByParametersQuery.append(AND_KEYWORD);
             }
         }
@@ -114,11 +162,11 @@ public class OrderDaoImpl implements OrderDao {
             if (orderParameters.containsKey(MODEL)) {
                 statement.setString(++columnIndex, (String) orderParameters.get(MODEL));
             }
-            if (orderParameters.containsKey(EMAIL)){
-                statement.setString(++columnIndex, (String)orderParameters.get(EMAIL));
+            if (orderParameters.containsKey(EMAIL)) {
+                statement.setString(++columnIndex, (String) orderParameters.get(EMAIL));
             }
-            if (orderParameters.containsKey(ORDER_STATUS)){
-                statement.setInt(++columnIndex, ((Order.Status)orderParameters.get(ORDER_STATUS)).ordinal());
+            if (orderParameters.containsKey(ORDER_STATUS)) {
+                statement.setInt(++columnIndex, ((Order.Status) orderParameters.get(ORDER_STATUS)).ordinal());
             }
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -159,7 +207,7 @@ public class OrderDaoImpl implements OrderDao {
         orderParameters.put(SECOND_NAME, resultSet.getString(USERS + DOT + SECOND_NAME));
         orderParameters.put(DRIVER_LICENSE, resultSet.getString(USERS + DOT + DRIVER_LICENSE));
         orderParameters.put(PHONE_NUMBER, resultSet.getLong(USERS + DOT + PHONE_NUMBER));
-        orderParameters.put(USER_STATUS, Client.Status.getClientStatus(resultSet.getInt(USERS + DOT + USER_STATUS)));
+        orderParameters.put(CLIENT_STATUS, Client.Status.getClientStatus(resultSet.getInt(USERS + DOT + CLIENT_STATUS)));
 
         return OrderBuilder.buildOrder(orderParameters);
     }

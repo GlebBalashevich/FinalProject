@@ -4,7 +4,6 @@ import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
 import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
-import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.model.service.CarService;
 import by.balashevich.finalproject.model.service.impl.CarServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -23,7 +22,7 @@ public class AddCarCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        CarService<Car> carService = new CarServiceImpl();
+        CarService carService = new CarServiceImpl();
         HttpSession session = request.getSession();
         Map<String, String> carParameters = new HashMap<>();
         carParameters.put(MODEL, request.getParameter(MODEL));
@@ -44,7 +43,7 @@ public class AddCarCommand implements ActionCommand {
                 session.removeAttribute(EXTERIOR_SMALL);
                 session.removeAttribute(EXTERIOR);
                 session.removeAttribute(INTERIOR);
-                request.setAttribute(AttributeKey.CAR_SUCCESSFULLY_ADDED, true);
+                request.setAttribute(AttributeKey.CAR_ADDED, true);
                 page = PageName.ADMIN_CARS.getPath();
             } else{
                 request.setAttribute(AttributeKey.CAR_PARAMETERS, carParameters);

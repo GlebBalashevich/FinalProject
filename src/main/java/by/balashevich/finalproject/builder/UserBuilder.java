@@ -37,7 +37,7 @@ public class UserBuilder {
         buildingClient.setSecondName((String) clientParameters.get(SECOND_NAME));
         buildingClient.setDriverLicense((String) clientParameters.get(DRIVER_LICENSE));
         buildingClient.setPhoneNumber((long) clientParameters.get(PHONE_NUMBER));
-        buildingClient.setStatus((Client.Status) clientParameters.get(USER_STATUS));
+        buildingClient.setStatus((Client.Status) clientParameters.get(CLIENT_STATUS));
 
         return buildingClient;
     }

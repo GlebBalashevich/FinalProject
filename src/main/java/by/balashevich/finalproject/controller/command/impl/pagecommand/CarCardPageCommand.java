@@ -25,7 +25,7 @@ public class CarCardPageCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        CarService<Car> carService = new CarServiceImpl();
+        CarService carService = new CarServiceImpl();
         OrderService orderService = new OrderServiceImpl();
         long carId = Long.parseLong(request.getParameter(CAR_ID));
         String dateFromData = request.getParameter(DATE_FROM);

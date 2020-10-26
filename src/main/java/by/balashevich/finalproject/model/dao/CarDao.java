@@ -10,5 +10,5 @@ public interface CarDao extends BaseDao<Car> {
 
     List<Car> findAvailableOrderCars(Map<String, Object> carParameters) throws DaoProjectException;
 
-    List<Car> findCheckCars(Map<String, Object> carParameters) throws DaoProjectException;
+    List<Car> findCarsByParameters(Map<String, Object> carParameters) throws DaoProjectException;
 }

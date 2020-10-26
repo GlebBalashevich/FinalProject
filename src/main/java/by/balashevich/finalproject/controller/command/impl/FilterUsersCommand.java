@@ -7,34 +7,35 @@ import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.service.UserService;
 import by.balashevich.finalproject.model.service.impl.UserServiceImpl;
+import by.balashevich.finalproject.util.ParameterKey;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
-import static by.balashevich.finalproject.util.ParameterKey.*;
-
-public class ActivateClientCommand implements ActionCommand {
+public class FilterUsersCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
         UserService userService = new UserServiceImpl();
-        String clientEmail = request.getParameter(EMAIL);
+        String clientStatusData = request.getParameter(ParameterKey.CLIENT_STATUS);
+        HttpSession session = request.getSession();
         String page;
 
-        try {
-            if (userService.updateClientStatus(clientEmail, Client.Status.ACTIVE)) {
-                page = PageName.LOGIN.getPath();
-                request.setAttribute(AttributeKey.SUCCESSFUL_ACTIVATION, true);
-            } else {
-                page = PageName.LOGIN.getPath();
-                request.setAttribute(AttributeKey.SUCCESSFUL_ACTIVATION, false);
+        try{
+            List<Client> clientsList = userService.findClientsByStatus(clientStatusData);
+            session.setAttribute(AttributeKey.CLIENT_LIST, clientsList);
+            if (clientsList == null || clientsList.isEmpty()) {
+                request.setAttribute(AttributeKey.CLIENTS_FOUND, false);
             }
-        } catch (ServiceProjectException e) {
+            page = PageName.USERS.getPath();
+        } catch (ServiceProjectException e){
+            logger.log(Level.ERROR, "error while searching clients", e);
             page = PageName.ERROR.getPath();
-            logger.log(Level.ERROR, "An error occurred during client activating", e);
         }
 
         return page;

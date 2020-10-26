@@ -11,7 +11,7 @@ public class ParameterKey {
     public static final String DRIVER_LICENSE = "driver_license";       //table users
     public static final String EMAIL = "email";                         //table users
     public static final String PHONE_NUMBER = "phone_number";           //table users
-    public static final String USER_STATUS = "user_status";             //table users
+    public static final String CLIENT_STATUS = "client_status";         //table users
 
     public static final String CARS = "cars";                           //table cars
     public static final String CAR_ID = "car_id";                       //table cars
@@ -40,6 +40,8 @@ public class ParameterKey {
     public static final String ORDER_CLIENT_ID = "order_client_id";     //table orders
 
     public static final String CAR_INDEX="car_index";                   //car index in car list
+    public static final String CLIENT_INDEX="client_index";             //client index in client list
+    public static final String ORDER_INDEX="order_index";               //order index in order list
     public static final String IMAGE_TYPE="image_type";                 //boot image controller
 
     private ParameterKey() {

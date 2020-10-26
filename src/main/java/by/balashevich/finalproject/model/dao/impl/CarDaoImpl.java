@@ -39,9 +39,9 @@ public class CarDaoImpl implements CarDao {
     private static final String FIND_AVAILABLE_ORDER_CAR = FIND_ALL + " WHERE is_available=true";
     private static final String UPDATE_CAR = "UPDATE cars SET model = ?, car_type = ?, number_seats = ?," +
             "rent_cost = ?, fuel_type = ?, fuel_consumption = ?, is_available = ? WHERE car_id = ?";
-    private static final String DOT = ".";
     private static final String WHERE_KEYWORD = " WHERE";
     private static final String AND_KEYWORD = " AND";
+    private static final String DOT = ".";
 
     @Override
     public boolean add(Map<String, Object> parameters) throws DaoProjectException {
@@ -70,11 +70,6 @@ public class CarDaoImpl implements CarDao {
                 carViewStatement.setString(3, (String) parameters.get(INTERIOR));
                 isCarAdded = carViewStatement.executeUpdate() > 0;
             }
-            if (isCarAdded) {
-                connection.commit();
-            } else {
-                connection.rollback();
-            }
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -83,26 +78,17 @@ public class CarDaoImpl implements CarDao {
             }
             throw new DaoProjectException("Error during add new car", e);
         } finally {
-            try {
-                connection.setAutoCommit(true);
-                connection.close();
-                if (carStatement != null) {
-                    carStatement.close();
-                }
-                if (carViewStatement != null) {
-                    carViewStatement.close();
-                }
-            } catch (SQLException throwables) {
-                logger.log(Level.ERROR, "error while rollback committing car data", throwables); // TODO: 20.10.2020 fatal?
-            }
+            close(carStatement);
+            close(carViewStatement);
+            close(connection);
         }
 
         return isCarAdded;
     }
 
     @Override
-    public boolean remove(Car car) throws DaoProjectException {
-        return false;
+    public boolean remove(Car car) {
+        throw new UnsupportedOperationException("Operation remove not allowed for Car");
     }
 
     @Override
@@ -202,7 +188,7 @@ public class CarDaoImpl implements CarDao {
     }
 
     @Override
-    public List<Car> findCheckCars(Map<String, Object> carParameters) throws DaoProjectException {
+    public List<Car> findCarsByParameters(Map<String, Object> carParameters) throws DaoProjectException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         List<Car> targetCars = new ArrayList<>();
         StringBuilder findCheckCarsQuery = new StringBuilder(FIND_ALL);

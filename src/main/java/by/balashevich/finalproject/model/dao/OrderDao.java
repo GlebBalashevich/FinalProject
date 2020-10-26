@@ -7,5 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderDao extends BaseDao<Order> {
+
+    boolean updateOrderStatus(long orderId, Order.Status status) throws DaoProjectException;
+
+    List<Order> findWaitingActionOrders() throws DaoProjectException;
+
     List<Order> findOrdersByParameters(Map<String, Object> orderParameters) throws DaoProjectException;
 }

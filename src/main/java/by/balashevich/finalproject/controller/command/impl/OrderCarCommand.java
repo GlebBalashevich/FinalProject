@@ -6,7 +6,7 @@ import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.entity.User;
-import by.balashevich.finalproject.model.service.ClientOperationService;
+import by.balashevich.finalproject.model.service.ClientNotificationService;
 import by.balashevich.finalproject.model.service.OrderService;
 import by.balashevich.finalproject.model.service.impl.OrderServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -27,7 +27,7 @@ public class OrderCarCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
-        ClientOperationService clientOperationService = new ClientOperationService();
+        ClientNotificationService clientNotificationService = new ClientNotificationService();
         Map<String, String> orderParameters = new HashMap<>();
         orderParameters.put(CAR_ID, request.getParameter(CAR_ID));
         orderParameters.put(USER_ID, request.getParameter(USER_ID));
@@ -41,7 +41,7 @@ public class OrderCarCommand implements ActionCommand {
             if (orderService.add(orderParameters)) {
                 User user = (Client) session.getAttribute(AttributeKey.USER);
                 String locale = (String) session.getAttribute(AttributeKey.LOCALE);
-                clientOperationService.createOrderNotification(user.getEmail(), locale);
+                clientNotificationService.createOrderNotification(user.getEmail(), locale);
                 session.removeAttribute(AttributeKey.CAR_LIST);
                 session.removeAttribute(AttributeKey.CAR_PARAMETERS);
             } else {

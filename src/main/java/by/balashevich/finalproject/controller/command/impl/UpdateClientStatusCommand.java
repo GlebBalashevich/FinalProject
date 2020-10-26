@@ -7,36 +7,38 @@ import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.service.UserService;
 import by.balashevich.finalproject.model.service.impl.UserServiceImpl;
+import by.balashevich.finalproject.util.ParameterKey;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
-import static by.balashevich.finalproject.util.ParameterKey.*;
-
-public class ActivateClientCommand implements ActionCommand {
+public class UpdateClientStatusCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
     public String execute(HttpServletRequest request) {
         UserService userService = new UserServiceImpl();
-        String clientEmail = request.getParameter(EMAIL);
+        HttpSession session = request.getSession();
+        String clientStatusData = request.getParameter(ParameterKey.CLIENT_STATUS);
+        int clientIndex = Integer.parseInt(request.getParameter(ParameterKey.CLIENT_INDEX));
+        Client client = ((ArrayList<Client>) session.getAttribute(AttributeKey.CLIENT_LIST)).get(clientIndex);
         String page;
 
         try {
-            if (userService.updateClientStatus(clientEmail, Client.Status.ACTIVE)) {
-                page = PageName.LOGIN.getPath();
-                request.setAttribute(AttributeKey.SUCCESSFUL_ACTIVATION, true);
+            if (userService.updateClientStatus(client, clientStatusData)) {
+                request.setAttribute(AttributeKey.CLIENT_STATUS_UPDATED, true);
             } else {
-                page = PageName.LOGIN.getPath();
-                request.setAttribute(AttributeKey.SUCCESSFUL_ACTIVATION, false);
+                request.setAttribute(AttributeKey.CLIENT_STATUS_UPDATED, false);
             }
+            page = PageName.USERS.getPath();
         } catch (ServiceProjectException e) {
+            logger.log(Level.ERROR, "Error while updating client status", e);
             page = PageName.ERROR.getPath();
-            logger.log(Level.ERROR, "An error occurred during client activating", e);
         }
-
         return page;
     }
 }

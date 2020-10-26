@@ -11,12 +11,13 @@ import by.balashevich.finalproject.validator.UserValidator;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
-public class UserServiceImpl implements UserService<User> {
+public class UserServiceImpl implements UserService {
     private static final String EMPTY_VALUE = "";
     private static final String PUNCTUATION_PATTERN = "[\\p{Punct}\\p{Space}]";
     UserDaoImpl userDao = new UserDaoImpl();
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService<User> {
                 preparedClientParameters.put(SECOND_NAME, clientParameters.get(SECOND_NAME));
                 preparedClientParameters.put(DRIVER_LICENSE, clientParameters.get(DRIVER_LICENSE));
                 preparedClientParameters.put(PHONE_NUMBER, phoneNumber);
-                preparedClientParameters.put(USER_STATUS, Client.Status.PENDING);
+                preparedClientParameters.put(CLIENT_STATUS, Client.Status.PENDING);
                 isClientAdded = userDao.add(preparedClientParameters);
             } catch (DaoProjectException | NoSuchAlgorithmException e) {
                 throw new ServiceProjectException("Error occurred during adding Client into database", e);
@@ -70,10 +71,29 @@ public class UserServiceImpl implements UserService<User> {
                 }
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("An error occurred while updating user parameter", e);
+            throw new ServiceProjectException("An error occurred while updating client status", e);
         }
 
         return isParameterUpdated;
+    }
+
+    @Override
+    public boolean updateClientStatus(Client updatingClient, String statusData) throws ServiceProjectException {
+        boolean isStatusUpdated = false;
+
+        try {
+            if (UserValidator.validateClientStatus(statusData)) {
+                Client.Status status = Client.Status.valueOf(statusData.toUpperCase());
+                isStatusUpdated = userDao.updateClientStatus(updatingClient.getEmail(), status);
+                if (isStatusUpdated) {
+                    updatingClient.setStatus(status);
+                }
+            }
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("An error occurred while updating client status", e);
+        }
+
+        return isStatusUpdated;
     }
 
     @Override
@@ -91,6 +111,22 @@ public class UserServiceImpl implements UserService<User> {
         }
 
         return targetUser;
+    }
+
+    @Override
+    public List<Client> findClientsByStatus(String clientStatusData) throws ServiceProjectException {
+        List<Client> targetClients;
+
+        try {
+            if (UserValidator.validateClientStatus(clientStatusData)) {
+                targetClients = userDao.findClientsByStatus(Client.Status.valueOf(clientStatusData.toUpperCase()));
+            } else {
+                targetClients = userDao.findAllClients();
+            }
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException("Error while searching clients by status", e);
+        }
+        return targetClients;
     }
 
     @Override

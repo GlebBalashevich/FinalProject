@@ -14,7 +14,8 @@ import java.util.*;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
-public class CarServiceImpl implements CarService<Car> {
+public class CarServiceImpl implements CarService {
+    private CarDao carDao = new CarDaoImpl();
     private static final String PRICE_DELIMITER = ";";
     private static final String DEFAULT_EXTERIOR_SMALL = "default_exterior_small.png";
     private static final String DEFAULT_EXTERIOR = "default_exterior.png";
@@ -22,7 +23,6 @@ public class CarServiceImpl implements CarService<Car> {
 
     @Override
     public boolean addCar(Map<String, String> carParameters) throws ServiceProjectException {
-        CarDao carDao = new CarDaoImpl();
         boolean isCarAdded = false;
 
         try {
@@ -64,7 +64,6 @@ public class CarServiceImpl implements CarService<Car> {
 
     @Override
     public boolean updateCar(Car updatingCar, Map<String, String> carParameters) throws ServiceProjectException {
-        CarDao carDao = new CarDaoImpl();
         boolean isCarUpdated;
         String carRentCostData = carParameters.get(RENT_COST);
         String carAvailableData = carParameters.get(CAR_AVAILABLE);
@@ -87,7 +86,6 @@ public class CarServiceImpl implements CarService<Car> {
 
     @Override
     public Optional<Car> findCarById(long carId) throws ServiceProjectException {
-        CarDao carDao = new CarDaoImpl();
         Optional<Car> targetCar;
 
         try {
@@ -101,7 +99,6 @@ public class CarServiceImpl implements CarService<Car> {
 
     @Override
     public List<Car> findAvailableOrderCars(Map<String, String> carParametersData) throws ServiceProjectException {
-        CarDao carDao = new CarDaoImpl();
         String dateFromData = carParametersData.get(DATE_FROM);
         String dateToData = carParametersData.get(DATE_TO);
         String priceRangeData = carParametersData.get(PRICE_RANGE);
@@ -113,7 +110,8 @@ public class CarServiceImpl implements CarService<Car> {
                 Map<String, Object> carParametersChecked = new HashMap<>();
                 LocalDate dateFrom = LocalDate.parse(dateFromData);
                 LocalDate dateTo = LocalDate.parse(dateToData);
-                if (dateFrom.toEpochDay() <= dateTo.toEpochDay()) {
+                LocalDate today = LocalDate.now();
+                if (dateFrom.toEpochDay() <= dateTo.toEpochDay() && dateFrom.toEpochDay() > today.toEpochDay()) {
                     carParametersChecked.put(DATE_FROM, dateFrom);
                     carParametersChecked.put(DATE_TO, dateTo);
                     if (CarValidator.validatePriceRangeData(priceRangeData)) {
@@ -135,8 +133,7 @@ public class CarServiceImpl implements CarService<Car> {
     }
 
     @Override
-    public List<Car> findCheckCars(Map<String, String> carParametersData) throws ServiceProjectException {
-        CarDao carDao = new CarDaoImpl();
+    public List<Car> findCarsByParameters(Map<String, String> carParametersData) throws ServiceProjectException {
         String carTypeData = carParametersData.get(CAR_TYPE);
         String carAvailableData = carParametersData.get(CAR_AVAILABLE);
         Map<String, Object> carParametersChecked = new HashMap<>();
@@ -149,7 +146,7 @@ public class CarServiceImpl implements CarService<Car> {
             if (CarValidator.validateAvailable(carAvailableData)) {
                 carParametersChecked.put(CAR_AVAILABLE, Boolean.valueOf(carAvailableData));
             }
-            targetCars = carDao.findCheckCars(carParametersChecked);
+            targetCars = carDao.findCarsByParameters(carParametersChecked);
 
         } catch (DaoProjectException e) {
             throw new ServiceProjectException("error while searching available cars by parameters", e);

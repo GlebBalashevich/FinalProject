@@ -8,8 +8,7 @@ public class Order extends Entity {
         PENDING,
         AWAITING_PAYMENT,
         ACTIVE,
-        COMPLETED,
-        DECLINED;
+        COMPLETED;
 
         public static Status getStatus(int index){
             return Arrays.stream(Status.values()).filter(o -> o.ordinal() == index).findFirst().get();

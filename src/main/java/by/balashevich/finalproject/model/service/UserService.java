@@ -4,19 +4,24 @@ import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.entity.User;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface UserService<T extends User> {
+public interface UserService {
     boolean add(Map<String, String> user) throws ServiceProjectException;
 
-    boolean remove(T user) throws ServiceProjectException;
+    boolean remove(User user) throws ServiceProjectException;
 
-    T update(T user) throws ServiceProjectException;
+    User update(User user) throws ServiceProjectException;
 
     boolean updateClientStatus(String email, Client.Status status) throws ServiceProjectException;
 
-    Optional<T> findUserByEmail(String email) throws ServiceProjectException;
+    boolean updateClientStatus(Client updatingClient, String statusData) throws ServiceProjectException;
+
+    Optional<User> findUserByEmail(String email) throws ServiceProjectException;
+
+    List<Client> findClientsByStatus(String clientStatusData) throws ServiceProjectException;
 
     boolean authorizeUser(String email, String password) throws ServiceProjectException;
 

@@ -7,10 +7,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-public interface OrderService<T extends Order> {
+public interface OrderService {
     boolean add(Map<String, String> orderParameters) throws ServiceProjectException;
+
+    boolean declineOrder(Order decliningOrder) throws ServiceProjectException;
+
+    int deleteExpiredOrders() throws ServiceProjectException;
+
+    boolean updateOrderStatus(Order updatingOrder, String statusData) throws ServiceProjectException;
 
     int calculateOrderAmount(int costPerDay, LocalDate dateFrom, LocalDate dateTo);
 
-    List<T> findOrdersByParameters(Map<String, String> orderParameters) throws ServiceProjectException;
+    List<Order> findOrdersByParameters(Map<String, String> orderParameters) throws ServiceProjectException;
 }
