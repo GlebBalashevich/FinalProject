@@ -44,7 +44,7 @@ public class UpdateCarPropertyCommand implements ActionCommand {
         } catch (ServiceProjectException e) {
             session.removeAttribute(AttributeKey.CAR_LIST);
             logger.log(Level.ERROR, "error while updating car", e); // FIXME: 19.10.2020 handle exception
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
 
         return page;

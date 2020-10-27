@@ -135,6 +135,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> findClientOrders(long clientId) throws ServiceProjectException {
+        List<Order> targetOrders;
+
+        try{
+            targetOrders = orderDao.findClientOrders(clientId);
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException(e);
+        }
+
+        return targetOrders;
+    }
+
+    @Override
     public int calculateOrderAmount(int costPerDay, LocalDate dateFrom, LocalDate dateTo) {
         Period period = Period.between(dateFrom, dateTo);
         int rentDays = period.getDays() + DURING_DAY;

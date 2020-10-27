@@ -30,21 +30,21 @@
             </ol>
             <div class="carousel-inner" id="carouselMainInner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_1.png" alt="Первый слайд">
+                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_1.png">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Travelling</h3>
                         <p>It's every time pleasure</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_2.png" alt="Второй слайд">
+                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_2.png">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Travelling</h3>
                         <p>It's every time pleasure</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_3.png" alt="Третий слайд">
+                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_3.png">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Travelling</h3>
                         <p>It's every time pleasure</p>

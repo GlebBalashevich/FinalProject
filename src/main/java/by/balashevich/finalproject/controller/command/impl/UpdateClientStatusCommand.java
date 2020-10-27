@@ -34,10 +34,10 @@ public class UpdateClientStatusCommand implements ActionCommand {
             } else {
                 request.setAttribute(AttributeKey.CLIENT_STATUS_UPDATED, false);
             }
-            page = PageName.USERS.getPath();
+            page = PageName.ADMIN_USERS.getPath();
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "Error while updating client status", e);
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
         return page;
     }

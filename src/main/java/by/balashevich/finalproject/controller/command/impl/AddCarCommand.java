@@ -51,7 +51,7 @@ public class AddCarCommand implements ActionCommand {
             }
         } catch(ServiceProjectException e){
             logger.log(Level.ERROR, "Error while add new car to application", e);
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
 
         return page;

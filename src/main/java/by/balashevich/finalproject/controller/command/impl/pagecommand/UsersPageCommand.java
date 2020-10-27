@@ -7,6 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 public class UsersPageCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
-        return PageName.USERS.getPath();
+        return PageName.ADMIN_USERS.getPath();
     }
 }

@@ -50,7 +50,7 @@ public class OrderCarCommand implements ActionCommand {
             page = PageName.NOTIFICATION.getPath();
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while creating new order", e);
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
 
         return page;

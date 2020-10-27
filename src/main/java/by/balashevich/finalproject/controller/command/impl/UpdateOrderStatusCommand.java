@@ -37,7 +37,7 @@ public class UpdateOrderStatusCommand implements ActionCommand {
             page = (String) session.getAttribute(AttributeKey.CURRENT_PAGE);
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while changing order status", e);
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
 
         return page;

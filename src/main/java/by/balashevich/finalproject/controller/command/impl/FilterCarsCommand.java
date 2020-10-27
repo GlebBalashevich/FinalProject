@@ -39,7 +39,7 @@ public class FilterCarsCommand implements ActionCommand {
             }
             page = PageName.ADMIN_CARS.getPath();
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
             logger.log(Level.ERROR, "An error occurred during searching cars for check", e);
         }
 

@@ -21,6 +21,13 @@
                         <fmt:message key="label.home"/>
                     </a>
                 </li>
+                <c:if test="${sessionScope.user.role.name()=='CLIENT'}">
+                    <li class="nav-item nav-link js-scroll-trigger" role="presentation">
+                        <a class="nav-link js-scroll-trigger" href="process_controller?command=move_orders_page">
+                            <fmt:message key="label.orders"/>
+                        </a>
+                    </li>
+                </c:if>
                 <c:if test="${sessionScope.user.role.name()=='ADMIN'}">
                     <li class="nav-item nav-link js-scroll-trigger" role="presentation">
                         <a class="nav-link js-scroll-trigger" href="process_controller?command=move_orders_page">

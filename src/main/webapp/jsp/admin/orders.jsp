@@ -74,7 +74,6 @@
                                         key="admin_orders.status.awaiting_payment"/></option>
                                 <option value="ACTIVE"><fmt:message key="admin_orders.status.active"/></option>
                                 <option value="COMPLETED"><fmt:message key="admin_orders.status.completed"/></option>
-                                <option value="DECLINED"><fmt:message key="admin_orders.status.declined"/></option>
                             </select>
                         </div>
                         <div class="col-12 input" id="filterbutton">
@@ -109,8 +108,8 @@
                                     <td name="car_model" onclick="cartest(this);">${orderElement.car.model}</td>
                                     <td>${orderElement.dateFrom}</td>
                                     <td>${orderElement.dateTo}</td>
-                                    <td>${orderElement.amount}</td>
-                                    <td>${orderElement.status.name()}</td>
+                                    <td>${orderElement.amount}$</td>
+                                    <td>${orderElement.status.title}</td>
                                     <c:if test="${orderElement.status.name()=='PENDING'}">
                                         <form action="process_controller" method="post" class="shadow-lg custom-form">
                                         <td>

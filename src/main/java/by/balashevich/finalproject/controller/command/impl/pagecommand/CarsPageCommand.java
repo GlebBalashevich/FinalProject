@@ -12,14 +12,12 @@ import javax.servlet.http.HttpSession;
 public class CarsPageCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
-        HttpSession httpSession = request.getSession();
-        User user = (User) httpSession.getAttribute(AttributeKey.USER);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(AttributeKey.USER);
         String page = switch (user.getRole()){
             case CLIENT -> PageName.CLIENT_CARS.getPath();
             case ADMIN ->  PageName.ADMIN_CARS.getPath();
         };
-        Car.Type[] types = Car.Type.values();
-        request.setAttribute(AttributeKey.CAR_TYPE, types);
 
         return page;
     }

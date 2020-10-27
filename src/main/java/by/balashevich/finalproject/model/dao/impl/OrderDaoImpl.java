@@ -27,6 +27,7 @@ public class OrderDaoImpl implements OrderDao {
             "users.driver_license, users.phone_number, users.client_status FROM orders JOIN cars ON order_car_id = cars.car_id " +
             "JOIN car_views ON order_car_id = car_views.cars_id JOIN users ON order_client_id = users.user_id";
     private static final String FIND_AWAITING_ACTION = FIND_ALL + " WHERE order_status = 0 OR order_status = 1";
+    private static final String FIND_CLIENT_ORDERS = FIND_ALL + " WHERE order_client_id = ?";
     private static final String CHECK_STATUS = " order_status = ?";
     private static final String CHECK_CLIENT_EMAIL = " users.email = ?";
     private static final String CHECK_CAR_MODEL = " cars.model = ?";
@@ -174,6 +175,25 @@ public class OrderDaoImpl implements OrderDao {
             }
         } catch (SQLException e) {
             throw new DaoProjectException("Error while searching orders by status in database", e);
+        }
+
+        return targetOrders;
+    }
+
+    @Override
+    public List<Order> findClientOrders(long clientId) throws DaoProjectException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        List<Order> targetOrders = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_CLIENT_ORDERS)) {
+            statement.setLong(1, clientId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                targetOrders.add(createOrder(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DaoProjectException("Error while searching client orders in database", e);
         }
 
         return targetOrders;

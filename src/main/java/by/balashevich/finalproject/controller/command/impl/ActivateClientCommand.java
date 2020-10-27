@@ -33,7 +33,7 @@ public class ActivateClientCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.SUCCESSFUL_ACTIVATION, false);
             }
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
             logger.log(Level.ERROR, "An error occurred during client activating", e);
         }
 

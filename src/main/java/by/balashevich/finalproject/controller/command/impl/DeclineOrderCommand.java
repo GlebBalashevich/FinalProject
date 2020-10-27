@@ -41,10 +41,10 @@ public class DeclineOrderCommand implements ActionCommand {
             } else {
                 request.setAttribute(AttributeKey.ORDER_DECLINED, false);
             }
-            page = PageName.ORDERS.getPath();
+            page = PageName.ADMIN_ORDERS.getPath();
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while declining order", e);
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
 
         return page;

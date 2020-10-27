@@ -13,4 +13,6 @@ public interface OrderDao extends BaseDao<Order> {
     List<Order> findWaitingActionOrders() throws DaoProjectException;
 
     List<Order> findOrdersByParameters(Map<String, Object> orderParameters) throws DaoProjectException;
+
+    List<Order> findClientOrders(long clientId) throws DaoProjectException;
 }

@@ -40,10 +40,10 @@ public class FilterOrdersCommand implements ActionCommand {
             if (orderList == null || orderList.isEmpty()) {
                 request.setAttribute(AttributeKey.ORDERS_FOUND, false);
             }
-            page = PageName.ORDERS.getPath();
+            page = PageName.ADMIN_ORDERS.getPath();
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while searching orders", e);
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
 
         return page;

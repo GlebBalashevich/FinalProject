@@ -5,12 +5,22 @@ import java.util.Arrays;
 
 public class Order extends Entity {
     public enum Status {
-        PENDING,
-        AWAITING_PAYMENT,
-        ACTIVE,
-        COMPLETED;
+        PENDING("Pending"),
+        AWAITING_PAYMENT("Awaiting Payment"),
+        ACTIVE("Active"),
+        COMPLETED("Completed");
 
-        public static Status getStatus(int index){
+        private String title;
+
+        Status(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public static Status getStatus(int index) {
             return Arrays.stream(Status.values()).filter(o -> o.ordinal() == index).findFirst().get();
         }
     }

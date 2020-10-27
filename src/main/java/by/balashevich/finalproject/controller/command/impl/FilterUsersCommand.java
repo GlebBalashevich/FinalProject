@@ -32,10 +32,10 @@ public class FilterUsersCommand implements ActionCommand {
             if (clientsList == null || clientsList.isEmpty()) {
                 request.setAttribute(AttributeKey.CLIENTS_FOUND, false);
             }
-            page = PageName.USERS.getPath();
+            page = PageName.ADMIN_USERS.getPath();
         } catch (ServiceProjectException e){
             logger.log(Level.ERROR, "error while searching clients", e);
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
         }
 
         return page;

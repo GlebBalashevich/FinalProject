@@ -50,7 +50,7 @@ public class CarCardPageCommand implements ActionCommand {
                 // FIXME: 14.10.2020 add message about mistake
             }
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
             logger.log(Level.ERROR, "An error occurred during client adding", e);
         }
 

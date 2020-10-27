@@ -46,7 +46,7 @@ public class FindAvailableCarsCommand implements ActionCommand {
             }
             page = PageName.CLIENT_CARS.getPath();
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
             logger.log(Level.ERROR, "An error occurred during searching available cars", e);
         }
 

@@ -57,7 +57,7 @@ public class RegisterClientCommand implements ActionCommand {
                 logger.log(Level.INFO, "user exist");
             }
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR.getPath();
+            page = PageName.ERROR_500.getPath();
             logger.log(Level.ERROR, "An error occurred during client adding", e);
         }
 

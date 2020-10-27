@@ -68,7 +68,7 @@
                         </div>
                         <div class="col-12 input" id="filterbutton">
                             <button class="submit-button" type="submit" id="butt">
-                                <fmt:message key="admin_orders.filter"/></button>
+                                <fmt:message key="admin_cars.filter"/></button>
                         </div>
                     </div>
                     <input type="hidden" name="command" value="filter_cars">

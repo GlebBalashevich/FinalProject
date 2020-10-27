@@ -19,4 +19,6 @@ public interface OrderService {
     int calculateOrderAmount(int costPerDay, LocalDate dateFrom, LocalDate dateTo);
 
     List<Order> findOrdersByParameters(Map<String, String> orderParameters) throws ServiceProjectException;
+
+    List<Order> findClientOrders(long clientId) throws ServiceProjectException;
 }
