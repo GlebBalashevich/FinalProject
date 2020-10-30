@@ -12,6 +12,7 @@ public enum CommandType {
     MOVE_USERS_PAGE(new UsersPageCommand()),
     MOVE_ORDERS_PAGE(new OrdersPageCommand()),
     MOVE_CREATE_CARS_PAGE(new CreateCarPageCommand()),
+    MOVE_PAYMENT_PAGE(new PaymentPageCommand()),
     LOG_IN_USER(new LoginCommand()),
     LOG_OUT_USER(new LogoutCommand()),
     REGISTER_CLIENT(new RegisterClientCommand()),
@@ -25,8 +26,10 @@ public enum CommandType {
     FILTER_ORDERS(new FilterOrdersCommand()),
     FILTER_USERS(new FilterUsersCommand()),
     DECLINE_ORDER(new DeclineOrderCommand()),
+    MAKE_ORDER_PAYMENT(new MakeOrderPaymentCommand()),
     UPDATE_CLIENT_STATUS(new UpdateClientStatusCommand()),
-    UPDATE_ORDER_STATUS(new UpdateOrderStatusCommand());
+    UPDATE_ORDER_STATUS(new UpdateOrderStatusCommand()),
+    CLIENT_PAGINATION(new ClientsPaginationCommand());
 
     private ActionCommand command;
 

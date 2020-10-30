@@ -26,7 +26,7 @@ public class OrderDaoImpl implements OrderDao {
             "car_views.interior, users.email, users.password, users.user_role, users.first_name, users.second_name," +
             "users.driver_license, users.phone_number, users.client_status FROM orders JOIN cars ON order_car_id = cars.car_id " +
             "JOIN car_views ON order_car_id = car_views.cars_id JOIN users ON order_client_id = users.user_id";
-    private static final String FIND_AWAITING_ACTION = FIND_ALL + " WHERE order_status = 0 OR order_status = 1";
+    private static final String FIND_AWAITING_ACTION = FIND_ALL + " WHERE order_status != 2";
     private static final String FIND_CLIENT_ORDERS = FIND_ALL + " WHERE order_client_id = ?";
     private static final String CHECK_STATUS = " order_status = ?";
     private static final String CHECK_CLIENT_EMAIL = " users.email = ?";

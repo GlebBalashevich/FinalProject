@@ -27,6 +27,9 @@
         <div class="row register-form" id="clientOrderPage">
             <div class="col-12">
                 <div class="row" id="notificationMessage">
+                    <label id="labelPage">
+                        <fmt:message key="label.orders"/>
+                    </label>
                     <div class="label-column" style="margin:auto">
                         <c:if test="${not empty requestScope.orderStatusUpdated}">
                             <c:if test="${requestScope.orderStatusUpdated}">
@@ -48,7 +51,7 @@
                                 <th><fmt:message key="client_orders.table.date_from"/></th>
                                 <th><fmt:message key="client_orders.table.date_to"/></th>
                                 <th><fmt:message key="client_orders.table.amount"/></th>
-                                <th><fmt:message key="client_orders.table.status"/></th>
+                                <th colspan="2"><fmt:message key="client_orders.table.status"/></th>
                             </tr>
                             <c:forEach var="orderElement" items="${sessionScope.orderList}" varStatus="loop">
                                 <tr>
@@ -64,7 +67,7 @@
                                                     <input type="hidden" name="order_index"
                                                            value=${loop.index}>
                                                     <input type="hidden" name="command"
-                                                           value="order_payment">
+                                                           value="move_payment_page">
                                                     <button class="submit-button" type="submit"
                                                             id="paymentOrder">
                                                             <fmt:message key="client_orders.table.pay"/>

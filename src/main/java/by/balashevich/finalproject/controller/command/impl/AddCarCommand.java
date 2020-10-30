@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.service.CarService;
 import by.balashevich.finalproject.model.service.impl.CarServiceImpl;
@@ -21,7 +22,7 @@ public class AddCarCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         CarService carService = new CarServiceImpl();
         HttpSession session = request.getSession();
         Map<String, String> carParameters = new HashMap<>();
@@ -32,28 +33,28 @@ public class AddCarCommand implements ActionCommand {
         carParameters.put(FUEL_TYPE, request.getParameter(FUEL_TYPE));
         carParameters.put(FUEL_CONSUMPTION, request.getParameter(FUEL_CONSUMPTION));
         carParameters.put(CAR_AVAILABLE, request.getParameter(CAR_AVAILABLE));
-        carParameters.put(EXTERIOR_SMALL, (String)session.getAttribute(EXTERIOR_SMALL));
-        carParameters.put(EXTERIOR, (String)session.getAttribute(EXTERIOR));
-        carParameters.put(INTERIOR, (String)session.getAttribute(INTERIOR));
-        String page;
+        carParameters.put(EXTERIOR_SMALL, (String) session.getAttribute(EXTERIOR_SMALL));
+        carParameters.put(EXTERIOR, (String) session.getAttribute(EXTERIOR));
+        carParameters.put(INTERIOR, (String) session.getAttribute(INTERIOR));
+        Router router;
 
-        try{
-            if (carService.addCar(carParameters)){
+        try {
+            if (carService.addCar(carParameters)) {
                 session.removeAttribute(AttributeKey.CAR_LIST);
                 session.removeAttribute(EXTERIOR_SMALL);
                 session.removeAttribute(EXTERIOR);
                 session.removeAttribute(INTERIOR);
                 request.setAttribute(AttributeKey.CAR_ADDED, true);
-                page = PageName.ADMIN_CARS.getPath();
-            } else{
+                router = new Router(PageName.ADMIN_CARS.getPath());
+            } else {
                 request.setAttribute(AttributeKey.CAR_PARAMETERS, carParameters);
-                page = PageName.CREATE_CAR.getPath();
+                router = new Router(PageName.CREATE_CAR.getPath());
             }
-        } catch(ServiceProjectException e){
+        } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "Error while add new car to application", e);
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
         }
 
-        return page;
+        return router;
     }
 }

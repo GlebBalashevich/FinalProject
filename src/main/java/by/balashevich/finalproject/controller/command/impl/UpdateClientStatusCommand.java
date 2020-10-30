@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.service.UserService;
@@ -20,13 +21,13 @@ public class UpdateClientStatusCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         UserService userService = new UserServiceImpl();
         HttpSession session = request.getSession();
         String clientStatusData = request.getParameter(ParameterKey.CLIENT_STATUS);
         int clientIndex = Integer.parseInt(request.getParameter(ParameterKey.CLIENT_INDEX));
         Client client = ((ArrayList<Client>) session.getAttribute(AttributeKey.CLIENT_LIST)).get(clientIndex);
-        String page;
+        Router router;
 
         try {
             if (userService.updateClientStatus(client, clientStatusData)) {
@@ -34,11 +35,11 @@ public class UpdateClientStatusCommand implements ActionCommand {
             } else {
                 request.setAttribute(AttributeKey.CLIENT_STATUS_UPDATED, false);
             }
-            page = PageName.ADMIN_USERS.getPath();
+            router = new Router(PageName.ADMIN_USERS.getPath());
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "Error while updating client status", e);
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
         }
-        return page;
+        return router;
     }
 }

@@ -1,7 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl.pagecommand;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.model.service.CarService;
@@ -24,13 +26,13 @@ public class CarCardPageCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         CarService carService = new CarServiceImpl();
         OrderService orderService = new OrderServiceImpl();
         long carId = Long.parseLong(request.getParameter(CAR_ID));
         String dateFromData = request.getParameter(DATE_FROM);
         String dateToData = request.getParameter(DATE_TO);
-        String page;
+        Router router;
 
         try {
             Optional<Car> orderingCar = carService.findCarById(carId);
@@ -44,16 +46,16 @@ public class CarCardPageCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.CAR, orderingCar.get());
                 request.setAttribute(AttributeKey.DATE_FROM, dateFrom);
                 request.setAttribute(AttributeKey.DATE_TO, dateTo);
-                page = PageName.CAR_CARD.getPath();
+                router = new Router(PageName.CAR_CARD.getPath());
             } else {
-                page = PageName.NOTIFICATION.getPath();
+                router = new Router(PageName.NOTIFICATION.getPath());
                 // FIXME: 14.10.2020 add message about mistake
             }
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
             logger.log(Level.ERROR, "An error occurred during client adding", e);
         }
 
-        return page;
+        return router;
     }
 }

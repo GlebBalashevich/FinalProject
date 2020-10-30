@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Order;
 import by.balashevich.finalproject.model.service.OrderService;
@@ -24,28 +25,28 @@ public class FilterOrdersCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
         Map<String, String> orderParameters = new HashMap<>();
         orderParameters.put(MODEL, request.getParameter(MODEL));
         orderParameters.put(EMAIL, request.getParameter(EMAIL));
         orderParameters.put(ORDER_STATUS, request.getParameter(ORDER_STATUS));
         HttpSession session = request.getSession();
-        String page;
+        Router router;
 
         try {
-            orderService.deleteExpiredOrders();
+            orderService.manageOrders();
             List<Order> orderList = orderService.findOrdersByParameters(orderParameters);
             session.setAttribute(AttributeKey.ORDER_LIST, orderList);
             if (orderList == null || orderList.isEmpty()) {
                 request.setAttribute(AttributeKey.ORDERS_FOUND, false);
             }
-            page = PageName.ADMIN_ORDERS.getPath();
+            router = new Router(PageName.ADMIN_ORDERS.getPath());
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while searching orders", e);
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
         }
 
-        return page;
+        return router;
     }
 }

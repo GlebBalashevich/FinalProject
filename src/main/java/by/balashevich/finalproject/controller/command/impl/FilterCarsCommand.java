@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.model.service.CarService;
@@ -23,13 +24,13 @@ public class FilterCarsCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         Map<String, String> carParameters = new HashMap<>();
         CarService carService = new CarServiceImpl();
         carParameters.put(CAR_TYPE, request.getParameter(CAR_TYPE));
         carParameters.put(CAR_AVAILABLE, request.getParameter(CAR_AVAILABLE));
         HttpSession session = request.getSession();
-        String page;
+        Router router;
 
         try {
             List<Car> targetCars = carService.findCarsByParameters(carParameters);
@@ -37,12 +38,12 @@ public class FilterCarsCommand implements ActionCommand {
             if (targetCars == null || targetCars.isEmpty()) {
                 request.setAttribute(AttributeKey.CARS_FOUND, false);
             }
-            page = PageName.ADMIN_CARS.getPath();
+            router = new Router(PageName.ADMIN_CARS.getPath());
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
             logger.log(Level.ERROR, "An error occurred during searching cars for check", e);
         }
 
-        return page;
+        return router;
     }
 }

@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Order;
 import by.balashevich.finalproject.model.service.OrderService;
@@ -20,13 +21,13 @@ public class UpdateOrderStatusCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
         HttpSession session = request.getSession();
         String updatingStatusData = request.getParameter(ParameterKey.ORDER_STATUS);
         int orderIndex = Integer.parseInt(request.getParameter(ParameterKey.ORDER_INDEX));
         Order order = ((ArrayList<Order>) session.getAttribute(AttributeKey.ORDER_LIST)).get(orderIndex);
-        String page;
+        Router router;
 
         try {
             if (orderService.updateOrderStatus(order, updatingStatusData)) {
@@ -34,12 +35,12 @@ public class UpdateOrderStatusCommand implements ActionCommand {
             } else {
                 request.setAttribute(AttributeKey.ORDER_STATUS_UPDATED, false);
             }
-            page = (String) session.getAttribute(AttributeKey.CURRENT_PAGE);
+            router = new Router((String) session.getAttribute(AttributeKey.CURRENT_PAGE));
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while changing order status", e);
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
         }
 
-        return page;
+        return router;
     }
 }

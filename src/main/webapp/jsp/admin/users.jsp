@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="pgt" uri="paginationtags" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="prop.contentpage"/>
@@ -58,7 +59,7 @@
                         </div>
                         <div class="col-12 input" id="filterbutton">
                             <button class="submit-button" type="submit" id="butt">
-                                <fmt:message key="admin_orders.filter"/></button>
+                                <fmt:message key="admin_users.filter"/></button>
                         </div>
                     </div>
                     <input type="hidden" name="command" value="filter_users">
@@ -77,53 +78,9 @@
                                 <th><fmt:message key="admin_users.table.phone_number"/></th>
                                 <th><fmt:message key="admin_users.table.driver_license"/></th>
                                 <th><fmt:message key="admin_users.table.status"/></th>
-                                <th colspan="2"><fmt:message key="admin_users.table.action"/></th>
+                                <th><fmt:message key="admin_users.table.action"/></th>
                             </tr>
-                            <c:forEach var="clientElement" items="${sessionScope.clientList}" varStatus="loop">
-                                <tr>
-                                    <td>${clientElement.email}</td>
-                                    <td>${clientElement.firstName}</td>
-                                    <td>${clientElement.secondName}</td>
-                                    <td>${clientElement.phoneNumber}</td>
-                                    <td>${clientElement.driverLicense}</td>
-                                    <td>${clientElement.status.name()}</td>
-                                    <c:if test="${clientElement.status.name()=='ACTIVE'}">
-                                        <form action="process_controller" method="post" class="shadow-lg custom-form">
-                                            <td>
-                                                <label class="custom-form">
-                                                    <input type="hidden" name="client_index"
-                                                           value=${loop.index}>
-                                                    <input type="hidden" name="command"
-                                                           value="update_client_status">
-                                                    <input type="hidden" name="client_status"
-                                                           value="BLOCKED">
-                                                    <button class="submit-button" type="submit"
-                                                            id="blockUser">
-                                                            <fmt:message key="admin_users.action.block"/>
-                                                </label>
-                                            </td>
-                                        </form>
-                                    </c:if>
-                                    <c:if test="${clientElement.status.name()=='BLOCKED'}">
-                                        <form action="process_controller" method="post" class="shadow-lg custom-form">
-                                            <td>
-                                                <label class="custom-form">
-                                                    <input type="hidden" name="client_index"
-                                                           value=${loop.index}>
-                                                    <input type="hidden" name="command"
-                                                           value="update_client_status">
-                                                    <input type="hidden" name="client_status"
-                                                           value="ACTIVE">
-                                                    <button class="submit-button" type="submit"
-                                                            id="unblockUser">
-                                                            <fmt:message key="admin_users.action.unblock"/>
-                                                </label>
-                                            </td>
-                                        </form>
-                                    </c:if>
-                                </tr>
-                                </form>
-                            </c:forEach>
+                            <pgt:user-pagination/>
                             </tbody>
                         </table>
                     </c:when>

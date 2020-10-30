@@ -1,4 +1,4 @@
-package by.balashevich.finalproject.controller.command.impl.pagecommand;
+package by.balashevich.finalproject.controller.command;
 
 public enum PageName {
     INDEX("/index.jsp"),
@@ -7,6 +7,7 @@ public enum PageName {
     HOME("/jsp/home.jsp"),
     NOTIFICATION("/jsp/notification.jsp"),
     CLIENT_CARS("/jsp/cars.jsp"),                       //client page
+    CLIENT_PAYMENT("/jsp/payment.jsp"),                //client page
     CLIENT_ORDERS("/jsp/orders.jsp"),                   //client page
     CAR_CARD("/jsp/car_card.jsp"),                      //client page
     ADMIN_USERS("/jsp/admin/users.jsp"),                //admin page

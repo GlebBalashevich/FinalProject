@@ -10,6 +10,7 @@ import by.balashevich.finalproject.model.service.OrderService;
 import by.balashevich.finalproject.util.DateConverter;
 import by.balashevich.finalproject.validator.CarValidator;
 import by.balashevich.finalproject.validator.OrderValidator;
+import by.balashevich.finalproject.validator.PaymentValidator;
 import by.balashevich.finalproject.validator.UserValidator;
 
 import java.time.LocalDate;
@@ -61,18 +62,30 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int deleteExpiredOrders() throws ServiceProjectException {
+    public int manageOrders() throws ServiceProjectException {
         ClientNotificationService notificationService = new ClientNotificationService();
         List<Order> inspectingOrders;
+        int numberManagedOrders = 0;
 
         try{
             inspectingOrders = orderDao.findWaitingActionOrders();
             if (inspectingOrders != null && !inspectingOrders.isEmpty()){
                 LocalDate today = LocalDate.now();
                 for(Order inspectingOrder : inspectingOrders){
-                    if (today.toEpochDay() >= inspectingOrder.getDateFrom().toEpochDay()){
-                        if (orderDao.remove(inspectingOrder)){
-                            notificationService.expiredOrderNotification(inspectingOrder);
+                    if (inspectingOrder.getStatus() == Order.Status.PENDING
+                            || inspectingOrder.getStatus() == Order.Status.AWAITING_PAYMENT) {
+                        if (today.toEpochDay() >= inspectingOrder.getDateFrom().toEpochDay()) {
+                            if (orderDao.remove(inspectingOrder)) {
+                                notificationService.expiredOrderNotification(inspectingOrder);
+                                numberManagedOrders++;
+                            }
+                        }
+                    }
+                    if (inspectingOrder.getStatus() == Order.Status.ACTIVE)
+                    if (today.toEpochDay() > inspectingOrder.getDateTo().toEpochDay()){
+                        if (orderDao.updateOrderStatus(inspectingOrder.getOrderId(), Order.Status.COMPLETED)){
+                            notificationService.completeOrderNotification(inspectingOrder);
+                            numberManagedOrders++;
                         }
                     }
                 }
@@ -81,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceProjectException("Error while deleting expired orders", e);
         }
 
-        return 0;
+        return numberManagedOrders;
     }
 
     @Override
@@ -101,6 +114,24 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return isOrderStatusUpdated;
+    }
+
+    @Override
+    public boolean orderPayment(Order payableOrder, Map<String, String> paymentParameters) throws ServiceProjectException {
+        boolean isPaymentComplete = false;
+
+        try{
+            if (PaymentValidator.validatePaymentParameters(paymentParameters)){
+                Order.Status status = Order.Status.ACTIVE;
+                isPaymentComplete = orderDao.updateOrderStatus(payableOrder.getOrderId(), status);
+                if (isPaymentComplete){
+                    payableOrder.setStatus(status);
+                }
+            }
+        } catch (DaoProjectException e){
+            throw new ServiceProjectException("error in payment process", e);
+        }
+        return isPaymentComplete;
     }
 
     @Override

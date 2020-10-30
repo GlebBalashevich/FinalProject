@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Order;
 import by.balashevich.finalproject.model.service.ClientNotificationService;
@@ -24,14 +25,14 @@ public class DeclineOrderCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
         ClientNotificationService clientNotificationService = new ClientNotificationService();
         HttpSession session = request.getSession();
         int orderIndex = Integer.parseInt(request.getParameter(ORDER_INDEX));
         List<Order> orderList = ((ArrayList<Order>) session.getAttribute(AttributeKey.ORDER_LIST));
         Order decliningOrder = orderList.get(orderIndex);
-        String page;
+        Router router;
 
         try {
             if (orderService.declineOrder(decliningOrder)) {
@@ -41,12 +42,12 @@ public class DeclineOrderCommand implements ActionCommand {
             } else {
                 request.setAttribute(AttributeKey.ORDER_DECLINED, false);
             }
-            page = PageName.ADMIN_ORDERS.getPath();
+            router = new Router(PageName.ADMIN_ORDERS.getPath());
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while declining order", e);
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
         }
 
-        return page;
+        return router;
     }
 }

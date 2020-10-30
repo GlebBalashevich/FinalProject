@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.entity.User;
@@ -25,7 +26,7 @@ public class OrderCarCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
         ClientNotificationService clientNotificationService = new ClientNotificationService();
         Map<String, String> orderParameters = new HashMap<>();
@@ -35,7 +36,7 @@ public class OrderCarCommand implements ActionCommand {
         orderParameters.put(DATE_TO, request.getParameter(DATE_TO));
         orderParameters.put(AMOUNT, request.getParameter(AMOUNT));
         HttpSession session = request.getSession();
-        String page;
+        Router router;
 
         try {
             if (orderService.add(orderParameters)) {
@@ -44,15 +45,17 @@ public class OrderCarCommand implements ActionCommand {
                 clientNotificationService.createOrderNotification(user.getEmail(), locale);
                 session.removeAttribute(AttributeKey.CAR_LIST);
                 session.removeAttribute(AttributeKey.CAR_PARAMETERS);
+                request.setAttribute(AttributeKey.SUCCESSFUL_ORDERING, true);
             } else {
+                request.setAttribute(AttributeKey.SUCCESSFUL_ORDERING, false);
                 logger.log(Level.WARN, ""); // TODO: 15.10.2020 message 
             }
-            page = PageName.NOTIFICATION.getPath();
+            router = new Router(PageName.NOTIFICATION.getPath());
         } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "error while creating new order", e);
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
         }
 
-        return page;
+        return router;
     }
 }

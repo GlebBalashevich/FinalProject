@@ -1,12 +1,14 @@
 package by.balashevich.finalproject.controller.command.impl.pagecommand;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
+import by.balashevich.finalproject.controller.command.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class RegisterPageCommand implements ActionCommand {
     @Override
-    public String execute(HttpServletRequest request) {
-        return PageName.REGISTER.getPath();
+    public Router execute(HttpServletRequest request) {
+        return new Router(PageName.REGISTER.getPath());
     }
 }

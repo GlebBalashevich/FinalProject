@@ -30,6 +30,9 @@ public class ClientNotificationService {
     private static final String EXPIRED_REASON_PAYMENT = "mail.expired_order.text.reason_payment";
     private static final String EXPIRED_REASON_NOT_CONFIRM = "mail.expired_order.text.reason_not_confirm";
     private static final String EXPIRED_REASON_DEFAULT = "mail.expired_order.text.reason_default";
+    private static final String COMPLETE_ORDER_SUBJECT = "mail.complete_order.subject";
+    private static final String COMPLETE_ORDER_CAR = "mail.complete_order.text.car";
+    private static final String COMPLETE_ORDER_TEXT = "mail.complete_order.text.text";
     private static final String TEXT_SEPARATOR = "\n";
 
     public void registerMailNotification(String clientEmail, String clientLocale,
@@ -94,6 +97,20 @@ public class ClientNotificationService {
 
         try {
             MailSender.sendMail(expiredOrder.getClient().getEmail(), mailSubject, mailText.toString());
+        } catch (MessagingException | IOException e) {
+            throw new ServiceProjectException("An error occurred while sending the decline order email", e);
+        }
+    }
+
+    public void completeOrderNotification(Order completedOrder) throws ServiceProjectException {
+        ResourceBundle bundle = ResourceBundle.getBundle(MESSAGE_FILENAME);
+        String mailSubject = bundle.getString(COMPLETE_ORDER_SUBJECT);
+        StringJoiner mailText = new StringJoiner(TEXT_SEPARATOR);
+        mailText.add(bundle.getString(COMPLETE_ORDER_CAR) + completedOrder.getCar().getModel());
+        mailText.add(bundle.getString(COMPLETE_ORDER_TEXT));
+
+        try {
+            MailSender.sendMail(completedOrder.getClient().getEmail(), mailSubject, mailText.toString());
         } catch (MessagingException | IOException e) {
             throw new ServiceProjectException("An error occurred while sending the decline order email", e);
         }

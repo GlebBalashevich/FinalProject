@@ -22,37 +22,47 @@
     <div class="row register-form" id="login_form">
     <div class="col-md-8 offset-md-2">
         <form action="process_controller" method="post" class="shadow-lg custom-form" style="font-family: Nunito">
+            <label id="labelPage">
+                <fmt:message key="label.login"/>
+            </label>
             <c:if test="${not empty successfulAuthorization && !successfulAuthorization}">
                 <label class="alert-danger"><fmt:message key="login.not_authorized"/></label>
             </c:if>
-            <c:if test="${not empty successfulActivation && successfulActivation}">
-                <label class="alert-success"><fmt:message key="login.activated_user"/></label>
-            </c:if>
-            <c:if test="${not empty successfulActivation && !successfulActivation}">
-                <label class="alert-warning"><fmt:message key="login.not_activated_user"/></label>
-            </c:if>
             <div class="form-row form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="col-form-label"><fmt:message key="login.email"/></label></div>
-                <div class="col-sm-4 input-column">
+                <div class="col-2"></div>
+                <div class="col-2 label-column">
+                    <label class="col-form-label"><fmt:message key="login.email"/></label>
+                </div>
+                <div class="col-4 input-column">
                     <input class="form-control" name="email" type="email" autofocus required
                            minlength="7" maxlength="255" title="<fmt:message key="input.email"/>">
                 </div>
-            </div>
-            <div class="form-row form-group">
-                <div class="col-sm-4 label-column">
-                    <label class="col-form-label"><fmt:message key="login.password"/></label></div>
-                <div class="col-sm-4 input-column">
-                    <input class="form-control" name="password" type="password" required
-                           pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}" minlength="8" maxlength="255"
-                           title="<fmt:message key="input.password"/>">
+                <div class="col-4"></div>
+                <div class="col-2"></div>
+                <div class="col-2 label-column">
+                    <label class="col-form-label"><fmt:message key="login.password"/></label>
                 </div>
+                <div class="col-4 input-column">
+                    <input class="form-control" name="password" type="password" required
+                           pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}" minlength="8"
+                           maxlength="255" title="<fmt:message key="input.password"/>">
+                </div>
+                <div class="col-4"></div>
+                <div class="col-5"></div>
+                <div class="col-2 input-column" id="logBut">
+                    <input type="hidden" name="command" value="log_in_user">
+                    <button class="submit-button" type="submit" id="butt">
+                        <fmt:message key="login.log_in"/></button>
+                </div>
+                <div class="col-5"></div>
+                <div class="col-4"></div>
+                <div class="col-4 input-column" id="regHref">
+                    <a class="shadow-sm" href="process_controller?command=move_register_page">
+                        <fmt:message key="login.no_account"/></a>
+                </div>
+                <div class="col-4"></div>
             </div>
-            <input type="hidden" name="command" value="log_in_user">
-            <button class="submit-button" type="submit" id="butt">
-                <fmt:message key="login.log_in"/></button>
         </form>
-        <a class="shadow-sm" href="process_controller?command=move_register_page"><fmt:message key="login.no_account"/></a></div>
     </div>
     </div>
     </div>

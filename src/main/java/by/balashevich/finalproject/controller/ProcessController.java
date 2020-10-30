@@ -31,11 +31,16 @@ public class ProcessController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ActionCommand command = CommandProvider.defineCommand(request.getParameter(COMMAND_PARAMETER));
-        String page = command.execute(request);
+        Router router = command.execute(request);
+        String page = router.getPage();
         HttpSession session = request.getSession();
         session.setAttribute(CURRENT_PAGE, page);
 
-        request.getRequestDispatcher(page).forward(request, response);
+        if (router.getTransition() == Router.Transition.FORWARD) {
+            request.getRequestDispatcher(page).forward(request, response);
+        } else{
+            response.sendRedirect(page);
+        }
     }
 
     @Override

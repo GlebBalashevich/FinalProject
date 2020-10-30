@@ -1,8 +1,9 @@
 package by.balashevich.finalproject.controller.command.impl;
 
+import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.User;
 import by.balashevich.finalproject.model.service.ClientNotificationService;
@@ -23,7 +24,7 @@ public class RegisterClientCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
         UserService userService = new UserServiceImpl();
         ClientNotificationService clientNotificationService;
         Map<String, String> clientParameters = new HashMap();
@@ -35,7 +36,7 @@ public class RegisterClientCommand implements ActionCommand {
         clientParameters.put(DRIVER_LICENSE, request.getParameter(DRIVER_LICENSE));
         clientParameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
         HttpSession session = request.getSession();
-        String page;
+        Router router;
 
         try {
             if (!userService.existUser(clientParameters.get(EMAIL))) {
@@ -45,22 +46,23 @@ public class RegisterClientCommand implements ActionCommand {
                     clientNotificationService.registerMailNotification(clientParameters.get(EMAIL),
                             (String) session.getAttribute(AttributeKey.LOCALE),
                             clientParameters.get(FIRST_NAME), request.getRequestURL().toString());
-                    page = PageName.HOME.getPath();
+                    request.setAttribute(AttributeKey.SUCCESSFUL_REGISTRATION, true);
+                    router = new Router(PageName.NOTIFICATION.getPath());
                 } else {
                     request.setAttribute(AttributeKey.REGISTER_PARAMETERS, clientParameters);
-                    page = PageName.REGISTER.getPath();
+                    router = new Router(PageName.REGISTER.getPath());
                     logger.log(Level.INFO, "form not pass validation");
                 }
             } else {
                 request.setAttribute("message", null); // TODO: 21.09.2020  define message
-                page = PageName.REGISTER.getPath();
+                router = new Router(PageName.REGISTER.getPath());
                 logger.log(Level.INFO, "user exist");
             }
         } catch (ServiceProjectException e) {
-            page = PageName.ERROR_500.getPath();
+            router = new Router(PageName.ERROR_500.getPath());
             logger.log(Level.ERROR, "An error occurred during client adding", e);
         }
 
-        return page;
+        return router;
     }
 }

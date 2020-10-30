@@ -27,27 +27,35 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
             </ol>
             <div class="carousel-inner" id="carouselMainInner">
                 <div class="carousel-item active">
                     <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_1.png">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3>Travelling</h3>
-                        <p>It's every time pleasure</p>
+                        <h3><fmt:message key="home.slide_1.label"/></h3>
+                        <p><fmt:message key="home.slide_1.text"/></p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_2.png">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3>Travelling</h3>
-                        <p>It's every time pleasure</p>
+                        <h3><fmt:message key="home.slide_2.label"/></h3>
+                        <p><fmt:message key="home.slide_2.text"/></p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_3.png">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3>Travelling</h3>
-                        <p>It's every time pleasure</p>
+                        <h3><fmt:message key="home.slide_3.label"/></h3>
+                        <p><fmt:message key="home.slide_3.text"/></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/slide_4.png">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3><fmt:message key="home.slide_4.label"/></h3>
+                        <p><fmt:message key="home.slide_4.text"/></p>
                     </div>
                 </div>
             </div>
@@ -70,10 +78,10 @@
              <div class="col"><i class="far fa-calendar-check"></i></div>
         </div>
         <div class="row">
-            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;">We got a lot of cars of different types to la lal&nbsp;</label></div>
-            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;">Our service high quality and normal cost</label></div>
-            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;">We are open for you around 24|7</label></div>
-            <div class="col"><label class="col-form-label" style="font-size: 25px;">you can be sure that you will got a car</label></div>
+            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;"><fmt:message key="home.mark_1.text"/></label></div>
+            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;"><fmt:message key="home.mark_2.text"/></label></div>
+            <div class="col"><label class="col-form-label text-center" style="font-size: 25px;"><fmt:message key="home.mark_3.text"/></label></div>
+            <div class="col"><label class="col-form-label" style="font-size: 25px;"><fmt:message key="home.mark_4.text"/></label></div>
         </div>
         </div>
     </div>

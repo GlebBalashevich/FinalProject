@@ -12,9 +12,11 @@ public interface OrderService {
 
     boolean declineOrder(Order decliningOrder) throws ServiceProjectException;
 
-    int deleteExpiredOrders() throws ServiceProjectException;
+    int manageOrders() throws ServiceProjectException;
 
     boolean updateOrderStatus(Order updatingOrder, String statusData) throws ServiceProjectException;
+
+    boolean orderPayment(Order payableOrder, Map<String, String> paymentParameters) throws ServiceProjectException;
 
     int calculateOrderAmount(int costPerDay, LocalDate dateFrom, LocalDate dateTo);
 

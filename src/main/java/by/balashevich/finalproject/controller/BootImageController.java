@@ -1,6 +1,6 @@
 package by.balashevich.finalproject.controller;
 
-import by.balashevich.finalproject.controller.command.impl.pagecommand.PageName;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.util.ParameterKey;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
