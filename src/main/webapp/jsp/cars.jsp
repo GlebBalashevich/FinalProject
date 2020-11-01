@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ptg" uri="paginationtags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -75,46 +76,8 @@
             <div class="form-row form-group" id="carElement">
             <c:choose>
                 <c:when test="${not empty sessionScope.carList}">
-                <table class="table">
-                <c:forEach var="carElement" items="${sessionScope.carList}">
-                <tr>
-                    <td>
-                        <img src="/image/${carElement.carView.exteriorSmall}"/>
-                    </td>
-                    <td>
-                        <table class="table table-sm" id="carsListTable">
-                            <tbody>
-                            <tr>
-                                <td><fmt:message key="cars.model"/></td>
-                                <td colspan="2">${carElement.model}</td>
-                                <td><fmt:message key="cars.cost"/></td>
-                                <td>${carElement.rentCost}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><fmt:message key="cars.number_seats"/></td>
-                                <td>${carElement.numberSeats}</td>
-                                <td><fmt:message key="cars.fuel_consumption"/></td>
-                                <td>${carElement.fuelConsumption}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td>
-                        <div class="form-row form-group">
-                            <div class="input-column" >
-                                <form action="process_controller" method="post" style="font-family: Nunito">
-                                    <input type="hidden" name="car_id" value="${carElement.carId}">
-                                    <input type="hidden" name="date_from" value="${carParameters.get("date_from")}">
-                                    <input type="hidden" name="date_to" value="${carParameters.get("date_to")}">
-                                    <input type="hidden" name="command" value="move_order_page">
-                                    <button class="submit-button" type="submit" id="buttOrd">
-                                        <fmt:message key="cars.order"/></button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </c:forEach>
+                <table class="table" id="listTable">
+                <ptg:client-cars-pagination/>
                 </table>
                 </c:when>
                 <c:otherwise>

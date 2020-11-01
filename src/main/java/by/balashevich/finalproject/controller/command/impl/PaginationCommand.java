@@ -8,19 +8,20 @@ import by.balashevich.finalproject.util.ParameterKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class ClientsPaginationCommand implements ActionCommand {
+public class PaginationCommand implements ActionCommand {
 
     @Override
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        int pageNumber = (int) session.getAttribute(AttributeKey.CLIENTS_PAGE_NUMBER);
         String paginationDirection = request.getParameter(ParameterKey.PAGINATION_DIRECTION);
+        String pageType = request.getParameter(ParameterKey.PAGINATION_SUBJECT);
+        int pageNumber = (int) session.getAttribute(pageType);
 
         if (paginationDirection.equals(ParameterKey.NEXT_PAGE)){
-            session.setAttribute(AttributeKey.CLIENTS_PAGE_NUMBER, ++pageNumber);
+            session.setAttribute(pageType, ++pageNumber);
         }
         if (paginationDirection.equals(ParameterKey.PREVIOUS_PAGE)){
-            session.setAttribute(AttributeKey.CLIENTS_PAGE_NUMBER, --pageNumber);
+            session.setAttribute(pageType, --pageNumber);
         }
 
         return new Router((String) session.getAttribute(AttributeKey.CURRENT_PAGE));

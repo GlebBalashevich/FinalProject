@@ -5,9 +5,9 @@ import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
 import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
-import by.balashevich.finalproject.model.entity.User;
 import by.balashevich.finalproject.model.service.ClientNotificationService;
 import by.balashevich.finalproject.model.service.UserService;
+import by.balashevich.finalproject.model.service.impl.ClientNotificationServiceImpl;
 import by.balashevich.finalproject.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -41,10 +41,8 @@ public class RegisterClientCommand implements ActionCommand {
         try {
             if (!userService.existUser(clientParameters.get(EMAIL))) {
                 if (userService.add(clientParameters)) {
-                    session.setAttribute(ROLE, User.Role.CLIENT.name());
-                    clientNotificationService = new ClientNotificationService();
+                    clientNotificationService = new ClientNotificationServiceImpl();
                     clientNotificationService.registerMailNotification(clientParameters.get(EMAIL),
-                            (String) session.getAttribute(AttributeKey.LOCALE),
                             clientParameters.get(FIRST_NAME), request.getRequestURL().toString());
                     request.setAttribute(AttributeKey.SUCCESSFUL_REGISTRATION, true);
                     router = new Router(PageName.NOTIFICATION.getPath());

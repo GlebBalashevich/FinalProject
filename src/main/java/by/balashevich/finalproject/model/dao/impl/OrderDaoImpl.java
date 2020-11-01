@@ -16,6 +16,7 @@ import java.util.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class OrderDaoImpl implements OrderDao {
+    private static OrderDaoImpl orderDao;
     private static final String ADD_ORDER = "INSERT INTO orders(date_from, date_to, amount, order_status, order_car_id, " +
             "order_client_id) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String REMOVE_ORDER = "DELETE FROM orders WHERE order_id = ?";
@@ -34,6 +35,18 @@ public class OrderDaoImpl implements OrderDao {
     private static final String WHERE_KEYWORD = " WHERE";
     private static final String AND_KEYWORD = " AND";
     private static final String DOT = ".";
+
+    private OrderDaoImpl(){
+
+    }
+
+    public static OrderDaoImpl getInstance(){
+        if (orderDao == null){
+            orderDao = new OrderDaoImpl();
+        }
+
+        return orderDao;
+    }
 
     @Override
     public boolean add(Map<String, Object> orderParameters) throws DaoProjectException {

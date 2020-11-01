@@ -21,6 +21,7 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class CarDaoImpl implements CarDao {
     private static final Logger logger = LogManager.getLogger();
+    private static CarDaoImpl carDao;
 
     private static final String ADD_CAR = "INSERT INTO cars (model, car_type, number_seats, rent_cost," +
             "fuel_type, fuel_consumption, is_available) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -42,6 +43,18 @@ public class CarDaoImpl implements CarDao {
     private static final String WHERE_KEYWORD = " WHERE";
     private static final String AND_KEYWORD = " AND";
     private static final String DOT = ".";
+
+    private CarDaoImpl(){
+
+    }
+
+    public static CarDaoImpl getInstance(){
+        if (carDao == null){
+            carDao = new CarDaoImpl();
+        }
+
+        return carDao;
+    }
 
     @Override
     public boolean add(Map<String, Object> parameters) throws DaoProjectException {

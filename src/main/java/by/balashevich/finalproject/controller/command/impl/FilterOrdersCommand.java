@@ -38,6 +38,7 @@ public class FilterOrdersCommand implements ActionCommand {
             orderService.manageOrders();
             List<Order> orderList = orderService.findOrdersByParameters(orderParameters);
             session.setAttribute(AttributeKey.ORDER_LIST, orderList);
+            session.setAttribute(AttributeKey.ORDERS_PAGE_NUMBER, 1);
             if (orderList == null || orderList.isEmpty()) {
                 request.setAttribute(AttributeKey.ORDERS_FOUND, false);
             }

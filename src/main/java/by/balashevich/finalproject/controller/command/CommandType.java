@@ -8,10 +8,10 @@ public enum CommandType {
     MOVE_REGISTER_PAGE(new RegisterPageCommand()),
     MOVE_HOME_PAGE(new HomePageCommand()),
     MOVE_CARS_PAGE(new CarsPageCommand()),
-    MOVE_ORDER_PAGE(new CarCardPageCommand()),
+    MOVE_CAR_CARD_PAGE(new CarCardPageCommand()),
     MOVE_USERS_PAGE(new UsersPageCommand()),
     MOVE_ORDERS_PAGE(new OrdersPageCommand()),
-    MOVE_CREATE_CARS_PAGE(new CreateCarPageCommand()),
+    MOVE_CREATE_CAR_PAGE(new CreateCarPageCommand()),
     MOVE_PAYMENT_PAGE(new PaymentPageCommand()),
     LOG_IN_USER(new LoginCommand()),
     LOG_OUT_USER(new LogoutCommand()),
@@ -29,7 +29,8 @@ public enum CommandType {
     MAKE_ORDER_PAYMENT(new MakeOrderPaymentCommand()),
     UPDATE_CLIENT_STATUS(new UpdateClientStatusCommand()),
     UPDATE_ORDER_STATUS(new UpdateOrderStatusCommand()),
-    CLIENT_PAGINATION(new ClientsPaginationCommand());
+    PAGINATION(new PaginationCommand()),
+    EMPTY(new EmptyCommand());
 
     private ActionCommand command;
 

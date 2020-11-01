@@ -80,7 +80,7 @@
                                 <th><fmt:message key="admin_users.table.status"/></th>
                                 <th><fmt:message key="admin_users.table.action"/></th>
                             </tr>
-                            <pgt:user-pagination/>
+                            <pgt:admin-clients-pagination/>
                             </tbody>
                         </table>
                     </c:when>

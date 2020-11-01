@@ -16,6 +16,7 @@ import java.util.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class UserDaoImpl implements UserDao {
+    private static UserDaoImpl userDao;
     private static final String ADD_CLIENT = "INSERT INTO users(email, password, user_role, first_name, " +
             "second_name, driver_license, phone_number, client_status)VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String FIND_ALL = "SELECT user_id, email, user_role, first_name, second_name, " +
@@ -28,6 +29,18 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_EMAIL = "SELECT email FROM users WHERE email = ?";
     private static final String CHANGE_STATUS = "UPDATE users SET client_status = (?) where email=(?)";
     private static final String EMPTY_VALUE = "";
+
+    private UserDaoImpl(){
+
+    }
+
+    public static UserDaoImpl getInstance(){
+        if (userDao == null){
+            userDao = new UserDaoImpl();
+        }
+
+        return userDao;
+    }
 
     @Override
     public boolean add(Map<String, Object> userParameters) throws DaoProjectException {

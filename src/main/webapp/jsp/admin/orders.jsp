@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ptg" uri="paginationtags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -101,48 +102,7 @@
                                 <th><fmt:message key="admin_orders.table.status"/></th>
                                 <th colspan="2"><fmt:message key="admin_orders.table.action"/></th>
                             </tr>
-                            <c:forEach var="orderElement" items="${sessionScope.orderList}" varStatus="loop">
-                                <tr>
-                                    <td name="email" onclick="test(this);">${orderElement.client.email}</td>
-                                    <td>${orderElement.client.firstName} ${orderElement.client.secondName}</td>
-                                    <td name="car_model" onclick="cartest(this);">${orderElement.car.model}</td>
-                                    <td>${orderElement.dateFrom}</td>
-                                    <td>${orderElement.dateTo}</td>
-                                    <td>${orderElement.amount}$</td>
-                                    <td>${orderElement.status.title}</td>
-                                    <c:if test="${orderElement.status.name()=='PENDING'}">
-                                        <form action="process_controller" method="post" class="shadow-lg custom-form">
-                                        <td>
-                                            <label class="custom-form">
-                                                <input type="hidden" name="order_index"
-                                                       value=${loop.index}>
-                                                <input type="hidden" name="command"
-                                                           value="decline_order">
-                                                <button class="submit-button" type="submit"
-                                                            id="declineOrder">
-                                                            <fmt:message key="admin_orders.table.decline"/>
-                                            </label>
-                                        </td>
-                                        </form>
-                                        <form action="process_controller" method="post" class="shadow-lg custom-form">
-                                        <td>
-                                            <label class="custom-form">
-                                                <input type="hidden" name="order_index"
-                                                       value=${loop.index}>
-                                                <input type="hidden" name="command"
-                                                           value="update_order_status">
-                                                <input type="hidden" name="order_status"
-                                                           value="AWAITING_PAYMENT">
-                                                <button class="submit-button" type="submit"
-                                                            id="activateOrder">
-                                                            <fmt:message key="admin_orders.table.confirm"/>
-                                            </label>
-                                        </td>
-                                        </form>
-                                        </c:if>
-                                    </tr>
-                                </form>
-                            </c:forEach>
+                            <ptg:admin-orders-pagination/>
                             </tbody>
                         </table>
                     </c:when>

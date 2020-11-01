@@ -9,6 +9,7 @@ import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.entity.User;
 import by.balashevich.finalproject.model.service.ClientNotificationService;
 import by.balashevich.finalproject.model.service.OrderService;
+import by.balashevich.finalproject.model.service.impl.ClientNotificationServiceImpl;
 import by.balashevich.finalproject.model.service.impl.OrderServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ public class OrderCarCommand implements ActionCommand {
     @Override
     public Router execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
-        ClientNotificationService clientNotificationService = new ClientNotificationService();
+        ClientNotificationService clientNotificationService = new ClientNotificationServiceImpl();
         Map<String, String> orderParameters = new HashMap<>();
         orderParameters.put(CAR_ID, request.getParameter(CAR_ID));
         orderParameters.put(USER_ID, request.getParameter(USER_ID));
@@ -41,10 +42,10 @@ public class OrderCarCommand implements ActionCommand {
         try {
             if (orderService.add(orderParameters)) {
                 User user = (Client) session.getAttribute(AttributeKey.USER);
-                String locale = (String) session.getAttribute(AttributeKey.LOCALE);
-                clientNotificationService.createOrderNotification(user.getEmail(), locale);
+                clientNotificationService.createOrderNotification(user.getEmail());
                 session.removeAttribute(AttributeKey.CAR_LIST);
                 session.removeAttribute(AttributeKey.CAR_PARAMETERS);
+                session.removeAttribute(AttributeKey.CARS_PAGE_NUMBER);
                 request.setAttribute(AttributeKey.SUCCESSFUL_ORDERING, true);
             } else {
                 request.setAttribute(AttributeKey.SUCCESSFUL_ORDERING, false);

@@ -11,10 +11,6 @@ import java.util.Optional;
 public interface UserService {
     boolean add(Map<String, String> user) throws ServiceProjectException;
 
-    boolean remove(User user) throws ServiceProjectException;
-
-    User update(User user) throws ServiceProjectException;
-
     boolean updateClientStatus(String email, Client.Status status) throws ServiceProjectException;
 
     boolean updateClientStatus(Client updatingClient, String statusData) throws ServiceProjectException;

@@ -15,7 +15,7 @@ import java.util.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class CarServiceImpl implements CarService {
-    private CarDao carDao = new CarDaoImpl();
+    private CarDao carDao = CarDaoImpl.getInstance();
     private static final String PRICE_DELIMITER = ";";
     private static final String DEFAULT_EXTERIOR_SMALL = "default_exterior_small.png";
     private static final String DEFAULT_EXTERIOR = "default_exterior.png";

@@ -3,6 +3,7 @@ package by.balashevich.finalproject.controller.command;
 public class AttributeKey {
     public static final String USER = "user";                                           //session parameter
     public static final String LOCALE = "locale";                                       //session parameter
+    public static final String USER_ROLE = "userRole";                                  //session parameter
     public static final String CURRENT_PAGE = "current_page";                           //session parameter
     public static final String CAR_LIST = "carList";                                    //session parameter
     public static final String ORDER_LIST = "orderList";                                //session parameter
@@ -17,6 +18,9 @@ public class AttributeKey {
     public static final String SUCCESSFUL_ACTIVATION = "successfulActivation";          //request parameter
     public static final String SUCCESSFUL_ORDERING = "successfulOrdering";              //request parameter
     public static final String SUCCESSFUL_REGISTRATION = "successfulRegistration";      //request parameter
+    public static final String ACCESS_DENIED = "accessDenied";                          //request parameter
+    public static final String ACTIVATE_ACCOUNT = "activateAccount";                    //request parameter
+    public static final String ACCOUNT_BLOCKED = "accountBlocked";                      //request parameter
     public static final String PAYMENT_FAILED = "paymentFailed";                        //request parameter
     public static final String CAR_ADDED = "carAdded";                                  //request parameter
     public static final String CAR_UPDATED = "carUpdated";                              //request parameter

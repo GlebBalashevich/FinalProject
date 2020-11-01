@@ -4,9 +4,19 @@ import java.util.Arrays;
 
 public class Car extends Entity {
     public enum Type {
-        SUV,
-        SEDAN,
-        MINIVAN;
+        SUV ("Suv"),
+        SEDAN ("Sedan"),
+        MINIVAN ("Minivan");
+
+        private String title;
+
+        Type (String title){
+            this.title = title;
+        }
+
+        public String getTitle(){
+            return title;
+        }
 
         public static Type getType(int index) {
             return Arrays.stream(Type.values()).filter(v -> v.ordinal() == index).findFirst().get();
@@ -14,8 +24,18 @@ public class Car extends Entity {
     }
 
     public enum FuelType {
-        DIESEL,
-        PETROL;
+        DIESEL ("Diesel"),
+        PETROL ("Petrol");
+
+        private String title;
+
+        FuelType (String title){
+            this.title = title;
+        }
+
+        public String getTitle(){
+            return title;
+        }
 
         public static FuelType getFuelType(int index) {
             return Arrays.stream(FuelType.values()).filter(f -> f.ordinal() == index).findFirst().get();

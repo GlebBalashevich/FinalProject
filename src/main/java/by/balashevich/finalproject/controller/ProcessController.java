@@ -3,6 +3,7 @@ package by.balashevich.finalproject.controller;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.CommandProvider;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
+import by.balashevich.finalproject.util.ParameterKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +20,6 @@ import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 @WebServlet(urlPatterns = "/process_controller")
 public class ProcessController extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
-    private static final String COMMAND_PARAMETER = "command";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
@@ -30,7 +30,7 @@ public class ProcessController extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ActionCommand command = CommandProvider.defineCommand(request.getParameter(COMMAND_PARAMETER));
+        ActionCommand command = CommandProvider.defineCommand(request.getParameter(ParameterKey.COMMAND));
         Router router = command.execute(request);
         String page = router.getPage();
         HttpSession session = request.getSession();

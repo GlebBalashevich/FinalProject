@@ -22,7 +22,7 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class OrderServiceImpl implements OrderService {
-    OrderDao orderDao = new OrderDaoImpl();
+    OrderDao orderDao = OrderDaoImpl.getInstance();
     private static final int DURING_DAY = 1;
 
     @Override
@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int manageOrders() throws ServiceProjectException {
-        ClientNotificationService notificationService = new ClientNotificationService();
+        ClientNotificationService notificationService = new ClientNotificationServiceImpl();
         List<Order> inspectingOrders;
         int numberManagedOrders = 0;
 

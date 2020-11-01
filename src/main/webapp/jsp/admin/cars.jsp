@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ptg" uri="paginationtags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -72,7 +73,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="command" value="filter_cars">
-                    <a class="shadow-sm" href="process_controller?command=move_create_cars_page">
+                    <a class="shadow-sm" href="process_controller?command=move_create_car_page">
                         <fmt:message key="admin_cars.add"/></a>
                 </form>
             </div>
@@ -82,65 +83,7 @@
                     <c:choose>
                     <c:when test="${not empty sessionScope.carList}">
                         <table class="table">
-                            <c:forEach var="carElement" items="${sessionScope.carList}" varStatus="loop">
-                                <form action="process_controller" method="post" class="shadow-lg custom-form">
-                                    <tr>
-                                        <td>
-                                            <img src="/image/${carElement.carView.exteriorSmall}"/>
-                                        </td>
-                                        <td>
-                                            <table class="table table-sm" id="carsListTable">
-                                                <tbody>
-                                                <tr>
-                                                    <td><fmt:message key="admin_cars.model"/></td>
-                                                    <td colspan="2">${carElement.model}</td>
-                                                    <td><fmt:message key="admin_cars.type"/></td>
-                                                    <td>${carElement.type.name()}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2"><fmt:message key="admin_cars.num_seats"/></td>
-                                                    <td>${carElement.numberSeats}</td>
-                                                    <td><fmt:message key="admin_cars.consumption"/></td>
-                                                    <td>${carElement.fuelConsumption}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><fmt:message key="admin_cars.cost"/></td>
-                                                    <td>
-                                                        <input class="form-control" name="rent_cost" type="number"
-                                                               minlength="1" maxlength="2" min="10" max="200"
-                                                               value="${carElement.rentCost}">
-                                                    </td>
-                                                    <td><fmt:message key="admin_cars.is_available"/></td>
-                                                    <td colspan="2">
-                                                        <div class="form-group">
-                                                            <select id="select" size="1" class="form-control"
-                                                                    name="is_available">
-                                                                <option value="${carElement.available}">
-                                                                    <fmt:message
-                                                                            key="admin_cars.avail_now"/>"${carElement.available}"
-                                                                </option>
-                                                                <option value="true"><fmt:message
-                                                                        key="admin_cars.avail_change_to_true"/></option>
-                                                                <option value="false"><fmt:message
-                                                                        key="admin_cars.avail_change_to_false"/></option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input type="hidden" name="car_index" value=${loop.index}>
-                                                <input type="hidden" name="command" value="update_car_property">
-                                                <button class="submit-button" type="submit" id="buttOrd">
-                                                        <fmt:message key="admin_cars.edit"/>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                </form>
-                            </c:forEach>
+                            <ptg:admin-cars-pagination/>
                         </table>
                     </c:when>
                     <c:otherwise>

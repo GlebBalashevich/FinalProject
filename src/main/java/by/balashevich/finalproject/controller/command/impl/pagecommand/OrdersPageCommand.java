@@ -27,6 +27,7 @@ public class OrdersPageCommand implements ActionCommand {
         Router router = new Router(switch (user.getRole()){
             case CLIENT -> PageName.CLIENT_ORDERS.getPath();
             case ADMIN ->  PageName.ADMIN_ORDERS.getPath();
+            default -> PageName.ERROR_404.getPath();
         });
 
         if(user.getRole() == User.Role.CLIENT){
@@ -34,6 +35,7 @@ public class OrdersPageCommand implements ActionCommand {
             try{
                 List<Order> orderList = orderService.findClientOrders(user.getUserId());
                 session.setAttribute(AttributeKey.ORDER_LIST, orderList);
+                session.setAttribute(AttributeKey.ORDERS_PAGE_NUMBER, 1);
                 if (orderList == null || orderList.isEmpty()) {
                     request.setAttribute(AttributeKey.ORDERS_FOUND, false);
                 }

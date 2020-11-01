@@ -8,6 +8,7 @@ import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Order;
 import by.balashevich.finalproject.model.service.ClientNotificationService;
 import by.balashevich.finalproject.model.service.OrderService;
+import by.balashevich.finalproject.model.service.impl.ClientNotificationServiceImpl;
 import by.balashevich.finalproject.model.service.impl.OrderServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +28,7 @@ public class DeclineOrderCommand implements ActionCommand {
     @Override
     public Router execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
-        ClientNotificationService clientNotificationService = new ClientNotificationService();
+        ClientNotificationService clientNotificationService = new ClientNotificationServiceImpl();
         HttpSession session = request.getSession();
         int orderIndex = Integer.parseInt(request.getParameter(ORDER_INDEX));
         List<Order> orderList = ((ArrayList<Order>) session.getAttribute(AttributeKey.ORDER_LIST));

@@ -38,6 +38,7 @@ public class LoginCommand implements ActionCommand {
                 } else {
                     session.setAttribute(AttributeKey.USER, authorizedUser);
                 }
+                session.setAttribute(AttributeKey.USER_ROLE, authorizedUser.getRole());
                 router = new Router(PageName.HOME.getPath());
             } else {
                 router = new Router(PageName.LOGIN.getPath());

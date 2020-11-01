@@ -13,9 +13,9 @@ public class CarsPageCommand implements ActionCommand {
     @Override
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(AttributeKey.USER);
-        Router router = new Router(switch (user.getRole()) {
-            case CLIENT -> PageName.CLIENT_CARS.getPath();
+        User.Role role = (User.Role) session.getAttribute(AttributeKey.USER_ROLE);
+        Router router = new Router(switch (role) {
+            case CLIENT, GUEST -> PageName.CLIENT_CARS.getPath();
             case ADMIN -> PageName.ADMIN_CARS.getPath();
         });
 

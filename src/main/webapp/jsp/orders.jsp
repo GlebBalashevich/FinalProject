@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ptg" uri="paginationtags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -53,30 +54,7 @@
                                 <th><fmt:message key="client_orders.table.amount"/></th>
                                 <th colspan="2"><fmt:message key="client_orders.table.status"/></th>
                             </tr>
-                            <c:forEach var="orderElement" items="${sessionScope.orderList}" varStatus="loop">
-                                <tr>
-                                    <td>${orderElement.car.model}</td>
-                                    <td>${orderElement.dateFrom}</td>
-                                    <td>${orderElement.dateTo}</td>
-                                    <td>${orderElement.amount}$</td>
-                                    <td>${orderElement.status.title}</td>
-                                    <c:if test="${orderElement.status.name()=='AWAITING_PAYMENT'}">
-                                        <form action="process_controller" method="post" class="shadow-lg custom-form">
-                                            <th>
-                                                <label class="custom-form">
-                                                    <input type="hidden" name="order_index"
-                                                           value=${loop.index}>
-                                                    <input type="hidden" name="command"
-                                                           value="move_payment_page">
-                                                    <button class="submit-button" type="submit"
-                                                            id="paymentOrder">
-                                                            <fmt:message key="client_orders.table.pay"/>
-                                                </label>
-                                            </th>
-                                        </form>
-                                    </c:if>
-                                </tr>
-                            </c:forEach>
+                            <ptg:client-orders-pagination/>
                             </tbody>
                         </table>
                     </c:when>

@@ -29,7 +29,7 @@
                     <div class="carousel-item active">
                         <img class="d-block w-100 " src="${pageContext.request.contextPath}/img/error4back.png">
                         <div class="carousel-caption d-none d-md-block" id="errorCarusel">
-                            <h3><span>Error Status: ${pageContext.errorData.statusCode}</span></h3>
+                            <h3><span>Error Status: 404</span></h3>
                             <h3><span>PAGE NOT FOUND</span></h3>
                         </div>
                     </div>

@@ -20,7 +20,7 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 public class UserServiceImpl implements UserService {
     private static final String EMPTY_VALUE = "";
     private static final String PUNCTUATION_PATTERN = "[\\p{Punct}\\p{Space}]";
-    UserDaoImpl userDao = new UserDaoImpl();
+    UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     @Override
     public boolean add(Map<String, String> clientParameters) throws ServiceProjectException {
@@ -47,16 +47,6 @@ public class UserServiceImpl implements UserService {
         }
 
         return isClientAdded;
-    }
-
-    @Override
-    public boolean remove(User user) throws ServiceProjectException {
-        return false;
-    }
-
-    @Override
-    public User update(User user) throws ServiceProjectException {
-        return null;
     }
 
     @Override

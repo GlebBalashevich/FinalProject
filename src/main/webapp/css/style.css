@@ -193,6 +193,11 @@
     margin-right: 20px;
 }
 
+#listTable{
+    font-size: 12px;
+    color: #ffffff;
+}
+
 #ordersListTable, #clientsListTable{
     cursor: default;
     color: #ffffff;

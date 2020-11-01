@@ -43,6 +43,7 @@ public class FindAvailableCarsCommand implements ActionCommand {
             List<Car> targetCars = carService.findAvailableOrderCars(carParameters);
             session.setAttribute(AttributeKey.CAR_LIST, targetCars);
             session.setAttribute(AttributeKey.CAR_PARAMETERS, carParameters);
+            session.setAttribute(AttributeKey.CARS_PAGE_NUMBER, 1);
             if (targetCars == null || targetCars.isEmpty()) {
                 request.setAttribute(AttributeKey.CARS_FOUND, false);
             }
