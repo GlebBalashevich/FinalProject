@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    dateInputs();
+});
+
 function formattedDate(date, options) {
     return date.toLocaleString('ru', options).split('.').reverse().join('-');
 }
@@ -6,7 +10,7 @@ function getDepartureDate(date) {
     return new Date(date.setFullYear(
         date.getFullYear(),
         date.getMonth(),
-        date.getDate() + 1
+        date.getDate()
     ));
 }
 
@@ -18,6 +22,7 @@ function dateInputs() {
         day: 'numeric'
     };
     let dateNow = new Date();
+    dateNow.setDate(dateNow.getDate() + 1);
 
     dateInputs.each(function () {
         let currentItem = $(this);
@@ -53,3 +58,27 @@ function dateInputs() {
         }
     });
 }
+
+function checkPasses(){
+    let pass = document.getElementById("pass");
+    let confpass = document.getElementById("passConf");
+
+    if (pass.value !== confpass.value){
+        $("#pass").css("border", "2px solid red");
+        $("#passConf").css("border", "2px solid red");
+        $("#not_valid").css("display", "block");
+    }
+    if (pass.value === confpass.value){
+        if (pass.value !== '') {
+            $("#pass").css("border", "2px solid green");
+            $("#passConf").css("border", "2px solid green");
+            $("#not_valid").css("display", "none");
+        }else {
+            $("#pass").css("border", "none");
+            $("#passConf").css("border", "none");
+            $("#not_valid").css("display", "none");
+        }
+    }
+}
+
+

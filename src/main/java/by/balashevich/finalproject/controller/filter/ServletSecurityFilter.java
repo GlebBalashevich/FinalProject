@@ -26,8 +26,9 @@ public class ServletSecurityFilter implements Filter {
         String commandName = request.getParameter(ParameterKey.COMMAND);
 
         if (role == null) {
-            session.setAttribute(AttributeKey.USER_ROLE, User.Role.GUEST);
+            session.invalidate();
             response.sendRedirect(request.getContextPath() + PageName.INDEX.getPath());
+            return;
         }
 
         ActionCommand command = CommandProvider.defineCommand(commandName);
@@ -46,6 +47,6 @@ public class ServletSecurityFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config){
     }
 }

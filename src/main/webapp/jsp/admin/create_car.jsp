@@ -10,6 +10,7 @@
     <title><fmt:message key="title.create_car"/></title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pretty-Registration-Form.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -27,8 +28,9 @@
                     <tr>
                         <td><fmt:message key="create_car.image_icon"/></td>
                         <td colspan="3">
-                            <div class="form-group">
-                                <input type="file" name="file">
+                            <div class="form-group load-file">
+                                <input type="file" name="file" id="file1">
+                                <label for="file1">Choose file</label>
                             </div>
                         </td>
                         <td>
@@ -115,7 +117,9 @@
                         <td><fmt:message key="create_car.model"/></td>
                         <td>
                             <input class="form-control" name="model" type="text" required
-                                   pattern="^[a-zA-Z0-9 -]{2,100}$" value="${carParameters.get("model")}">
+                                   pattern="^[a-zA-Z0-9 -]{2,100}$" value="${carParameters.get("model")}"
+                                   oninvalid="this.setCustomValidity('<fmt:message key="create_car.model.validation"/>')"
+                                   onchange="this.setCustomValidity('')">
                         </td>
                         <td><fmt:message key="create_car.type"/></td>
                         <td>
@@ -128,7 +132,9 @@
                         <td><fmt:message key="create_car.rent_cost"/></td>
                         <td>
                             <input class="form-control" name="rent_cost" type="number" required
-                                   minlength="2" maxlength="3" min="10" max="200" value="${carParameters.get("rent_cost")}">
+                                   minlength="2" maxlength="3" min="10" max="200" value="${carParameters.get("rent_cost")}"
+                                   oninvalid="this.setCustomValidity('<fmt:message key="create_car.rent_cost.validation"/>')"
+                                   onchange="this.setCustomValidity('')">
                         </td>
                         <td><fmt:message key="create_car.is_available"/></td>
                         <td>
@@ -142,7 +148,10 @@
                         <td><fmt:message key="create_car.number_seats"/></td>
                         <td>
                             <input class="form-control" name="number_seats" type="number" required
-                                   minlength="1" maxlength="2" min="1" max="50" value="${carParameters.get("number_seats")}">
+                                   minlength="1" maxlength="2" min="1" max="50" value="${carParameters.get("number_seats")}"
+                                   oninvalid="this.setCustomValidity('<fmt:message key="create_car.number_seats.validation"/>')"
+                                   onchange="this.setCustomValidity('')">
+
                         </td>
                         <td><fmt:message key="create_car.fuel_type"/></td>
                         <td>
@@ -154,7 +163,9 @@
                         <td><fmt:message key="create_car.fuel_consumption"/></td>
                         <td>
                             <input class="form-control" name="fuel_consumption" type="number" required
-                                   minlength="1" maxlength="2" min="1" max="50" value="${carParameters.get("fuel_consumption")}">
+                                   minlength="1" maxlength="2" min="1" max="50" value="${carParameters.get("fuel_consumption")}"
+                                   oninvalid="this.setCustomValidity('<fmt:message key="create_car.fuel_consumption.validation"/>')"
+                                   onchange="this.setCustomValidity('')">
                         </td>
                         <td align="center" colspan="2">
                             <input type="hidden" name="command" value="add_car">

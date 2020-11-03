@@ -1,12 +1,9 @@
 package by.balashevich.finalproject.model.service.impl;
 
-import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.entity.Order;
 import by.balashevich.finalproject.model.service.ClientNotificationService;
 import by.balashevich.finalproject.util.MailSender;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.StringJoiner;
 
@@ -36,7 +33,7 @@ public class ClientNotificationServiceImpl implements ClientNotificationService 
     private static final String TEXT_SEPARATOR = "\n";
 
     @Override
-    public void registerMailNotification(String clientEmail, String clientFirstName, String link) throws ServiceProjectException {
+    public void registerMailNotification(String clientEmail, String clientFirstName, String link) {
         ResourceBundle bundle = ResourceBundle.getBundle(MESSAGE_FILENAME);
         String mailSubject = bundle.getString(REGISTRATION_MAIL_SUBJECT);
         StringJoiner mailText = new StringJoiner(TEXT_SEPARATOR);
@@ -44,47 +41,33 @@ public class ClientNotificationServiceImpl implements ClientNotificationService 
         mailText.add(bundle.getString(REGISTRATION_TEXT_GRATITUDE));
         mailText.add(bundle.getString(REGISTRATION_TEXT_FINISH));
         mailText.add(link + REGISTRATION_LINK_SUFFIX + clientEmail);
-
-        try {
-            MailSender.sendMail(clientEmail, mailSubject, mailText.toString());
-        } catch (MessagingException | IOException e) {
-            throw new ServiceProjectException("An error occurred while sending the registration email", e);
-        }
+        MailSender.sendMail(clientEmail, mailSubject, mailText.toString());
     }
 
     @Override
-    public void createOrderNotification(String clientEmail) throws ServiceProjectException {
+    public void createOrderNotification(String clientEmail) {
         ResourceBundle bundle = ResourceBundle.getBundle(MESSAGE_FILENAME);
         String mailSubject = bundle.getString(CREATE_ORDER_MAIL_SUBJECT);
         String mailText = bundle.getString(CREATE_ORDER_MAIL_TEXT);
-
-        try {
-            MailSender.sendMail(clientEmail, mailSubject, mailText);
-        } catch (MessagingException | IOException e) {
-            throw new ServiceProjectException("An error occurred while sending create order email", e);
-        }
+        MailSender.sendMail(clientEmail, mailSubject, mailText);
     }
 
     @Override
-    public void declineOrderNotification(Order decliningOrder) throws ServiceProjectException {
+    public void declineOrderNotification(Order decliningOrder) {
         ResourceBundle bundle = ResourceBundle.getBundle(MESSAGE_FILENAME);
         String mailSubject = bundle.getString(DECLINE_ORDER_MAIL_SUBJECT);
         StringJoiner mailText = new StringJoiner(TEXT_SEPARATOR);
         mailText.add(bundle.getString(DECLINE_ORDER_DATE) + decliningOrder.getDateFrom());
         mailText.add(bundle.getString(DECLINE_ORDER_CAR) + decliningOrder.getCar().getModel());
         mailText.add(bundle.getString(DECLINE_ORDER_TEXT));
-
-        try {
-            MailSender.sendMail(decliningOrder.getClient().getEmail(), mailSubject, mailText.toString());
-        } catch (MessagingException | IOException e) {
-            throw new ServiceProjectException("An error occurred while sending the decline order email", e);
-        }
+        MailSender.sendMail(decliningOrder.getClient().getEmail(), mailSubject, mailText.toString());
     }
+
     @Override
-    public void expiredOrderNotification(Order expiredOrder) throws ServiceProjectException {
+    public void expiredOrderNotification(Order expiredOrder) {
         ResourceBundle bundle = ResourceBundle.getBundle(MESSAGE_FILENAME);
         String mailSubject = bundle.getString(EXPIRED_ORDER_SUBJECT);
-        String reason = switch (expiredOrder.getStatus()){
+        String reason = switch (expiredOrder.getStatus()) {
             case PENDING -> EXPIRED_REASON_NOT_CONFIRM;
             case AWAITING_PAYMENT -> EXPIRED_REASON_PAYMENT;
             default -> EXPIRED_REASON_DEFAULT;
@@ -94,25 +77,16 @@ public class ClientNotificationServiceImpl implements ClientNotificationService 
         mailText.add(bundle.getString(EXPIRED_ORDER_CAR) + expiredOrder.getCar().getModel());
         mailText.add(bundle.getString(EXPIRED_ORDER_TEXT));
         mailText.add(bundle.getString(reason));
-
-        try {
-            MailSender.sendMail(expiredOrder.getClient().getEmail(), mailSubject, mailText.toString());
-        } catch (MessagingException | IOException e) {
-            throw new ServiceProjectException("An error occurred while sending the decline order email", e);
-        }
+        MailSender.sendMail(expiredOrder.getClient().getEmail(), mailSubject, mailText.toString());
     }
+
     @Override
-    public void completeOrderNotification(Order completedOrder) throws ServiceProjectException {
+    public void completeOrderNotification(Order completedOrder) {
         ResourceBundle bundle = ResourceBundle.getBundle(MESSAGE_FILENAME);
         String mailSubject = bundle.getString(COMPLETE_ORDER_SUBJECT);
         StringJoiner mailText = new StringJoiner(TEXT_SEPARATOR);
         mailText.add(bundle.getString(COMPLETE_ORDER_CAR) + completedOrder.getCar().getModel());
         mailText.add(bundle.getString(COMPLETE_ORDER_TEXT));
-
-        try {
-            MailSender.sendMail(completedOrder.getClient().getEmail(), mailSubject, mailText.toString());
-        } catch (MessagingException | IOException e) {
-            throw new ServiceProjectException("An error occurred while sending the decline order email", e);
-        }
+        MailSender.sendMail(completedOrder.getClient().getEmail(), mailSubject, mailText.toString());
     }
 }

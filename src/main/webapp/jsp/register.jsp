@@ -31,23 +31,32 @@
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="email" type="email"
                            autofocus required value="${registerParameters.get("email")}"
-                           minlength="7" maxlength="255" title="<fmt:message key="input.email"/>">
+                           minlength="7" maxlength="255" onchange="this.setCustomValidity('')"
+                           title="<fmt:message key="register.email"/>"
+                           oninvalid="this.setCustomValidity('<fmt:message key="register.email.validation"/>')">
                 </div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
                     <label class="col-form-label"><fmt:message key="register.password"/></label></div>
                 <div class="col-sm-4 input-column">
-                    <input class="form-control" name="password" type="password"
-                           required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}" minlength="8" maxlength="255">
+                    <input class="form-control" name="password" type="password" minlength="8" maxlength="255" id="pass"
+                           required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
+                           oninvalid="this.setCustomValidity('<fmt:message key="register.password.validation"/>')"
+                           onkeyup="checkPasses()" title="<fmt:message key="register.password"/>">
+                </div>
+                <div class="col-sm-4 input-column" id="not_valid" style="display: none">
+                    <label class="alert-danger"><fmt:message key="register.invalid_passwords"/></label>
                 </div>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
                     <label class="col-form-label"><fmt:message key="register.confirm_password"/></label></div>
                 <div class="col-sm-4 input-column">
-                    <input class="form-control" name="confirm_password" type="password"
-                           required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}" minlength="8" maxlength="255">
+                    <input class="form-control" name="confirm_password" type="password" minlength="8" maxlength="255" id="passConf"
+                           required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{7,}"
+                           oninvalid="this.setCustomValidity('<fmt:message key="register.password.validation"/>')"
+                           onkeyup="checkPasses()" title="<fmt:message key="register.confirm_password"/>">
                 </div>
             </div>
             <div class="form-row form-group">
@@ -55,17 +64,20 @@
                     <label class="col-form-label"><fmt:message key="register.first_name"/></label></div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="first_name" type="text"
-                           pattern="[a-zA-Zа-яА-Я-]{1,20}"
-                           required value="${registerParameters.get("first_name")}">
+                           pattern="[a-zA-Zа-яА-Я-]{1,20}" required value="${registerParameters.get("first_name")}"
+                           oninvalid="this.setCustomValidity('<fmt:message key="register.name.validation"/>')"
+                           onchange="this.setCustomValidity('')" title="<fmt:message key="register.first_name"/>">
                 </div>
             </div>
             <div class="form-row form-group">
-                <div class="col-sm-4 label-column"><label class="col-form-label label-column"><fmt:message key="register.second_name"/></label>
+                <div class="col-sm-4 label-column">
+                    <label class="col-form-label label-column"><fmt:message key="register.second_name"/></label>
                 </div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="second_name" type="text"
-                           pattern="[a-zA-Zа-яА-Я-]{1,20}"
-                           required value="${registerParameters.get("second_name")}">
+                           pattern="[a-zA-Zа-яА-Я-]{1,20}" required value="${registerParameters.get("second_name")}"
+                           oninvalid="this.setCustomValidity('<fmt:message key="register.name.validation"/>')"
+                           onchange="this.setCustomValidity('')" title="<fmt:message key="register.second_name"/>">
                 </div>
             </div>
             <div class="form-row form-group">
@@ -74,7 +86,9 @@
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="driver_license" type="text"
                            pattern="([0-9]?[a-zA-Z]{2}\s?[0-9]{6})"
-                           required value="${registerParameters.get("driver_license")}">
+                           required value="${registerParameters.get("driver_license")}"
+                           title="<fmt:message key="register.driver_license"/>"
+                           oninvalid="this.setCustomValidity('<fmt:message key="register.driver_license.validation"/>')">
                 </div>
             </div>
             <div class="form-row form-group">
@@ -82,7 +96,9 @@
                     <fmt:message key="register.phone_number"/></label></div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="phone_number" type="text"
-                           pattern="^(\+)?([-_():\s]?\d[-_():\s]?){12}?$" value="${registerParameters.get("phone_number")}">
+                           pattern="^(\+)?([-_():\s]?\d[-_():\s]?){12}?$" value="${registerParameters.get("phone_number")}"
+                           title="<fmt:message key="register.phone_number"/>"
+                           oninvalid="this.setCustomValidity('<fmt:message key="register.phone_number.validation"/>')">
                 </div>
             </div>
             <input type="hidden" name="command" value="register_client">
@@ -99,5 +115,6 @@
 <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/grayscale.js"></script>
+<script src="${pageContext.request.contextPath}/js/date_range.js"></script>
 </body>
 </html>

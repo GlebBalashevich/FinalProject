@@ -1,5 +1,9 @@
 package by.balashevich.finalproject.util;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -8,6 +12,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class MailSender {
+    private static final Logger logger = LogManager.getLogger();
     private static final String CONFIG_FILEPATH = "config/mail.properties";
     private static final String USER_NAME = "mail.user.name";
     private static final String USER_PASSWORD = "mail.user.password";
@@ -15,24 +20,30 @@ public class MailSender {
     private MailSender() {
     }
 
-    public static void sendMail(String recipientAddress, String subject, String text) throws IOException, MessagingException {
-        Properties properties = getProperties();
-        Session session = getSession(properties);
-        Message message = new MimeMessage(session);
-
-        message.setFrom(new InternetAddress((String) properties.get(USER_NAME)));
-        message.setSubject(subject);
-        message.setText(text);
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientAddress));
-
-        Transport.send(message);
+    public static void sendMail(String recipientAddress, String subject, String text) {
+        try {
+            Properties properties = getProperties();
+            Session session = getSession(properties);
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress((String) properties.get(USER_NAME)));
+            message.setSubject(subject);
+            message.setText(text);
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientAddress));
+            Transport.send(message);
+        } catch (MessagingException e) {
+            logger.log(Level.ERROR, "Error occurred when email sending to" + recipientAddress, e);
+        }
     }
 
-    private static Properties getProperties() throws IOException {
+    private static Properties getProperties() {
         Properties properties = new Properties();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream stream = loader.getResourceAsStream(CONFIG_FILEPATH);
-        properties.load(stream);
+        try {
+            properties.load(stream);
+        } catch (IOException e) {
+            logger.log(Level.ERROR, "Error occurred when email sending, problem with mail api properties data", e);
+        }
 
         return properties;
     }
@@ -47,5 +58,4 @@ public class MailSender {
 
         return session;
     }
-
 }

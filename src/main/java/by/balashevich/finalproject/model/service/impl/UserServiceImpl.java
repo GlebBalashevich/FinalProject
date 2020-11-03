@@ -30,18 +30,20 @@ public class UserServiceImpl implements UserService {
             try {
                 Map<String, Object> preparedClientParameters = new HashMap<>();
                 String encryptedPassword = PasswordEncryption.encryptPassword(clientParameters.get(PASSWORD));
-                String normalizedPhone = clientParameters.get(PHONE_NUMBER).replaceAll(PUNCTUATION_PATTERN, EMPTY_VALUE);
-                long phoneNumber = Long.parseLong(normalizedPhone);
-                preparedClientParameters.put(EMAIL, clientParameters.get(EMAIL).toLowerCase());
-                preparedClientParameters.put(PASSWORD, encryptedPassword);
-                preparedClientParameters.put(ROLE, User.Role.CLIENT);
-                preparedClientParameters.put(FIRST_NAME, clientParameters.get(FIRST_NAME));
-                preparedClientParameters.put(SECOND_NAME, clientParameters.get(SECOND_NAME));
-                preparedClientParameters.put(DRIVER_LICENSE, clientParameters.get(DRIVER_LICENSE));
-                preparedClientParameters.put(PHONE_NUMBER, phoneNumber);
-                preparedClientParameters.put(CLIENT_STATUS, Client.Status.PENDING);
-                isClientAdded = userDao.add(preparedClientParameters);
-            } catch (DaoProjectException | NoSuchAlgorithmException e) {
+                if (!encryptedPassword.isEmpty()) {
+                    String normalizedPhone = clientParameters.get(PHONE_NUMBER).replaceAll(PUNCTUATION_PATTERN, EMPTY_VALUE);
+                    long phoneNumber = Long.parseLong(normalizedPhone);
+                    preparedClientParameters.put(EMAIL, clientParameters.get(EMAIL).toLowerCase());
+                    preparedClientParameters.put(PASSWORD, encryptedPassword);
+                    preparedClientParameters.put(ROLE, User.Role.CLIENT);
+                    preparedClientParameters.put(FIRST_NAME, clientParameters.get(FIRST_NAME));
+                    preparedClientParameters.put(SECOND_NAME, clientParameters.get(SECOND_NAME));
+                    preparedClientParameters.put(DRIVER_LICENSE, clientParameters.get(DRIVER_LICENSE));
+                    preparedClientParameters.put(PHONE_NUMBER, phoneNumber);
+                    preparedClientParameters.put(CLIENT_STATUS, Client.Status.PENDING);
+                    isClientAdded = userDao.add(preparedClientParameters);
+                }
+            } catch (DaoProjectException e) {
                 throw new ServiceProjectException("Error occurred during adding Client into database", e);
             }
         }
@@ -128,12 +130,12 @@ public class UserServiceImpl implements UserService {
                 String userPassword = userDao.findPasswordByEmail(email);
                 if (userPassword != null && !userPassword.isEmpty()) {
                     String verifyingPassword = PasswordEncryption.encryptPassword(password);
-                    if (userPassword.equals(verifyingPassword)) {
+                    if (!verifyingPassword.isEmpty() && userPassword.equals(verifyingPassword)) {
                         isApproved = true;
                     }
                 }
             }
-        } catch (DaoProjectException | NoSuchAlgorithmException e) {
+        } catch (DaoProjectException e) {
             throw new ServiceProjectException("An error occurred while verifying user", e);
         }
 

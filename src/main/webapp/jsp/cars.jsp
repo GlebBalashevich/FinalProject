@@ -31,16 +31,18 @@
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_from"/></label></div>
                     <div class="col-7 input-column">
-                        <input class="form-control form-control--date" type="date" name="date_from"
-                               value="${sessionScope.carParameters.get("date_from")}" required>
+                        <input class="form-control form-control--date" type="date" name="date_from" id="df"
+                               value="${sessionScope.carParameters.get("date_from")}" required
+                               oninvalid="this.setCustomValidity('<fmt:message key="cars.date_from.validation"/>')">
                     </div>
                 </div>
                 <div class="form-row form-group">
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_to"/></label></div>
                     <div class="col-7 input-column">
-                        <input class="form-control form-control--date" type="date" name="date_to"
-                               value="${sessionScope.carParameters.get("date_to")}" required>
+                        <input class="form-control form-control--date" type="date" name="date_to"  id="dt"
+                               value="${sessionScope.carParameters.get("date_to")}" required
+                               oninvalid="this.setCustomValidity('<fmt:message key="cars.date_to.validation"/>')">
                     </div>
                 </div>
                 <div class="form-row form-group">
@@ -96,7 +98,6 @@
 </header>
 <c:import url="${pageContext.request.contextPath}/jsp/fragment/footer.jsp"/>
 
-<script src="${pageContext.request.contextPath}/js/date_range.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
@@ -105,5 +106,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://bootstraptema.ru/plugins/2018/irs/ion.rangeSlider.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/price_range.js"></script>
+<script src="${pageContext.request.contextPath}/js/date_range.js"></script>
 </body>
 </html>
