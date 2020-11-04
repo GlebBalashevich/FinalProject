@@ -126,10 +126,10 @@ ____
       * Changing the site language
       * Login / Register
   * **Client**  
-    The client, in turn, has three statuses: ** Pending, Active, Blocked **. 
-    The guest who has passed the registration procedure is assigned the role ** Client ** and the status ** Pending**. The client's email address specified during registration is sent
-     a letter with a link by clicking on which the client's status changes to ** Active **. If the client violates the rules for using the service, the administrator can block it,
-     status from ** Active ** will change to ** Blocked **.
+    The client, in turn, has three statuses: **Pending, Active, Blocked**. 
+    The guest who has passed the registration procedure is assigned the role **Client** and the status **Pending**. The client's email address specified during registration is sent
+     a letter with a link by clicking on which the client's status changes to **Active**. If the client violates the rules for using the service, the administrator can block it,
+     status from **Active** will change to **Blocked**.
     
     Functionality:
       * **Pending**  
