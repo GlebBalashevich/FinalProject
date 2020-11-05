@@ -9,7 +9,6 @@ import by.balashevich.finalproject.model.service.UserService;
 import by.balashevich.finalproject.util.PasswordEncryption;
 import by.balashevich.finalproject.validator.UserValidator;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 
 public class UserServiceImpl implements UserService {
     private static final String EMPTY_VALUE = "";
-    private static final String PUNCTUATION_PATTERN = "[\\p{Punct}\\p{Space}]";
+    private static final String PUNCTUATION = "[\\p{Punct}\\p{Space}]";
     UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     @Override
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
                 Map<String, Object> preparedClientParameters = new HashMap<>();
                 String encryptedPassword = PasswordEncryption.encryptPassword(clientParameters.get(PASSWORD));
                 if (!encryptedPassword.isEmpty()) {
-                    String normalizedPhone = clientParameters.get(PHONE_NUMBER).replaceAll(PUNCTUATION_PATTERN, EMPTY_VALUE);
+                    String normalizedPhone = clientParameters.get(PHONE_NUMBER).replaceAll(PUNCTUATION, EMPTY_VALUE);
                     long phoneNumber = Long.parseLong(normalizedPhone);
                     preparedClientParameters.put(EMAIL, clientParameters.get(EMAIL).toLowerCase());
                     preparedClientParameters.put(PASSWORD, encryptedPassword);
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
                     isClientAdded = userDao.add(preparedClientParameters);
                 }
             } catch (DaoProjectException e) {
-                throw new ServiceProjectException("Error occurred during adding Client into database", e);
+                throw new ServiceProjectException(e);
             }
         }
 
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("An error occurred while updating client status", e);
+            throw new ServiceProjectException(e);
         }
 
         return isParameterUpdated;
@@ -82,7 +81,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("An error occurred while updating client status", e);
+            throw new ServiceProjectException(e);
         }
 
         return isStatusUpdated;
@@ -99,7 +98,7 @@ public class UserServiceImpl implements UserService {
                 targetUser = Optional.empty();
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("An error occurred during searching user by email", e);
+            throw new ServiceProjectException(e);
         }
 
         return targetUser;
@@ -116,8 +115,9 @@ public class UserServiceImpl implements UserService {
                 targetClients = userDao.findAllClients();
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while searching clients by status", e);
+            throw new ServiceProjectException(e);
         }
+
         return targetClients;
     }
 
@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("An error occurred while verifying user", e);
+            throw new ServiceProjectException(e);
         }
 
         return isApproved;
@@ -151,11 +151,9 @@ public class UserServiceImpl implements UserService {
                 isExist = !userDao.existEmail(email).isEmpty();
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("An error occurred while searching user record", e);
+            throw new ServiceProjectException(e);
         }
 
         return isExist;
     }
-
-
 }

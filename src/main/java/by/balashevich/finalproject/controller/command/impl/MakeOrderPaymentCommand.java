@@ -45,10 +45,9 @@ public class MakeOrderPaymentCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.PAYMENT_FAILED, true);
             }
         } catch (ServiceProjectException e){
-            logger.log(Level.ERROR, "error in payment process", e);
+            logger.log(Level.ERROR, "Order Id" + payableOrder, e);
             session.removeAttribute(AttributeKey.PAYABLE_ORDER);
-            request.setAttribute(AttributeKey.ORDER_STATUS_UPDATED, false);
-            router = new Router(PageName.CLIENT_ORDERS.getPath());
+            router = new Router(PageName.ERROR_500.getPath());
         }
 
         return router;

@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             isOrderAdded = orderDao.add(preparedOrderParameters);
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while creating new order", e);
+            throw new ServiceProjectException(e);
         }
 
         return isOrderAdded;
@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
         try {
             isOrderDeclined = orderDao.remove(decliningOrder);
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while declining order", e);
+            throw new ServiceProjectException(e);
         }
 
         return isOrderDeclined;
@@ -67,11 +67,11 @@ public class OrderServiceImpl implements OrderService {
         List<Order> inspectingOrders;
         int numberManagedOrders = 0;
 
-        try{
+        try {
             inspectingOrders = orderDao.findWaitingActionOrders();
-            if (inspectingOrders != null && !inspectingOrders.isEmpty()){
+            if (inspectingOrders != null && !inspectingOrders.isEmpty()) {
                 LocalDate today = LocalDate.now();
-                for(Order inspectingOrder : inspectingOrders){
+                for (Order inspectingOrder : inspectingOrders) {
                     if (inspectingOrder.getStatus() == Order.Status.PENDING
                             || inspectingOrder.getStatus() == Order.Status.AWAITING_PAYMENT) {
                         if (today.toEpochDay() >= inspectingOrder.getDateFrom().toEpochDay()) {
@@ -82,16 +82,16 @@ public class OrderServiceImpl implements OrderService {
                         }
                     }
                     if (inspectingOrder.getStatus() == Order.Status.ACTIVE)
-                    if (today.toEpochDay() > inspectingOrder.getDateTo().toEpochDay()){
-                        if (orderDao.updateOrderStatus(inspectingOrder.getOrderId(), Order.Status.COMPLETED)){
-                            notificationService.completeOrderNotification(inspectingOrder);
-                            numberManagedOrders++;
+                        if (today.toEpochDay() > inspectingOrder.getDateTo().toEpochDay()) {
+                            if (orderDao.updateOrderStatus(inspectingOrder.getOrderId(), Order.Status.COMPLETED)) {
+                                notificationService.completeOrderNotification(inspectingOrder);
+                                numberManagedOrders++;
+                            }
                         }
-                    }
                 }
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while deleting expired orders", e);
+            throw new ServiceProjectException(e);
         }
 
         return numberManagedOrders;
@@ -110,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
                 }
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while updating order status", e);
+            throw new ServiceProjectException(e);
         }
 
         return isOrderStatusUpdated;
@@ -120,17 +120,18 @@ public class OrderServiceImpl implements OrderService {
     public boolean orderPayment(Order payableOrder, Map<String, String> paymentParameters) throws ServiceProjectException {
         boolean isPaymentComplete = false;
 
-        try{
-            if (PaymentValidator.validatePaymentParameters(paymentParameters)){
+        try {
+            if (PaymentValidator.validatePaymentParameters(paymentParameters)) {
                 Order.Status status = Order.Status.ACTIVE;
                 isPaymentComplete = orderDao.updateOrderStatus(payableOrder.getOrderId(), status);
-                if (isPaymentComplete){
+                if (isPaymentComplete) {
                     payableOrder.setStatus(status);
                 }
             }
-        } catch (DaoProjectException e){
-            throw new ServiceProjectException("error in payment process", e);
+        } catch (DaoProjectException e) {
+            throw new ServiceProjectException(e);
         }
+
         return isPaymentComplete;
     }
 
@@ -169,7 +170,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findClientOrders(long clientId) throws ServiceProjectException {
         List<Order> targetOrders;
 
-        try{
+        try {
             targetOrders = orderDao.findClientOrders(clientId);
         } catch (DaoProjectException e) {
             throw new ServiceProjectException(e);

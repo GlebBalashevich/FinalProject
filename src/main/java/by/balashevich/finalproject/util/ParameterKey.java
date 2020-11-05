@@ -45,17 +45,17 @@ public class ParameterKey {
     public static final String CARD_EXPIRATION_YEAR = "card_exp_year";  //payment data
     public static final String CARD_CVV_CODE = "card_cvv";              //payment data
 
-    public static final String CAR_INDEX="car_index";                   //car index in car list
-    public static final String CLIENT_INDEX="client_index";             //client index in client list
-    public static final String ORDER_INDEX="order_index";               //order index in order list
-    public static final String IMAGE_TYPE="image_type";                 //boot image controller
+    public static final String CAR_INDEX = "car_index";                   //car index in car list
+    public static final String CLIENT_INDEX = "client_index";             //client index in client list
+    public static final String ORDER_INDEX = "order_index";               //order index in order list
+    public static final String IMAGE_TYPE = "image_type";                 //boot image controller
 
-    public static final String PAGINATION_DIRECTION="pagination_direction";     //pagination
-    public static final String PAGINATION_SUBJECT="pagination_subject";         //pagination
-    public static final String NEXT_PAGE = "next_page";                         //pagination direction
-    public static final String PREVIOUS_PAGE = "previous_page";                 //pagination direction
+    public static final String PAGINATION_DIRECTION = "pagination_direction";       //pagination
+    public static final String PAGINATION_SUBJECT = "pagination_subject";           //pagination
+    public static final String NEXT_PAGE = "next_page";                             //pagination direction
+    public static final String PREVIOUS_PAGE = "previous_page";                     //pagination direction
 
-    public static final String COMMAND = "command";                     //command
+    public static final String COMMAND = "command";                                 //command
 
     private ParameterKey() {
     }

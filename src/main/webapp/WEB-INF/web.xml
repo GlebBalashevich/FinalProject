@@ -3,23 +3,64 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>process_controller</servlet-name>
+        <servlet-class>by.balashevich.finalproject.controller.ProcessController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>process_controller</servlet-name>
+        <url-pattern>/CarBook</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>JspSecurityFilter</filter-name>
+        <filter-class>by.balashevich.finalproject.controller.filter.JspSecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>JspSecurityFilter</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ClientStatusSecurityFilter</filter-name>
+        <filter-class>by.balashevich.finalproject.controller.filter.ClientStatusSecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ClientStatusSecurityFilter</filter-name>
+        <url-pattern>/CarBook</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ServletSecurityFilter</filter-name>
+        <filter-class>by.balashevich.finalproject.controller.filter.ServletSecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ServletSecurityFilter</filter-name>
+        <url-pattern>/CarBook</url-pattern>
+
+    </filter-mapping>
     <error-page>
         <error-code>400</error-code>
         <location>/jsp/error/error404.jsp</location>
     </error-page>
+
     <error-page>
         <error-code>404</error-code>
         <location>/jsp/error/error404.jsp</location>
     </error-page>
+
     <error-page>
         <error-code>500</error-code>
         <location>/jsp/error/error500.jsp</location>
     </error-page>
+
     <request-character-encoding>UTF-8</request-character-encoding>
+
     <context-param>
         <param-name>upload.location</param-name>
         <param-value>C:/workspace/car_images/</param-value>
     </context-param>
+
     <jsp-config>
         <taglib>
             <taglib-uri>paginationtags</taglib-uri>

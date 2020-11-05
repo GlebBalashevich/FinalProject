@@ -22,5 +22,4 @@ public interface UserService {
     boolean authorizeUser(String email, String password) throws ServiceProjectException;
 
     boolean existUser(String email) throws ServiceProjectException;
-
 }

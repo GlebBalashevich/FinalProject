@@ -31,7 +31,6 @@ public class UserDaoImpl implements UserDao {
     private static final String EMPTY_VALUE = "";
 
     private UserDaoImpl(){
-
     }
 
     public static UserDaoImpl getInstance(){
@@ -59,30 +58,30 @@ public class UserDaoImpl implements UserDao {
             statement.setInt(8, ((Client.Status) userParameters.get(CLIENT_STATUS)).ordinal());
             isClientAdded = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during Dao adding client into database", e);
+            throw new DaoProjectException("Error when executing a query to add a client", e);
         }
 
         return isClientAdded;
     }
 
     @Override
-    public boolean remove(User user) throws DaoProjectException {
-        return false;
+    public boolean remove(User user){
+        throw new UnsupportedOperationException("Operation Remove not allowed with user");
     }
 
     @Override
-    public boolean update(User user) throws DaoProjectException {
-        return false;
+    public boolean update(User user){
+        throw new UnsupportedOperationException("Operation Update not allowed with user");
     }
 
     @Override
-    public Optional<User> findById(long id) throws DaoProjectException {
-        return null;
+    public Optional<User> findById(long id){
+        throw new UnsupportedOperationException("Operation FindById not allowed with user");
     }
 
     @Override
-    public List<User> findAll() throws DaoProjectException {
-        return null;
+    public List<User> findAll(){
+        throw new UnsupportedOperationException("Operation FindAll not allowed with user");
     }
 
     @Override
@@ -97,7 +96,7 @@ public class UserDaoImpl implements UserDao {
                 targetClients.add((Client) createUser(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during changing password in database", e);
+            throw new DaoProjectException("Error when executing a query to find all clients", e);
         }
 
         return targetClients;
@@ -114,7 +113,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(2, email);
             isParameterChanged = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during changing password in database", e);
+            throw new DaoProjectException("Error when executing a query to update a client status", e);
         }
 
         return isParameterChanged;
@@ -133,7 +132,7 @@ public class UserDaoImpl implements UserDao {
                 targetStatus = Client.Status.getClientStatus(resultSet.getInt(1));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching client status by email", e);
+            throw new DaoProjectException("Error when executing a query to find client status by client email", e);
         }
 
         return targetStatus;
@@ -154,7 +153,7 @@ public class UserDaoImpl implements UserDao {
                 targetUser = Optional.empty();
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching user by email", e);
+            throw new DaoProjectException("Error when executing a query to find a client by email", e);
         }
 
         return targetUser;
@@ -173,7 +172,7 @@ public class UserDaoImpl implements UserDao {
                 userPassword = resultSet.getString(PASSWORD);
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching password by email", e);
+            throw new DaoProjectException("Error when executing a query to find client password by a client email", e);
         }
 
         return userPassword;
@@ -192,7 +191,7 @@ public class UserDaoImpl implements UserDao {
                 targetClients.add((Client) createUser(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching clients by status", e);
+            throw new DaoProjectException("Error when executing a query to find clients by status", e);
         }
 
         return targetClients;
@@ -211,7 +210,7 @@ public class UserDaoImpl implements UserDao {
                 email = resultSet.getString(EMAIL);
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching email in database", e);
+            throw new DaoProjectException("error when executing a query to check the existence of a user", e);
         }
 
         return email;

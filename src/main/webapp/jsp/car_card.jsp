@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="col-6" id="orderDetails">
-                <form action="process_controller" method="post" class="shadow-none custom-form" style="font-family: Nunito">
+                <form action="CarBook" method="post" class="shadow-none custom-form" style="font-family: Nunito">
                     <table class="table table-sm" id="orderTable">
                         <tr>
                             <th><fmt:message key="order.date_from"/></th>
@@ -86,7 +86,7 @@
                             <td>
                                 <div class="form-row form-group">
                                     <div class="input-column" >
-                                        <form action="process_controller" method="post" style="font-family: Nunito">
+                                        <form action="CarBook" method="post" style="font-family: Nunito">
                                             <input type="hidden" name="car_id" value="${car.carId}">
                                             <input type="hidden" name="user_id" value="${sessionScope.user.userId}">
                                             <input type="hidden" name="date_from" value="${date_from}">

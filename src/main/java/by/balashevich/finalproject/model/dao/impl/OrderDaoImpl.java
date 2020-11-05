@@ -36,12 +36,11 @@ public class OrderDaoImpl implements OrderDao {
     private static final String AND_KEYWORD = " AND";
     private static final String DOT = ".";
 
-    private OrderDaoImpl(){
-
+    private OrderDaoImpl() {
     }
 
-    public static OrderDaoImpl getInstance(){
-        if (orderDao == null){
+    public static OrderDaoImpl getInstance() {
+        if (orderDao == null) {
             orderDao = new OrderDaoImpl();
         }
 
@@ -63,7 +62,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setLong(6, (long) orderParameters.get(USER_ID));
             isOrderAdded = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while adding order to dataBase", e);
+            throw new DaoProjectException("Error when executing a query to add an order", e);
         }
 
         return isOrderAdded;
@@ -79,7 +78,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setLong(1, order.getOrderId());
             isOrderRemoved = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while removing order from dataBase", e);
+            throw new DaoProjectException("Error when executing a query to remove an order", e);
         }
 
         return isOrderRemoved;
@@ -101,7 +100,7 @@ public class OrderDaoImpl implements OrderDao {
             statement.setLong(2, orderId);
             isStatusUpdated = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while updating order status", e);
+            throw new DaoProjectException("Error when executing a query to update an order status", e);
         }
         return isStatusUpdated;
     }
@@ -123,7 +122,7 @@ public class OrderDaoImpl implements OrderDao {
                 targetOrders.add(createOrder(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while searching all orders in database", e);
+            throw new DaoProjectException("Error when executing a query to search all orders", e);
         }
 
         return targetOrders;
@@ -141,7 +140,7 @@ public class OrderDaoImpl implements OrderDao {
                 targetOrders.add(createOrder(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while searching waiting action orders", e);
+            throw new DaoProjectException("Error when executing a query to search all waiting action orders", e);
         }
 
         return targetOrders;
@@ -187,7 +186,7 @@ public class OrderDaoImpl implements OrderDao {
                 targetOrders.add(createOrder(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while searching orders by status in database", e);
+            throw new DaoProjectException("Error when executing a query to search orders by parameters", e);
         }
 
         return targetOrders;
@@ -206,7 +205,7 @@ public class OrderDaoImpl implements OrderDao {
                 targetOrders.add(createOrder(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while searching client orders in database", e);
+            throw new DaoProjectException("Error when executing a query to search orders by client Id", e);
         }
 
         return targetOrders;

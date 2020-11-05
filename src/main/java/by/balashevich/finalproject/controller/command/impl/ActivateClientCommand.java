@@ -33,8 +33,8 @@ public class ActivateClientCommand implements ActionCommand {
             }
             router = new Router(PageName.NOTIFICATION.getPath());
         } catch (ServiceProjectException e) {
+            logger.log(Level.ERROR, "Client Email " + clientEmail, e);
             router = new Router(PageName.ERROR_500.getPath());
-            logger.log(Level.ERROR, "An error occurred during client activating", e);
         }
 
         return router;

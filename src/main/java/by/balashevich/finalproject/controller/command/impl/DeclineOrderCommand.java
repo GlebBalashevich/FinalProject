@@ -45,7 +45,7 @@ public class DeclineOrderCommand implements ActionCommand {
             }
             router = new Router(PageName.ADMIN_ORDERS.getPath());
         } catch (ServiceProjectException e) {
-            logger.log(Level.ERROR, "error while declining order", e);
+            logger.log(Level.ERROR, "Order Id " + decliningOrder.getOrderId(), e);
             router = new Router(PageName.ERROR_500.getPath());
         }
 

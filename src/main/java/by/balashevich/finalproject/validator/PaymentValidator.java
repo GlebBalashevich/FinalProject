@@ -38,6 +38,7 @@ public class PaymentValidator {
         if (cardHolderData != null && !cardHolderData.isEmpty()) {
             isCardHolderValid = cardHolderData.matches(CARD_HOLDER_PATTERN);
         }
+
         return isCardHolderValid;
     }
 

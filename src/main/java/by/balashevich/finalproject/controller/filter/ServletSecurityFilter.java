@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
-@WebFilter(urlPatterns = "/process_controller")
+@WebFilter(urlPatterns = "/CarBook")
 public class ServletSecurityFilter implements Filter {
     public void destroy() {
     }
@@ -47,6 +47,6 @@ public class ServletSecurityFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    public void init(FilterConfig config){
+    public void init(FilterConfig config) {
     }
 }

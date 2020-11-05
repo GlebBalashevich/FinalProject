@@ -44,7 +44,7 @@ public class FilterOrdersCommand implements ActionCommand {
             }
             router = new Router(PageName.ADMIN_ORDERS.getPath());
         } catch (ServiceProjectException e) {
-            logger.log(Level.ERROR, "error while searching orders", e);
+            logger.log(Level.ERROR, "Number of parameters" + orderParameters.size(), e);
             router = new Router(PageName.ERROR_500.getPath());
         }
 

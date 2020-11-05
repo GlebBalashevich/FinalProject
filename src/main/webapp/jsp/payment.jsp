@@ -40,7 +40,7 @@
                                 <c:if test="${requestScope.paymentFailed}">
                                     <p class="alert alert-danger"><fmt:message key="payment.label.payment_error"/></p>
                                 </c:if>
-                                <form action="process_controller" method="post" role="form" class="custom-form">
+                                <form action="CarBook" method="post" role="form" class="custom-form">
                                     <div class="form-group">
                                         <label for="username"><fmt:message key="payment.label.card_holder"/></label>
                                         <input type="text" id="username" name="card_holder" placeholder="<fmt:message key="payment.placeholder.full_name"/>" required

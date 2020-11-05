@@ -21,9 +21,12 @@
     <div class="intro-body">
     <div class="row register-form" id="register_form">
     <div class="col-md-8 offset-md-2">
-        <form action="process_controller" method="post" class="shadow-lg custom-form" id="register" style="background-color: rgba(0,0,0,0.08); font-family: Nunito">
+        <form action="CarBook" method="post" class="shadow-lg custom-form" id="register" style="background-color: rgba(0,0,0,0.08); font-family: Nunito">
             <c:if test="${not empty registerParameters}">
                 <label class="alert-danger"><fmt:message key="register.invalid_parameters"/></label>
+            </c:if>
+            <c:if test="${userExist}">
+                <label class="alert-warning"><fmt:message key="register.user_exist"/></label>
             </c:if>
             <div class="form-row form-group" style="margin: 0px -5px 15px;">
                 <div class="col-sm-4 label-column">
@@ -33,8 +36,14 @@
                            autofocus required value="${registerParameters.get("email")}"
                            minlength="7" maxlength="255" onchange="this.setCustomValidity('')"
                            title="<fmt:message key="register.email"/>"
+                           onchange="this.setCustomValidity('')"
                            oninvalid="this.setCustomValidity('<fmt:message key="register.email.validation"/>')">
                 </div>
+                <c:if test='${not empty registerParameters && empty registerParameters.get("email")}'>
+                    <div class="col-sm-4 input-column">
+                        <label class="alert-danger"><fmt:message key="register.invalid_email"/></label>
+                    </div>
+                </c:if>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
@@ -43,9 +52,10 @@
                     <input class="form-control" name="password" type="password" minlength="8" maxlength="255" id="pass"
                            required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
                            oninvalid="this.setCustomValidity('<fmt:message key="register.password.validation"/>')"
+                           onchange="this.setCustomValidity('')"
                            onkeyup="checkPasses()" title="<fmt:message key="register.password"/>">
                 </div>
-                <div class="col-sm-4 input-column" id="not_valid" style="display: none">
+                <div class="col-sm-4 input-column" style="display: none">
                     <label class="alert-danger"><fmt:message key="register.invalid_passwords"/></label>
                 </div>
             </div>
@@ -56,6 +66,7 @@
                     <input class="form-control" name="confirm_password" type="password" minlength="8" maxlength="255" id="passConf"
                            required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{7,}"
                            oninvalid="this.setCustomValidity('<fmt:message key="register.password.validation"/>')"
+                           onchange="this.setCustomValidity('')"
                            onkeyup="checkPasses()" title="<fmt:message key="register.confirm_password"/>">
                 </div>
             </div>
@@ -68,6 +79,11 @@
                            oninvalid="this.setCustomValidity('<fmt:message key="register.name.validation"/>')"
                            onchange="this.setCustomValidity('')" title="<fmt:message key="register.first_name"/>">
                 </div>
+                <c:if test='${not empty registerParameters && empty registerParameters.get("first_name")}'>
+                    <div class="col-sm-4 input-column">
+                        <label class="alert-danger"><fmt:message key="register.invalid_name"/></label>
+                    </div>
+                </c:if>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
@@ -79,6 +95,11 @@
                            oninvalid="this.setCustomValidity('<fmt:message key="register.name.validation"/>')"
                            onchange="this.setCustomValidity('')" title="<fmt:message key="register.second_name"/>">
                 </div>
+                <c:if test='${not empty registerParameters && empty registerParameters.get("second_name")}'>
+                    <div class="col-sm-4 input-column">
+                        <label class="alert-danger"><fmt:message key="register.invalid_name"/></label>
+                    </div>
+                </c:if>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column"><label class="col-form-label">
@@ -88,8 +109,14 @@
                            pattern="([0-9]?[a-zA-Z]{2}\s?[0-9]{6})"
                            required value="${registerParameters.get("driver_license")}"
                            title="<fmt:message key="register.driver_license"/>"
+                           onchange="this.setCustomValidity('')"
                            oninvalid="this.setCustomValidity('<fmt:message key="register.driver_license.validation"/>')">
                 </div>
+                <c:if test='${not empty registerParameters && empty registerParameters.get("driver_license")}'>
+                    <div class="col-sm-4 input-column">
+                        <label class="alert-danger"><fmt:message key="register.invalid_drive_license"/></label>
+                    </div>
+                </c:if>
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column"><label class="col-form-label">
@@ -98,8 +125,14 @@
                     <input class="form-control" name="phone_number" type="text"
                            pattern="^(\+)?([-_():\s]?\d[-_():\s]?){12}?$" value="${registerParameters.get("phone_number")}"
                            title="<fmt:message key="register.phone_number"/>"
+                           onchange="this.setCustomValidity('')"
                            oninvalid="this.setCustomValidity('<fmt:message key="register.phone_number.validation"/>')">
                 </div>
+                <c:if test='${not empty registerParameters && empty registerParameters.get("phone_number")}'>
+                    <div class="col-sm-4 input-column">
+                        <label class="alert-danger"><fmt:message key="register.phone_number"/></label>
+                    </div>
+                </c:if>
             </div>
             <input type="hidden" name="command" value="register_client">
             <button class="btn btn-light submit-button" type="submit" id="butt">

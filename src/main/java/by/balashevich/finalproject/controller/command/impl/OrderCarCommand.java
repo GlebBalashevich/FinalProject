@@ -49,11 +49,10 @@ public class OrderCarCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.SUCCESSFUL_ORDERING, true);
             } else {
                 request.setAttribute(AttributeKey.SUCCESSFUL_ORDERING, false);
-                logger.log(Level.WARN, ""); // TODO: 15.10.2020 message 
             }
             router = new Router(PageName.NOTIFICATION.getPath());
         } catch (ServiceProjectException e) {
-            logger.log(Level.ERROR, "error while creating new order", e);
+            logger.log(Level.ERROR, "User Id" + orderParameters.get(USER_ID), e);
             router = new Router(PageName.ERROR_500.getPath());
         }
 

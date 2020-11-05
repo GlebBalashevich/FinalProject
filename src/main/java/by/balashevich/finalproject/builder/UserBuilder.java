@@ -20,7 +20,6 @@ public class UserBuilder {
         } else {
             buildingUser = new User();
         }
-
         if (userParameters.containsKey(USER_ID)) {
             buildingUser.setUserId((long) userParameters.get(USER_ID));
         }

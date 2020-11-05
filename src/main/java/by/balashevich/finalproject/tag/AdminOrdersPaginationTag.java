@@ -47,7 +47,7 @@ public class AdminOrdersPaginationTag extends TagSupport {
                 out.write("<td>" + order.getStatus().getTitle() + "</td>");
                 Order.Status status = order.getStatus();
                 if (status == Order.Status.PENDING) {
-                    out.write("<form action=\"process_controller\" method=\"post\" class=\"shadow-lg custom-form\">");
+                    out.write("<form action=\"CarBook\" method=\"post\" class=\"shadow-lg custom-form\">");
                     out.write("<td>");
                     out.write("<label class=\"custom-form\">");
                     out.write("<input type=\"hidden\" name=\"order_index\" value=" + i + ">");
@@ -57,7 +57,7 @@ public class AdminOrdersPaginationTag extends TagSupport {
                     out.write("</label>");
                     out.write("</td>");
                     out.write("</form>");
-                    out.write("<form action=\"process_controller\" method=\"post\" class=\"shadow-lg custom-form\">");
+                    out.write("<form action=\"CarBook\" method=\"post\" class=\"shadow-lg custom-form\">");
                     out.write("<td>");
                     out.write("<label class=\"custom-form\">");
                     out.write("<input type=\"hidden\" name=\"order_index\" value=" + i + ">");
@@ -77,12 +77,12 @@ public class AdminOrdersPaginationTag extends TagSupport {
             out.write("<tr>");
             out.write("<td colspan=\"9\" align=\"center\" id=\"pagination\">");
             if (fromIndex >= PAGE_ENTRIES) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=ordersPageNumber&pagination_direction=previous_page\">&lt; </a>");
             }
             out.write("<label>" + pageNumber + "</label>");
             if (toIndex < orderList.size()) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=ordersPageNumber&pagination_direction=next_page\"> &gt;</a>");
             }
             out.write("</td>");

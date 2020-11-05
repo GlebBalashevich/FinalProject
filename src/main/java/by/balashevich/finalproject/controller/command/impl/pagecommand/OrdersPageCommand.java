@@ -40,7 +40,7 @@ public class OrdersPageCommand implements ActionCommand {
                     request.setAttribute(AttributeKey.ORDERS_FOUND, false);
                 }
             } catch (ServiceProjectException e){
-                logger.log(Level.ERROR, "error while searching client orders", e);
+                logger.log(Level.ERROR, "user Id " + user.getUserId(), e);
                 router.setPage(PageName.ERROR_500.getPath());
             }
         }

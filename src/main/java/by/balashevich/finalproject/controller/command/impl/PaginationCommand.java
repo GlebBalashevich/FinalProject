@@ -17,10 +17,10 @@ public class PaginationCommand implements ActionCommand {
         String pageType = request.getParameter(ParameterKey.PAGINATION_SUBJECT);
         int pageNumber = (int) session.getAttribute(pageType);
 
-        if (paginationDirection.equals(ParameterKey.NEXT_PAGE)){
+        if (paginationDirection.equals(ParameterKey.NEXT_PAGE)) {
             session.setAttribute(pageType, ++pageNumber);
         }
-        if (paginationDirection.equals(ParameterKey.PREVIOUS_PAGE)){
+        if (paginationDirection.equals(ParameterKey.PREVIOUS_PAGE)) {
             session.setAttribute(pageType, --pageNumber);
         }
 

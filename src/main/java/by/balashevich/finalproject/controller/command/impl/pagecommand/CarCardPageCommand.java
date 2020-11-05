@@ -48,12 +48,12 @@ public class CarCardPageCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.DATE_TO, dateTo);
                 router = new Router(PageName.CAR_CARD.getPath());
             } else {
+                request.setAttribute(AttributeKey.CAR_FOUND, false);
                 router = new Router(PageName.NOTIFICATION.getPath());
-                // FIXME: 14.10.2020 add message about mistake
             }
         } catch (ServiceProjectException e) {
             router = new Router(PageName.ERROR_500.getPath());
-            logger.log(Level.ERROR, "An error occurred during client adding", e);
+            logger.log(Level.ERROR, "car Id" + carId, e);
         }
 
         return router;

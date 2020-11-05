@@ -21,7 +21,7 @@
     <div class="intro-body">
     <div class="row register-form" id="login_form">
     <div class="col-md-8 offset-md-2">
-        <form action="process_controller" method="post" class="shadow-lg custom-form" style="font-family: Nunito">
+        <form action="CarBook" method="post" class="shadow-lg custom-form" style="font-family: Nunito">
             <label id="labelPage">
                 <fmt:message key="label.login"/>
             </label>
@@ -37,6 +37,7 @@
                     <input class="form-control" name="email" type="email" autofocus required
                            minlength="7" maxlength="255" onchange="this.setCustomValidity('')"
                            title="<fmt:message key="login.email"/>"
+                           onchange="this.setCustomValidity('')"
                            oninvalid="this.setCustomValidity('<fmt:message key="login.email.validation"/>')">
                 </div>
                 <div class="col-4"></div>
@@ -49,6 +50,7 @@
                            pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}" minlength="8"
                            maxlength="255" onchange="this.setCustomValidity('')"
                            title="<fmt:message key="login.password"/>"
+                           onchange="this.setCustomValidity('')"
                            oninvalid="this.setCustomValidity('<fmt:message key="login.password.validation"/>')">
                 </div>
                 <div class="col-4"></div>
@@ -61,7 +63,7 @@
                 <div class="col-5"></div>
                 <div class="col-4"></div>
                 <div class="col-4 input-column" id="regHref">
-                    <a class="shadow-sm" href="process_controller?command=move_register_page">
+                    <a class="shadow-sm" href="CarBook?command=move_register_page">
                         <fmt:message key="login.no_account"/></a>
                 </div>
                 <div class="col-4"></div>

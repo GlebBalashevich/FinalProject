@@ -45,8 +45,8 @@ public class LoginCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.SUCCESSFUL_AUTHORIZATION, false);
             }
         } catch (ServiceProjectException e) {
+            logger.log(Level.ERROR, "User Email " + userEmail, e);
             router = new Router(PageName.ERROR_500.getPath());
-            logger.log(Level.ERROR, "An error occurred during user verification", e);
         }
 
         return router;

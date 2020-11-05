@@ -1,11 +1,11 @@
 package by.balashevich.finalproject.controller.command;
 
 public enum PageName {
-    INDEX("/index.jsp"),
-    LOGIN("/jsp/login.jsp"),
-    REGISTER("/jsp/register.jsp"),
-    HOME("/jsp/home.jsp"),
-    NOTIFICATION("/jsp/notification.jsp"),
+    INDEX("/index.jsp"),                                                //general page
+    LOGIN("/jsp/login.jsp"),                                            //general page
+    REGISTER("/jsp/register.jsp"),                                      //general page
+    HOME("/jsp/home.jsp"),                                              //general page
+    NOTIFICATION("/jsp/notification.jsp"),                              //general page
     CLIENT_CARS("/jsp/cars.jsp"),                                       //client page
     CLIENT_PAYMENT("/jsp/payment.jsp"),                                 //client page
     CLIENT_ORDERS("/jsp/orders.jsp"),                                   //client page

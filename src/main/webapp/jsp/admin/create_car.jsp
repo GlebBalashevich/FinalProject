@@ -30,7 +30,6 @@
                         <td colspan="3">
                             <div class="form-group load-file">
                                 <input type="file" name="file" id="file1">
-                                <label for="file1">Choose file</label>
                             </div>
                         </td>
                         <td>
@@ -111,7 +110,7 @@
                     </tr>
                     </tbody>
                     </form>
-                    <form action="process_controller" method="post" id="createCar" style="background-color: rgba(0,0,0,0.08); font-family: Nunito">
+                    <form action="CarBook" method="post" id="createCar" style="background-color: rgba(0,0,0,0.08); font-family: Nunito">
                     <tbody>
                     <tr>
                         <td><fmt:message key="create_car.model"/></td>

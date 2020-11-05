@@ -27,7 +27,7 @@ public class FilterUsersCommand implements ActionCommand {
         HttpSession session = request.getSession();
         Router router;
 
-        try{
+        try {
             List<Client> clientsList = userService.findClientsByStatus(clientStatusData);
             session.setAttribute(AttributeKey.CLIENT_LIST, clientsList);
             session.setAttribute(AttributeKey.CLIENTS_PAGE_NUMBER, 1);
@@ -35,8 +35,8 @@ public class FilterUsersCommand implements ActionCommand {
                 request.setAttribute(AttributeKey.CLIENTS_FOUND, false);
             }
             router = new Router(PageName.ADMIN_USERS.getPath());
-        } catch (ServiceProjectException e){
-            logger.log(Level.ERROR, "error while searching clients", e);
+        } catch (ServiceProjectException e) {
+            logger.log(Level.ERROR, "Client status " + clientStatusData, e);
             router = new Router(PageName.ERROR_500.getPath());
         }
 

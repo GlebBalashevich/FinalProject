@@ -1,6 +1,5 @@
 package by.balashevich.finalproject.controller;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +15,11 @@ public class UploadImageController extends HttpServlet {
     private static final String CONTENT_LENGTH = "Content-Length";
     private static final String UPLOAD_DIRECTORY = "upload.location";
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        processRequest(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }
 

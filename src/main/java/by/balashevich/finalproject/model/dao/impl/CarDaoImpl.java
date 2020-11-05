@@ -22,7 +22,6 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 public class CarDaoImpl implements CarDao {
     private static final Logger logger = LogManager.getLogger();
     private static CarDaoImpl carDao;
-
     private static final String ADD_CAR = "INSERT INTO cars (model, car_type, number_seats, rent_cost," +
             "fuel_type, fuel_consumption, is_available) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String ADD_CAR_VIEW = "INSERT INTO car_views(exterior_small, exterior, interior, cars_id)" +
@@ -44,12 +43,11 @@ public class CarDaoImpl implements CarDao {
     private static final String AND_KEYWORD = " AND";
     private static final String DOT = ".";
 
-    private CarDaoImpl(){
-
+    private CarDaoImpl() {
     }
 
-    public static CarDaoImpl getInstance(){
-        if (carDao == null){
+    public static CarDaoImpl getInstance() {
+        if (carDao == null) {
             carDao = new CarDaoImpl();
         }
 
@@ -87,9 +85,9 @@ public class CarDaoImpl implements CarDao {
             try {
                 connection.rollback();
             } catch (SQLException throwables) {
-                logger.log(Level.ERROR, "error while rollback committing car data", throwables);
+                logger.log(Level.ERROR, "Error while rollback committing car data", throwables);
             }
-            throw new DaoProjectException("Error during add new car", e);
+            throw new DaoProjectException("Error executing the query when adding a car", e);
         } finally {
             close(carStatement);
             close(carViewStatement);
@@ -101,7 +99,7 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public boolean remove(Car car) {
-        throw new UnsupportedOperationException("Operation remove not allowed for Car");
+        throw new UnsupportedOperationException("Operation remove not allowed for a car");
     }
 
     @Override
@@ -121,7 +119,7 @@ public class CarDaoImpl implements CarDao {
             statement.setLong(8, updatingCar.getCarId());
             isCarUpdated = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching all cars", e);
+            throw new DaoProjectException("Error when executing a car update query", e);
         }
         return isCarUpdated;
     }
@@ -138,7 +136,7 @@ public class CarDaoImpl implements CarDao {
                 carList.add(createCar(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching all cars", e);
+            throw new DaoProjectException("Error when executing a cars search query", e);
         }
 
         return carList;
@@ -157,7 +155,7 @@ public class CarDaoImpl implements CarDao {
                 targetCar = Optional.of(createCar(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error while searching car by ID", e);
+            throw new DaoProjectException("Error when executing a query to find a car by Id", e);
         }
 
         return targetCar;
@@ -194,7 +192,7 @@ public class CarDaoImpl implements CarDao {
                 carList.add(createCar(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching all available cars", e);
+            throw new DaoProjectException("Error when executing a query to find all available cars", e);
         }
 
         return carList;
@@ -232,7 +230,7 @@ public class CarDaoImpl implements CarDao {
                 targetCars.add(createCar(resultSet));
             }
         } catch (SQLException e) {
-            throw new DaoProjectException("Error during searching cars for checking", e);
+            throw new DaoProjectException("Error when executing a query to find a cars by parameters", e);
         }
 
         return targetCars;

@@ -32,13 +32,8 @@
                         <fmt:message key="label.orders"/>
                     </label>
                     <div class="label-column" style="margin:auto">
-                        <c:if test="${not empty requestScope.orderStatusUpdated}">
-                            <c:if test="${requestScope.orderStatusUpdated}">
-                                <label class="col-form-label alert-success" style="padding:0 10px"><fmt:message key="client_orders.successfully_paid"/></label>
-                            </c:if>
-                            <c:if test="${!requestScope.orderStatusUpdated}">
-                                <label class="col-form-label alert-warning" style="padding:0 10px"><fmt:message key="client_orders.unsuccessfully_paid"/></label>
-                            </c:if>
+                        <c:if test="${requestScope.orderStatusUpdated}">
+                            <label class="col-form-label alert-success" style="padding:0 10px"><fmt:message key="client_orders.successfully_paid"/></label>
                         </c:if>
                     </div>
                 </div>

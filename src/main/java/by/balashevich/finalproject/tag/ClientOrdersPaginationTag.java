@@ -43,7 +43,7 @@ public class ClientOrdersPaginationTag extends TagSupport {
                 out.write("<td>" + order.getAmount() + "</td>");
                 out.write("<td>" + order.getStatus().getTitle() + "</td>");
                 if (order.getStatus() == Order.Status.AWAITING_PAYMENT) {
-                    out.write("<form action=\"process_controller\" method=\"post\" class=\"shadow-lg custom-form\">");
+                    out.write("<form action=\"CarBook\" method=\"post\" class=\"shadow-lg custom-form\">");
                     out.write("<th>");
                     out.write("<label class=\"custom-form\">");
                     out.write("<input type=\"hidden\" name=\"order_index\" value=" + i + ">");
@@ -60,12 +60,12 @@ public class ClientOrdersPaginationTag extends TagSupport {
             out.write("<tr>");
             out.write("<td colspan=\"6\" align=\"center\" id=\"pagination\">");
             if (fromIndex >= PAGE_ENTRIES) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=ordersPageNumber&pagination_direction=previous_page\">&lt; </a>");
             }
             out.write("<label>" + pageNumber + "</label>");
             if (toIndex < orderList.size()) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=ordersPageNumber&pagination_direction=next_page\"> &gt;</a>");
             }
             out.write("</td>");

@@ -99,8 +99,8 @@ public class UserValidator {
 
         if (statusData != null && !statusData.isEmpty()) {
             Client.Status[] statuses = Client.Status.values();
-            for(Client.Status status : statuses){
-                if (statusData.toUpperCase().equals(status.name())){
+            for (Client.Status status : statuses) {
+                if (statusData.toUpperCase().equals(status.name())) {
                     isStatusCorrect = true;
                 }
             }

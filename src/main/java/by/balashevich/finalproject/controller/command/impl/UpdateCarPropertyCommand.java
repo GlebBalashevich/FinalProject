@@ -35,16 +35,16 @@ public class UpdateCarPropertyCommand implements ActionCommand {
         Router router;
 
         try {
-            if (carService.updateCar(updatingCar, carParameters)){
-                request.setAttribute(AttributeKey.CAR_UPDATED,true);
-            } else{
+            if (carService.updateCar(updatingCar, carParameters)) {
+                request.setAttribute(AttributeKey.CAR_UPDATED, true);
+            } else {
                 session.removeAttribute(AttributeKey.CAR_LIST);
-                request.setAttribute(AttributeKey.CAR_UPDATED,false);
+                request.setAttribute(AttributeKey.CAR_UPDATED, false);
             }
             router = new Router(PageName.ADMIN_CARS.getPath());
         } catch (ServiceProjectException e) {
             session.removeAttribute(AttributeKey.CAR_LIST);
-            logger.log(Level.ERROR, "error while updating car", e); // FIXME: 19.10.2020 handle exception
+            logger.log(Level.ERROR, "Number of parameters" + carParameters.size(), e);
             router = new Router(PageName.ERROR_500.getPath());
         }
 

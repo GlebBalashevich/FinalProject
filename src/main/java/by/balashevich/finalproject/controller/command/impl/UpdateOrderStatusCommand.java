@@ -37,7 +37,7 @@ public class UpdateOrderStatusCommand implements ActionCommand {
             }
             router = new Router((String) session.getAttribute(AttributeKey.CURRENT_PAGE));
         } catch (ServiceProjectException e) {
-            logger.log(Level.ERROR, "error while changing order status", e);
+            logger.log(Level.ERROR, "Order Id" + order.getOrderId(), e);
             router = new Router(PageName.ERROR_500.getPath());
         }
 

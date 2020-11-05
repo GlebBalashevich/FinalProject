@@ -42,7 +42,7 @@
                         </c:if>
                     </div>
                 </div>
-                <form action="process_controller" method="post" class="shadow-none custom-form" id="carsFilter"
+                <form action="CarBook" method="post" class="shadow-none custom-form" id="carsFilter"
                       style="font-family: Nunito">
                     <div class="form-row form-group">
                         <div class="col-12 label-column">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="command" value="filter_cars">
-                    <a class="shadow-sm" href="process_controller?command=move_create_car_page">
+                    <a class="shadow-sm" href="CarBook?command=move_create_car_page">
                         <fmt:message key="admin_cars.add"/></a>
                 </form>
             </div>

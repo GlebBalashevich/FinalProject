@@ -13,9 +13,10 @@ public class PasswordEncryption {
     private static final String HASH_METHOD = "SHA-256";
     private static final String ELEMENT_VIEW = "%02x";
 
-    public static String encryptPassword(String password){
+    public static String encryptPassword(String password) {
         StringBuilder encryptedPassword = new StringBuilder();
         MessageDigest md;
+
         try {
             md = MessageDigest.getInstance(HASH_METHOD);
             byte[] digestBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));

@@ -37,9 +37,10 @@ public class UpdateClientStatusCommand implements ActionCommand {
             }
             router = new Router(PageName.ADMIN_USERS.getPath());
         } catch (ServiceProjectException e) {
-            logger.log(Level.ERROR, "Error while updating client status", e);
+            logger.log(Level.ERROR, "Client Id" + client.getUserId(), e);
             router = new Router(PageName.ERROR_500.getPath());
         }
+
         return router;
     }
 }

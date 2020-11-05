@@ -13,13 +13,14 @@ public class CommandProvider {
     public static ActionCommand defineCommand(String commandName) {
         ActionCommand currentCommand = CommandType.EMPTY.getCommand();
 
-        if (commandName != null || !commandName.isEmpty()){
-            try{
+        if (commandName != null && !commandName.isEmpty()) {
+            try {
                 currentCommand = CommandType.valueOf(commandName.toUpperCase()).getCommand();
-            } catch (IllegalArgumentException e){
-                logger.log(Level.ERROR, "The command is not defined");
+            } catch (IllegalArgumentException e) {
+                logger.log(Level.ERROR, "The command is not defined " + commandName);
             }
         }
+
         return currentCommand;
     }
 }

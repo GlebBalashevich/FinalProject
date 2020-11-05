@@ -31,7 +31,7 @@ public class MailSender {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientAddress));
             Transport.send(message);
         } catch (MessagingException e) {
-            logger.log(Level.ERROR, "Error occurred when email sending to" + recipientAddress, e);
+            logger.log(Level.ERROR, "Error occurred when email sending to " + recipientAddress, e);
         }
     }
 
@@ -52,7 +52,8 @@ public class MailSender {
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication((String) properties.get(USER_NAME), (String) properties.get(USER_PASSWORD));
+                return new PasswordAuthentication((String) properties.get(USER_NAME),
+                        (String) properties.get(USER_PASSWORD));
             }
         });
 

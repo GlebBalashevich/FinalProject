@@ -56,7 +56,7 @@ public class CarServiceImpl implements CarService {
                 isCarAdded = carDao.add(carParametersChecked);
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while adding car to application", e);
+            throw new ServiceProjectException(e);
         }
 
         return isCarAdded;
@@ -78,7 +78,7 @@ public class CarServiceImpl implements CarService {
         try {
             isCarUpdated = carDao.update(updatingCar);
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while updating car", e);
+            throw new ServiceProjectException(e);
         }
 
         return isCarUpdated;
@@ -91,7 +91,7 @@ public class CarServiceImpl implements CarService {
         try {
             targetCar = carDao.findById(carId);
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("Error while searching Car by Id", e);
+            throw new ServiceProjectException(e);
         }
 
         return targetCar;
@@ -126,7 +126,7 @@ public class CarServiceImpl implements CarService {
                 }
             }
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("error while searching available cars by parameters", e);
+            throw new ServiceProjectException(e);
         }
 
         return targetCars;
@@ -149,7 +149,7 @@ public class CarServiceImpl implements CarService {
             targetCars = carDao.findCarsByParameters(carParametersChecked);
 
         } catch (DaoProjectException e) {
-            throw new ServiceProjectException("error while searching available cars by parameters", e);
+            throw new ServiceProjectException(e);
         }
 
         return targetCars;

@@ -45,15 +45,15 @@ public class CarValidator {
             isParametersCorrect = false;
             carParameters.put(RENT_COST, EMPTY_VALUE);
         }
-        if (!validateFuelType(carParameters.get(FUEL_TYPE))){
+        if (!validateFuelType(carParameters.get(FUEL_TYPE))) {
             isParametersCorrect = false;
             carParameters.put(FUEL_TYPE, EMPTY_VALUE);
         }
-        if (!validateFuelConsumption(carParameters.get(FUEL_CONSUMPTION))){
+        if (!validateFuelConsumption(carParameters.get(FUEL_CONSUMPTION))) {
             isParametersCorrect = false;
             carParameters.put(FUEL_CONSUMPTION, EMPTY_VALUE);
         }
-        if (!validateAvailable(carParameters.get(CAR_AVAILABLE))){
+        if (!validateAvailable(carParameters.get(CAR_AVAILABLE))) {
             isParametersCorrect = false;
             carParameters.put(CAR_AVAILABLE, EMPTY_VALUE);
         }
@@ -112,13 +112,13 @@ public class CarValidator {
         return isRentCostValid;
     }
 
-    public static boolean validateFuelType(String fuelTypeData){
+    public static boolean validateFuelType(String fuelTypeData) {
         boolean isFuelTypeValid = false;
 
-        if (fuelTypeData != null && !fuelTypeData.isEmpty()){
+        if (fuelTypeData != null && !fuelTypeData.isEmpty()) {
             Car.FuelType[] fuelTypes = Car.FuelType.values();
-            for(Car.FuelType fuelType : fuelTypes){
-                if (fuelTypeData.toUpperCase().equals(fuelType.name())){
+            for (Car.FuelType fuelType : fuelTypes) {
+                if (fuelTypeData.toUpperCase().equals(fuelType.name())) {
                     isFuelTypeValid = true;
                 }
             }
@@ -127,11 +127,11 @@ public class CarValidator {
         return isFuelTypeValid;
     }
 
-    public static boolean validateFuelConsumption(String fuelConsumptionData){
+    public static boolean validateFuelConsumption(String fuelConsumptionData) {
         boolean isFuelConsumptionValid = false;
 
-        if(fuelConsumptionData != null && !fuelConsumptionData.isEmpty()){
-            if (fuelConsumptionData.matches(FUEL_CONSUMPTION_PATTERN)){
+        if (fuelConsumptionData != null && !fuelConsumptionData.isEmpty()) {
+            if (fuelConsumptionData.matches(FUEL_CONSUMPTION_PATTERN)) {
                 int fuelConsumption = Integer.parseInt(fuelConsumptionData);
                 isFuelConsumptionValid = fuelConsumption >= FUEL_CONSUMPTION_MIN
                         && fuelConsumption <= FUEL_CONSUMPTION_MAX;

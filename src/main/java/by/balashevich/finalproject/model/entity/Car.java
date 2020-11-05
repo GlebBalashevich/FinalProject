@@ -4,17 +4,17 @@ import java.util.Arrays;
 
 public class Car extends Entity {
     public enum Type {
-        SUV ("Suv"),
-        SEDAN ("Sedan"),
-        MINIVAN ("Minivan");
+        SUV("Suv"),
+        SEDAN("Sedan"),
+        MINIVAN("Minivan");
 
         private String title;
 
-        Type (String title){
+        Type(String title) {
             this.title = title;
         }
 
-        public String getTitle(){
+        public String getTitle() {
             return title;
         }
 
@@ -24,16 +24,16 @@ public class Car extends Entity {
     }
 
     public enum FuelType {
-        DIESEL ("Diesel"),
-        PETROL ("Petrol");
+        DIESEL("Diesel"),
+        PETROL("Petrol");
 
         private String title;
 
-        FuelType (String title){
+        FuelType(String title) {
             this.title = title;
         }
 
-        public String getTitle(){
+        public String getTitle() {
             return title;
         }
 

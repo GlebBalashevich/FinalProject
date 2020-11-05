@@ -51,7 +51,7 @@ public class AddCarCommand implements ActionCommand {
                 router = new Router(PageName.CREATE_CAR.getPath());
             }
         } catch (ServiceProjectException e) {
-            logger.log(Level.ERROR, "Error while add new car to application", e);
+            logger.log(Level.ERROR, "Car model " + carParameters.get(MODEL), e);
             router = new Router(PageName.ERROR_500.getPath());
         }
 

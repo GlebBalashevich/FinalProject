@@ -4,8 +4,6 @@ import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.CommandProvider;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
 import by.balashevich.finalproject.util.ParameterKey;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +17,6 @@ import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 
 @WebServlet(urlPatterns = "/process_controller")
 public class ProcessController extends HttpServlet {
-    private static final Logger logger = LogManager.getLogger();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
@@ -38,7 +35,7 @@ public class ProcessController extends HttpServlet {
 
         if (router.getTransition() == Router.Transition.FORWARD) {
             request.getRequestDispatcher(page).forward(request, response);
-        } else{
+        } else {
             response.sendRedirect(page);
         }
     }

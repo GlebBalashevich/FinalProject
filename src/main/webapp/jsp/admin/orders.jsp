@@ -47,7 +47,7 @@
                         </c:if>
                     </div>
                 </div>
-                <form action="process_controller" method="post" class="shadow-none custom-form" id="carsFilter"
+                <form action="CarBook" method="post" class="shadow-none custom-form" id="carsFilter"
                       style="font-family: Nunito">
                     <div class="form-row form-group">
                         <div class="col-12 label-column">

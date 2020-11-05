@@ -25,15 +25,20 @@ public class AttributeKey {
     public static final String CAR_ADDED = "carAdded";                                  //request parameter
     public static final String CAR_UPDATED = "carUpdated";                              //request parameter
     public static final String CARS_FOUND = "noCars";                                   //request parameter
+    public static final String CAR_FOUND = "noCar";                                     //request parameter
     public static final String ORDERS_FOUND = "noOrders";                               //request parameter
     public static final String CLIENTS_FOUND = "noClients";                             //request parameter
     public static final String ORDER_DECLINED = "orderDeclined";                        //request parameter
     public static final String ORDER_STATUS_UPDATED = "orderStatusUpdated";             //request parameter
     public static final String CLIENT_STATUS_UPDATED = "clientStatusUpdated";           //request parameter
     public static final String REGISTER_PARAMETERS = "registerParameters";              //request parameter
+    public static final String USER_EXIST = "userExist";                                //request parameter
     public static final String CAR_TYPE = "carType";                                    //request parameter
     public static final String CAR = "car";                                             //request parameter
     public static final String ORDER_AMOUNT = "order_amount";                           //request parameter
     public static final String DATE_FROM = "date_from";                                 //request parameter
     public static final String DATE_TO = "date_to";                                     //request parameter
+
+    private AttributeKey(){
+    }
 }

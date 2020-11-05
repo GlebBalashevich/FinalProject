@@ -41,7 +41,7 @@ public class ConnectionPool {
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            logger.log(Level.FATAL, "Error during connection pool creating", e); //todo double text in messages
+            logger.log(Level.FATAL, "Error during connection pool creating", e);
             throw new RuntimeException("Error during connect to database", e);
         }
     }
@@ -65,7 +65,7 @@ public class ConnectionPool {
                 freeConnections.offer((ProxyConnection) connection);
             }
         } else {
-            logger.log(Level.WARN, "Invalid connection to realizing");
+            logger.log(Level.ERROR, "Invalid connection to realising " + connection.getClass().getSimpleName());
         }
     }
 

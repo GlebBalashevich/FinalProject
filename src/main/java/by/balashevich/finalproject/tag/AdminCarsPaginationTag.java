@@ -31,7 +31,6 @@ public class AdminCarsPaginationTag extends TagSupport {
     private static final String AVAILABLE_FALSE = "admin_cars.avail_change_to_false";
     private static final String EDIT_CAR_BUTTON_TITLE = "admin_cars.edit";
 
-
     @Override
     public int doStartTag() {
         HttpSession session = pageContext.getSession();
@@ -46,7 +45,7 @@ public class AdminCarsPaginationTag extends TagSupport {
             JspWriter out = pageContext.getOut();
             for (int i = fromIndex; i < toIndex; i++) {
                 Car car = carList.get(i);
-                out.write("<form action=\"process_controller\" method=\"post\" class=\"shadow-lg custom-form\">");
+                out.write("<form action=\"CarBook\" method=\"post\" class=\"shadow-lg custom-form\">");
                 out.write("<tr><td>");
                 out.write("<img src=\"/image/" + car.getCarView().getExteriorSmall() + "\"/>");
                 out.write("</td><td>");
@@ -90,12 +89,12 @@ public class AdminCarsPaginationTag extends TagSupport {
             out.write("<tr>");
             out.write("<td colspan=\"3\" align=\"center\" id=\"pagination\">");
             if (fromIndex >= PAGE_ENTRIES) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=carsPageNumber&pagination_direction=previous_page\">&lt; </a>");
             }
             out.write("<label>" + pageNumber + "</label>");
             if (toIndex < carList.size()) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=carsPageNumber&pagination_direction=next_page\"> &gt;</a>");
             }
             out.write("</td>");

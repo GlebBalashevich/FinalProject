@@ -1,7 +1,7 @@
 package by.balashevich.finalproject.controller;
 
 public class Router {
-    public enum Transition{
+    public enum Transition {
         FORWARD,
         REDIRECT
     }
@@ -20,10 +20,6 @@ public class Router {
 
     public Transition getTransition() {
         return transition;
-    }
-
-    public void setTransition(Transition transition) {
-        this.transition = transition;
     }
 
     public String getPage() {

@@ -46,7 +46,7 @@ public class AdminClientsPaginationTag extends TagSupport {
                 out.write("<td>" + client.getStatus().name() + "</td>");
                 Client.Status status = client.getStatus();
                 if (status == Client.Status.ACTIVE || status == Client.Status.BLOCKED) {
-                    out.write("<form action=\"process_controller\" method=\"post\" class=\"shadow-lg custom-form\">");
+                    out.write("<form action=\"CarBook\" method=\"post\" class=\"shadow-lg custom-form\">");
                     out.write("<td>");
                     out.write("<label class=\"custom-form\">");
                     out.write("<input type=\"hidden\" name=\"client_index\" value=" + i + ">");
@@ -64,19 +64,19 @@ public class AdminClientsPaginationTag extends TagSupport {
                     out.write("</td>");
                     out.write("</form>");
                     out.write("</tr>");
-                } else{
+                } else {
                     out.write("<td></td>");
                 }
             }
             out.write("<tr>");
             out.write("<td colspan=\"7\" align=\"center\" id=\"pagination\">");
             if (fromIndex >= PAGE_ENTRIES) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=clientsPageNumber&pagination_direction=previous_page\">&lt; </a>");
             }
             out.write("<label>" + pageNumber + "</label>");
             if (toIndex < clientList.size()) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=clientsPageNumber&pagination_direction=next_page\"> &gt;</a>");
             }
             out.write("</td>");

@@ -26,12 +26,12 @@ public interface BaseDao<T extends Entity> {
 
     List<T> findAll() throws DaoProjectException;
 
-    default void close(Statement statement){
+    default void close(Statement statement) {
         if (statement != null) {
             try {
                 statement.close();
             } catch (SQLException e) {
-                logger.log(Level.ERROR, "Error occurred while closing statement");
+                logger.log(Level.ERROR, "Error occurred while closing the statement", e);
             }
         }
     }
@@ -41,7 +41,7 @@ public interface BaseDao<T extends Entity> {
             try {
                 connection.close();
             } catch (SQLException e) {
-                logger.log(Level.ERROR, "Error occurred while closing connection");
+                logger.log(Level.ERROR, "Error occurred while closing the connection", e);
             }
         }
     }

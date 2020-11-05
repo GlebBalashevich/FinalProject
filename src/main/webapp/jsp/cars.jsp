@@ -26,7 +26,7 @@
     <div class="intro-body">
     <div class="row register-form" id="carPage">
         <div class="col-3">
-            <form action="process_controller" method="post" class="shadow-none custom-form" id="carsFilter" style="font-family: Nunito">
+            <form action="CarBook" method="post" class="shadow-none custom-form" id="carsFilter" style="font-family: Nunito">
                 <div class="form-row form-group">
                     <div class="col-4 label-column">
                         <label class="col-form-label"><fmt:message key="cars.date_from"/></label></div>

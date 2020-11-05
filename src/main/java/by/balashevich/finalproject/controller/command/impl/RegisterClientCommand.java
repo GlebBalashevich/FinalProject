@@ -35,7 +35,6 @@ public class RegisterClientCommand implements ActionCommand {
         clientParameters.put(SECOND_NAME, request.getParameter(SECOND_NAME));
         clientParameters.put(DRIVER_LICENSE, request.getParameter(DRIVER_LICENSE));
         clientParameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
-        HttpSession session = request.getSession();
         Router router;
 
         try {
@@ -49,16 +48,14 @@ public class RegisterClientCommand implements ActionCommand {
                 } else {
                     request.setAttribute(AttributeKey.REGISTER_PARAMETERS, clientParameters);
                     router = new Router(PageName.REGISTER.getPath());
-                    logger.log(Level.INFO, "form not pass validation");
                 }
             } else {
-                request.setAttribute("message", null); // TODO: 21.09.2020  define message
+                request.setAttribute(AttributeKey.USER_EXIST, true);
                 router = new Router(PageName.REGISTER.getPath());
-                logger.log(Level.INFO, "user exist");
             }
         } catch (ServiceProjectException e) {
+            logger.log(Level.ERROR, "User Email" + clientParameters.get(EMAIL), e);
             router = new Router(PageName.ERROR_500.getPath());
-            logger.log(Level.ERROR, "An error occurred during client adding", e);
         }
 
         return router;

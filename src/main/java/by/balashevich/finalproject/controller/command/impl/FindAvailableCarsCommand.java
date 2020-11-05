@@ -49,8 +49,8 @@ public class FindAvailableCarsCommand implements ActionCommand {
             }
             router = new Router(PageName.CLIENT_CARS.getPath());
         } catch (ServiceProjectException e) {
+            logger.log(Level.ERROR, "Number of parameters" + carParameters.size(), e);
             router = new Router(PageName.ERROR_500.getPath());
-            logger.log(Level.ERROR, "An error occurred during searching available cars", e);
         }
 
         return router;

@@ -46,7 +46,6 @@ public class BootImageController extends HttpServlet {
         if (Files.notExists(path)) {
             Files.createDirectory(path);
         }
-
         if (Files.notExists(fullPath)) {
             List<Part> parts = request.getParts().stream().filter(part -> FILE_PARAMETER.equals(part.getName()))
                     .collect(Collectors.toList());
@@ -55,11 +54,11 @@ public class BootImageController extends HttpServlet {
                     part.write(fullPath.toString());
                     session.setAttribute(imageType, fileName);
                 } catch (IOException e) {
-                    logger.log(Level.ERROR, "Error while loading File", e);
+                    logger.log(Level.ERROR, "FileName " + fileName, e);
                     session.setAttribute(imageType, EMPTY);
                 }
             });
-        } else{
+        } else {
             session.setAttribute(imageType, EMPTY);
         }
 

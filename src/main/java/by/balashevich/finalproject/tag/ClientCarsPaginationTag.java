@@ -35,7 +35,7 @@ public class ClientCarsPaginationTag extends TagSupport {
     @Override
     public int doStartTag() {
         HttpSession session = pageContext.getSession();
-        Locale locale = new Locale((String)session.getAttribute(AttributeKey.LOCALE));
+        Locale locale = new Locale((String) session.getAttribute(AttributeKey.LOCALE));
         ResourceBundle bundle = ResourceBundle.getBundle(CONTENT_PAGE, locale);
         List<Car> carList = ((ArrayList<Car>) session.getAttribute(AttributeKey.CAR_LIST));
         User.Role role = ((User.Role) session.getAttribute(AttributeKey.USER_ROLE));
@@ -72,7 +72,7 @@ public class ClientCarsPaginationTag extends TagSupport {
                 if (role == User.Role.CLIENT) {
                     out.write("<div class=\"form-row form-group\">");
                     out.write("<div class=\"input-column\" >");
-                    out.write("<form action=\"process_controller\" method=\"post\" style=\"font-family: Nunito\">");
+                    out.write("<form action=\"CarBook\" method=\"post\" style=\"font-family: Nunito\">");
                     out.write("<input type=\"hidden\" name=\"car_id\" value=\"" + car.getCarId() + "\">");
                     out.write("<input type=\"hidden\" name=\"date_from\" value=\""
                             + request.getParameter(ParameterKey.DATE_FROM) + "\">");
@@ -82,7 +82,7 @@ public class ClientCarsPaginationTag extends TagSupport {
                     out.write("<button class=\"submit-button\" type=\"submit\" id=\"buttOrd\">" +
                             bundle.getString(ORDER_BUTTON_TITLE));
                     out.write("</form></div></div>");
-                } else{
+                } else {
                     out.write(bundle.getString(LOGIN_FOR_ORDER));
                 }
                 out.write("</td></tr>");
@@ -90,12 +90,12 @@ public class ClientCarsPaginationTag extends TagSupport {
             out.write("<tr>");
             out.write("<td colspan=\"3\" align=\"center\" id=\"pagination\">");
             if (fromIndex >= PAGE_ENTRIES) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=carsPageNumber&pagination_direction=previous_page\">&lt; </a>");
             }
             out.write("<label>" + pageNumber + "</label>");
             if (toIndex < carList.size()) {
-                out.write("<a href=\"process_controller?command=pagination&" +
+                out.write("<a href=\"CarBook?command=pagination&" +
                         "pagination_subject=carsPageNumber&pagination_direction=next_page\"> &gt;</a>");
             }
             out.write("</td>");

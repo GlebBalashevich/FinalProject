@@ -19,6 +19,7 @@ public class HomePageCommand implements ActionCommand {
             session.setAttribute(AttributeKey.LOCALE, DEFAULT_LOCALE);
             session.setAttribute(AttributeKey.USER_ROLE, User.Role.GUEST);
         }
+
         return new Router(PageName.HOME.getPath());
     }
 }

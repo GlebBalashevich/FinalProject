@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
-@WebFilter(urlPatterns = "/process_controller")
+@WebFilter(urlPatterns = "/CarBook")
 public class ClientStatusSecurityFilter implements Filter {
     public void destroy() {
     }
@@ -27,22 +27,22 @@ public class ClientStatusSecurityFilter implements Filter {
         String commandName = request.getParameter(ParameterKey.COMMAND);
         Set<CommandType> commandTypeSet = null;
 
-        if (role != null){
-            if (role == User.Role.CLIENT){
+        if (role != null) {
+            if (role == User.Role.CLIENT) {
                 Client client = (Client) session.getAttribute(AttributeKey.USER);
                 ActionCommand command = CommandProvider.defineCommand(commandName);
-                if (command.getClass() != EmptyCommand.class){
-                    commandTypeSet = switch(client.getStatus()){
+                if (command.getClass() != EmptyCommand.class) {
+                    commandTypeSet = switch (client.getStatus()) {
                         case PENDING -> CommandClientStatusAccess.PENDING.getAccessCommands();
                         case ACTIVE -> CommandClientStatusAccess.ACTIVE.getAccessCommands();
                         case BLOCKED -> CommandClientStatusAccess.BLOCKED.getAccessCommands();
                     };
                 }
-                if (commandTypeSet != null && !commandTypeSet.contains(CommandType.valueOf(commandName.toUpperCase()))){
-                    if (client.getStatus() == Client.Status.PENDING){
+                if (commandTypeSet != null && !commandTypeSet.contains(CommandType.valueOf(commandName.toUpperCase()))) {
+                    if (client.getStatus() == Client.Status.PENDING) {
                         request.setAttribute(AttributeKey.ACTIVATE_ACCOUNT, true);
                     }
-                    if (client.getStatus() == Client.Status.BLOCKED){
+                    if (client.getStatus() == Client.Status.BLOCKED) {
                         request.setAttribute(AttributeKey.ACCOUNT_BLOCKED, true);
                     }
                     request.getRequestDispatcher(PageName.NOTIFICATION.getPath()).forward(request, response);

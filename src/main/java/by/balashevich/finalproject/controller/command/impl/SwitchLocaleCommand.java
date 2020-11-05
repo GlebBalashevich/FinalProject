@@ -13,6 +13,7 @@ public class SwitchLocaleCommand implements ActionCommand {
         HttpSession session = request.getSession();
         String locale = request.getParameter(AttributeKey.LOCALE);
         session.setAttribute(AttributeKey.LOCALE, locale);
+
         return new Router((String) session.getAttribute(AttributeKey.CURRENT_PAGE));
     }
 }
