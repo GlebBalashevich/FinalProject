@@ -15,6 +15,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The type Admin orders pagination tag.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @SuppressWarnings("serial")
 public class AdminOrdersPaginationTag extends TagSupport {
     private static final Logger logger = LogManager.getLogger();

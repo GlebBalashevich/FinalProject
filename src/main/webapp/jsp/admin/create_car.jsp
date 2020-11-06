@@ -113,7 +113,7 @@
                     <form action="CarBook" method="post" id="createCar" style="background-color: rgba(0,0,0,0.08); font-family: Nunito">
                     <tbody>
                     <tr>
-                        <td><fmt:message key="create_car.model"/></td>
+                        <td><fmt:message key="create_car.model"/> &#8432;</td>
                         <td>
                             <input class="form-control" name="model" type="text" required
                                    pattern="^[a-zA-Z0-9 -]{2,100}$" value="${carParameters.get("model")}"
@@ -128,7 +128,7 @@
                                 <option value="MINIVAN"><fmt:message key="create_car.car_type.minivan"/></option>
                             </select>
                         </td>
-                        <td><fmt:message key="create_car.rent_cost"/></td>
+                        <td><fmt:message key="create_car.rent_cost"/> &#8432;</td>
                         <td>
                             <input class="form-control" name="rent_cost" type="number" required
                                    minlength="2" maxlength="3" min="10" max="200" value="${carParameters.get("rent_cost")}"
@@ -144,7 +144,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><fmt:message key="create_car.number_seats"/></td>
+                        <td><fmt:message key="create_car.number_seats"/> &#8432;</td>
                         <td>
                             <input class="form-control" name="number_seats" type="number" required
                                    minlength="1" maxlength="2" min="1" max="50" value="${carParameters.get("number_seats")}"
@@ -159,7 +159,7 @@
                                 <option value="PETROL"><fmt:message key="create_car.fuel_type.petrol"/></option>
                             </select>
                         </td>
-                        <td><fmt:message key="create_car.fuel_consumption"/></td>
+                        <td><fmt:message key="create_car.fuel_consumption"/> &#8432;</td>
                         <td>
                             <input class="form-control" name="fuel_consumption" type="number" required
                                    minlength="1" maxlength="2" min="1" max="50" value="${carParameters.get("fuel_consumption")}"

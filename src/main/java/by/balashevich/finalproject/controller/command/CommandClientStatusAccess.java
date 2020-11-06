@@ -5,7 +5,16 @@ import java.util.Set;
 
 import static by.balashevich.finalproject.controller.command.CommandType.*;
 
+/**
+ * The enum Command client status access.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public enum CommandClientStatusAccess {
+    /**
+     * Pending command client status access.
+     */
     PENDING(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
             LOG_OUT_USER,
@@ -13,6 +22,9 @@ public enum CommandClientStatusAccess {
             ACTIVATE_CLIENT,
             FIND_AVAILABLE_CARS,
             PAGINATION)),
+    /**
+     * Active command client status access.
+     */
     ACTIVE(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
             MOVE_CAR_CARD_PAGE,
@@ -25,6 +37,9 @@ public enum CommandClientStatusAccess {
             MAKE_ORDER_PAYMENT,
             UPDATE_ORDER_STATUS,
             PAGINATION)),
+    /**
+     * Blocked command client status access.
+     */
     BLOCKED(EnumSet.of(MOVE_HOME_PAGE,
             LOG_OUT_USER,
             SWITCH_LOCALE));
@@ -35,6 +50,11 @@ public enum CommandClientStatusAccess {
         this.accessCommands = accessCommands;
     }
 
+    /**
+     * Gets access commands.
+     *
+     * @return the access commands
+     */
     public Set<CommandType> getAccessCommands() {
         return this.accessCommands;
     }

@@ -15,6 +15,12 @@ import java.util.*;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Order dao.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class OrderDaoImpl implements OrderDao {
     private static OrderDaoImpl orderDao;
     private static final String ADD_ORDER = "INSERT INTO orders(date_from, date_to, amount, order_status, order_car_id, " +
@@ -39,6 +45,11 @@ public class OrderDaoImpl implements OrderDao {
     private OrderDaoImpl() {
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static OrderDaoImpl getInstance() {
         if (orderDao == null) {
             orderDao = new OrderDaoImpl();

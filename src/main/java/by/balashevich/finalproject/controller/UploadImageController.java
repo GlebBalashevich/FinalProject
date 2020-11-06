@@ -9,6 +9,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * The type Upload image controller.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @WebServlet(urlPatterns = "/image/*")
 public class UploadImageController extends HttpServlet {
     private static final String CONTENT_TYPE = "Content-Type";
@@ -23,6 +29,13 @@ public class UploadImageController extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * Process request.
+     *
+     * @param request  the request
+     * @param response the response
+     * @throws IOException the io exception
+     */
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String filename = request.getPathInfo().substring(1);
         String directory = getServletContext().getInitParameter(UPLOAD_DIRECTORY);

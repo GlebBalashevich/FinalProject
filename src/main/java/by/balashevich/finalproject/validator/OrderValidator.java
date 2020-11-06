@@ -5,12 +5,24 @@ import by.balashevich.finalproject.model.entity.Order;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Order validator.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class OrderValidator {
     private static final String DATE_PATTERN = "(\\d{4})-(\\d{2})-(\\d{2})";
 
     private OrderValidator() {
     }
 
+    /**
+     * Validate date boolean.
+     *
+     * @param dateData the date data
+     * @return the boolean
+     */
     public static boolean validateDate(String dateData) {
         boolean isDateValid = false;
 
@@ -36,6 +48,12 @@ public class OrderValidator {
         return isDateValid;
     }
 
+    /**
+     * Validate status boolean.
+     *
+     * @param orderStatusData the order status data
+     * @return the boolean
+     */
     public static boolean validateStatus(String orderStatusData) {
         boolean isOrderStatusValid = false;
 

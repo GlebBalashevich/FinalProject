@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
+/**
+ * The type Update client status command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class UpdateClientStatusCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

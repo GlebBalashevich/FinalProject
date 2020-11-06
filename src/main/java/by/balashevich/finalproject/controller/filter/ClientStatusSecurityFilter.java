@@ -14,6 +14,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * The type Client status security filter.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = "/CarBook")
 public class ClientStatusSecurityFilter implements Filter {
     public void destroy() {

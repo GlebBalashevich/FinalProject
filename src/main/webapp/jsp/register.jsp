@@ -30,7 +30,7 @@
             </c:if>
             <div class="form-row form-group" style="margin: 0px -5px 15px;">
                 <div class="col-sm-4 label-column">
-                    <label class="col-form-label"><fmt:message key="register.email"/></label></div>
+                    <label class="col-form-label"><fmt:message key="register.email"/> &#8432;</label></div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="email" type="email"
                            autofocus required value="${registerParameters.get("email")}"
@@ -47,7 +47,7 @@
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
-                    <label class="col-form-label"><fmt:message key="register.password"/></label></div>
+                    <label class="col-form-label"><fmt:message key="register.password"/> &#8432;</label></div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="password" type="password" minlength="8" maxlength="255" id="pass"
                            required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
@@ -61,7 +61,7 @@
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
-                    <label class="col-form-label"><fmt:message key="register.confirm_password"/></label></div>
+                    <label class="col-form-label"><fmt:message key="register.confirm_password"/> &#8432;</label></div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="confirm_password" type="password" minlength="8" maxlength="255" id="passConf"
                            required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{7,}"
@@ -72,7 +72,7 @@
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
-                    <label class="col-form-label"><fmt:message key="register.first_name"/></label></div>
+                    <label class="col-form-label"><fmt:message key="register.first_name"/> &#8432;</label></div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="first_name" type="text"
                            pattern="[a-zA-Zа-яА-Я-]{1,20}" required value="${registerParameters.get("first_name")}"
@@ -87,7 +87,7 @@
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column">
-                    <label class="col-form-label label-column"><fmt:message key="register.second_name"/></label>
+                    <label class="col-form-label label-column"><fmt:message key="register.second_name"/> &#8432;</label>
                 </div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="second_name" type="text"
@@ -103,7 +103,7 @@
             </div>
             <div class="form-row form-group">
                 <div class="col-sm-4 label-column"><label class="col-form-label">
-                    <fmt:message key="register.driver_license"/></label></div>
+                    <fmt:message key="register.driver_license"/> &#8432;</label></div>
                 <div class="col-sm-4 input-column">
                     <input class="form-control" name="driver_license" type="text"
                            pattern="([0-9]?[a-zA-Z]{2}\s?[0-9]{6})"

@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The type Filter users command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class FilterUsersCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

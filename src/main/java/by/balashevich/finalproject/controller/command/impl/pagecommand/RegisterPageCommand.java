@@ -6,6 +6,12 @@ import by.balashevich.finalproject.controller.command.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Register page command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class RegisterPageCommand implements ActionCommand {
     @Override
     public Router execute(HttpServletRequest request) {

@@ -18,6 +18,12 @@ import javax.servlet.http.HttpSession;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Login command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class LoginCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

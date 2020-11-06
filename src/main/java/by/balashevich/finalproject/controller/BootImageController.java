@@ -18,6 +18,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Boot image controller.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @WebServlet(urlPatterns = "/boot_image_controller/*")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 50)

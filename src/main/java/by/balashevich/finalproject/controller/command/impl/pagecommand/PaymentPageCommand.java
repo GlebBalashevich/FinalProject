@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
+/**
+ * The type Payment page command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class PaymentPageCommand implements ActionCommand {
     @Override
     public Router execute(HttpServletRequest request) {

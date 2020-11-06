@@ -11,6 +11,12 @@ import java.util.ResourceBundle;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * The type Connection pool.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class ConnectionPool {
     private static final Logger logger = LogManager.getLogger();
     private static final String PROPERTIES_FILENAME = "config/database";
@@ -24,6 +30,11 @@ public class ConnectionPool {
     private BlockingQueue<ProxyConnection> freeConnections;
     private BlockingQueue<ProxyConnection> givenConnections;
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static ConnectionPool getInstance() {
         return connectionPool;
     }
@@ -46,6 +57,11 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Gets connection.
+     *
+     * @return the connection
+     */
     public Connection getConnection() {
         ProxyConnection connection = null;
 
@@ -59,6 +75,11 @@ public class ConnectionPool {
         return connection;
     }
 
+    /**
+     * Release connection.
+     *
+     * @param connection the connection
+     */
     public void releaseConnection(Connection connection) {
         if (connection instanceof ProxyConnection) {
             if (givenConnections.remove(connection)) {
@@ -69,6 +90,9 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * Destroy pool.
+     */
     public void destroyPool() {
         try {
             for (int i = 0; i < POOL_SIZE; i++) {

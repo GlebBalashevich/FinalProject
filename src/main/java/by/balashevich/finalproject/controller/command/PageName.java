@@ -1,5 +1,11 @@
 package by.balashevich.finalproject.controller.command;
 
+/**
+ * The enum Page name.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public enum PageName {
     INDEX("/index.jsp"),                                                //general page
     LOGIN("/jsp/login.jsp"),                                            //general page
@@ -23,6 +29,11 @@ public enum PageName {
         this.path = path;
     }
 
+    /**
+     * Gets path.
+     *
+     * @return the path
+     */
     public String getPath() {
         return path;
     }

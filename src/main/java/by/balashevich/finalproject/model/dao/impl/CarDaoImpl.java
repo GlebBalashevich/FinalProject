@@ -19,6 +19,12 @@ import java.util.*;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Car dao.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class CarDaoImpl implements CarDao {
     private static final Logger logger = LogManager.getLogger();
     private static CarDaoImpl carDao;
@@ -46,6 +52,11 @@ public class CarDaoImpl implements CarDao {
     private CarDaoImpl() {
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static CarDaoImpl getInstance() {
         if (carDao == null) {
             carDao = new CarDaoImpl();

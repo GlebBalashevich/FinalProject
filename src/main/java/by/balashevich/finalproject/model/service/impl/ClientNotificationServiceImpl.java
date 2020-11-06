@@ -7,6 +7,12 @@ import by.balashevich.finalproject.util.MailSender;
 import java.util.ResourceBundle;
 import java.util.StringJoiner;
 
+/**
+ * The type Client notification service.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class ClientNotificationServiceImpl implements ClientNotificationService {
     private static final String MESSAGE_FILENAME = "/prop/notification_message";
     private static final String REGISTRATION_MAIL_SUBJECT = "mail.registration.subject";

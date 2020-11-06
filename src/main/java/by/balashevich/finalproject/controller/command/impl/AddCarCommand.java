@@ -18,6 +18,12 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Add car command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class AddCarCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

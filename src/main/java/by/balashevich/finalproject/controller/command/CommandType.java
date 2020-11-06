@@ -3,6 +3,12 @@ package by.balashevich.finalproject.controller.command;
 import by.balashevich.finalproject.controller.command.impl.*;
 import by.balashevich.finalproject.controller.command.impl.pagecommand.*;
 
+/**
+ * The enum Command type.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public enum CommandType {
     MOVE_LOGIN_PAGE(new LoginPageCommand()),
     MOVE_REGISTER_PAGE(new RegisterPageCommand()),
@@ -38,6 +44,11 @@ public enum CommandType {
         this.command = command;
     }
 
+    /**
+     * Gets command.
+     *
+     * @return the command
+     */
     public ActionCommand getCommand() {
         return command;
     }

@@ -6,6 +6,12 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type User validator.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class UserValidator {
     private static final String EMPTY_VALUE = "";
     private static final String EMAIL_PATTERN = "^\\p{Alnum}+[._-]?\\p{Alnum}+@\\p{Alnum}+\\.\\p{Alpha}{2,4}";
@@ -17,6 +23,12 @@ public class UserValidator {
     private UserValidator() {
     }
 
+    /**
+     * Validate client parameters boolean.
+     *
+     * @param clientParameters the client parameters
+     * @return the boolean
+     */
     public static boolean validateClientParameters(Map<String, String> clientParameters) {
         boolean isParametersCorrect = true;
         if (!validateEmail(clientParameters.get(EMAIL))) {
@@ -47,6 +59,12 @@ public class UserValidator {
         return isParametersCorrect;
     }
 
+    /**
+     * Validate email boolean.
+     *
+     * @param email the email
+     * @return the boolean
+     */
     public static boolean validateEmail(String email) {
         boolean isEmailCorrect = false;
         if (email != null && !email.isEmpty()) {
@@ -56,6 +74,13 @@ public class UserValidator {
         return isEmailCorrect;
     }
 
+    /**
+     * Validate passwords boolean.
+     *
+     * @param password        the password
+     * @param confirmPassword the confirm password
+     * @return the boolean
+     */
     public static boolean validatePasswords(String password, String confirmPassword) {
         boolean isPasswordsCorrect = false;
         if (password != null && confirmPassword != null) {
@@ -67,6 +92,12 @@ public class UserValidator {
         return isPasswordsCorrect;
     }
 
+    /**
+     * Validate name boolean.
+     *
+     * @param name the name
+     * @return the boolean
+     */
     public static boolean validateName(String name) {
         boolean isNameCorrect = false;
         if (name != null && !name.isEmpty()) {
@@ -76,6 +107,12 @@ public class UserValidator {
         return isNameCorrect;
     }
 
+    /**
+     * Validate driver license boolean.
+     *
+     * @param driverLicense the driver license
+     * @return the boolean
+     */
     public static boolean validateDriverLicense(String driverLicense) {
         boolean isLicenseCorrect = false;
         if (driverLicense != null && !driverLicense.isEmpty()) {
@@ -85,6 +122,12 @@ public class UserValidator {
         return isLicenseCorrect;
     }
 
+    /**
+     * Validate phone number boolean.
+     *
+     * @param phoneNumber the phone number
+     * @return the boolean
+     */
     public static boolean validatePhoneNumber(String phoneNumber) {
         boolean isPhoneNumberCorrect = false;
         if (phoneNumber != null && !phoneNumber.isEmpty()) {
@@ -94,6 +137,12 @@ public class UserValidator {
         return isPhoneNumberCorrect;
     }
 
+    /**
+     * Validate client status boolean.
+     *
+     * @param statusData the status data
+     * @return the boolean
+     */
     public static boolean validateClientStatus(String statusData) {
         boolean isStatusCorrect = false;
 

@@ -16,9 +16,18 @@ import java.util.Optional;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type User service.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class UserServiceImpl implements UserService {
     private static final String EMPTY_VALUE = "";
     private static final String PUNCTUATION = "[\\p{Punct}\\p{Space}]";
+    /**
+     * The User dao.
+     */
     UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     @Override

@@ -18,6 +18,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The type Client cars pagination tag.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @SuppressWarnings("serial")
 public class ClientCarsPaginationTag extends TagSupport {
     private static final Logger logger = LogManager.getLogger();

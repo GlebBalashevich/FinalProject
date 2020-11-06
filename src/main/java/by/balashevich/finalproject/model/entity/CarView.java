@@ -1,30 +1,66 @@
 package by.balashevich.finalproject.model.entity;
 
+/**
+ * The type Car view.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class CarView {
     private String exterior;
     private String exteriorSmall;
     private String interior;
 
+    /**
+     * Gets exterior small.
+     *
+     * @return the exterior small
+     */
     public String getExteriorSmall() {
         return exteriorSmall;
     }
 
+    /**
+     * Sets exterior small.
+     *
+     * @param exteriorSmall the exterior small
+     */
     public void setExteriorSmall(String exteriorSmall) {
         this.exteriorSmall = exteriorSmall;
     }
 
+    /**
+     * Gets exterior.
+     *
+     * @return the exterior
+     */
     public String getExterior() {
         return exterior;
     }
 
+    /**
+     * Sets exterior.
+     *
+     * @param exterior the exterior
+     */
     public void setExterior(String exterior) {
         this.exterior = exterior;
     }
 
+    /**
+     * Gets interior.
+     *
+     * @return the interior
+     */
     public String getInterior() {
         return interior;
     }
 
+    /**
+     * Sets interior.
+     *
+     * @param interior the interior
+     */
     public void setInterior(String interior) {
         this.interior = interior;
     }

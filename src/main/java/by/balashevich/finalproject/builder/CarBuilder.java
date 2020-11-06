@@ -7,10 +7,22 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
 
 import java.util.Map;
 
+/**
+ * The type Car builder.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class CarBuilder {
     private CarBuilder() {
     }
 
+    /**
+     * Build car car.
+     *
+     * @param carParameters the car parameters
+     * @return the car
+     */
     public static Car buildCar(Map<String, Object> carParameters) {
         Car buildingCar = new Car();
 

@@ -2,13 +2,28 @@ package by.balashevich.finalproject.model.entity;
 
 import java.util.Arrays;
 
+/**
+ * The type User.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class User extends Entity {
 
+    /**
+     * The enum Role.
+     */
     public enum Role {
         GUEST,
         CLIENT,
         ADMIN;
 
+        /**
+         * Gets user role.
+         *
+         * @param index the index
+         * @return the user role
+         */
         public static Role getUserRole(int index) {
             return Arrays.stream(Role.values()).filter(r -> r.ordinal() == index).findFirst().get();
         }
@@ -18,26 +33,56 @@ public class User extends Entity {
     private String email;
     private Role role;
 
+    /**
+     * Gets user id.
+     *
+     * @return the user id
+     */
     public long getUserId() {
         return userId;
     }
 
+    /**
+     * Sets user id.
+     *
+     * @param userId the user id
+     */
     public void setUserId(long userId) {
         this.userId = userId;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
     public Role getRole() {
         return role;
     }
 
+    /**
+     * Sets role.
+     *
+     * @param role the role
+     */
     public void setRole(Role role) {
         this.role = role;
     }

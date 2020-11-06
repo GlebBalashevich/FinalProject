@@ -8,6 +8,12 @@ import by.balashevich.finalproject.util.ParameterKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The type Pagination command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class PaginationCommand implements ActionCommand {
 
     @Override

@@ -8,10 +8,24 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Order builder.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class OrderBuilder {
     private OrderBuilder() {
     }
 
+    /**
+     * Build order order.
+     *
+     * @param orderParameters the order parameters
+     * @return the order
+     *
+     * @author Balashevich Gleb
+     */
     public static Order buildOrder(Map<String, Object> orderParameters) {
         Order order = new Order();
         order.setOrderId((long) orderParameters.get(ORDER_ID));

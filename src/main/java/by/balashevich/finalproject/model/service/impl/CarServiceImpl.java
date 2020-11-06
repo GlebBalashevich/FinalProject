@@ -14,6 +14,12 @@ import java.util.*;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Car service.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class CarServiceImpl implements CarService {
     private CarDao carDao = CarDaoImpl.getInstance();
     private static final String PRICE_DELIMITER = ";";

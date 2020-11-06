@@ -21,6 +21,12 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Filter orders command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class FilterOrdersCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

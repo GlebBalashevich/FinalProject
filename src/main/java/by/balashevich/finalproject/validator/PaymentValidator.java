@@ -5,6 +5,12 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Payment validator.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class PaymentValidator {
     private static final String CARD_HOLDER_PATTERN = "^\\p{Alpha}{1,20} \\p{Alpha}{1,20}$";
     private static final String CARD_NUMBER_PATTERN = "^\\p{Digit}{16}$";
@@ -14,6 +20,12 @@ public class PaymentValidator {
     private PaymentValidator() {
     }
 
+    /**
+     * Validate payment parameters boolean.
+     *
+     * @param paymentParameters the payment parameters
+     * @return the boolean
+     */
     public static boolean validatePaymentParameters(Map<String, String> paymentParameters) {
         boolean isPaymentCorrect = true;
         if (!validateCardHolder(paymentParameters.get(CARD_HOLDER))) {
@@ -33,6 +45,12 @@ public class PaymentValidator {
         return isPaymentCorrect;
     }
 
+    /**
+     * Validate card holder boolean.
+     *
+     * @param cardHolderData the card holder data
+     * @return the boolean
+     */
     public static boolean validateCardHolder(String cardHolderData) {
         boolean isCardHolderValid = false;
         if (cardHolderData != null && !cardHolderData.isEmpty()) {
@@ -42,6 +60,12 @@ public class PaymentValidator {
         return isCardHolderValid;
     }
 
+    /**
+     * Validate card number boolean.
+     *
+     * @param cardNumberData the card number data
+     * @return the boolean
+     */
     public static boolean validateCardNumber(String cardNumberData) {
         boolean isCardNumberValid = false;
         if (cardNumberData != null && !cardNumberData.isEmpty()) {
@@ -53,6 +77,13 @@ public class PaymentValidator {
         return isCardNumberValid;
     }
 
+    /**
+     * Validate expiration date boolean.
+     *
+     * @param monthData the month data
+     * @param yearData  the year data
+     * @return the boolean
+     */
     public static boolean validateExpirationDate(String monthData, String yearData) {
         boolean isExpirationDateValid = false;
         if (monthData != null && !monthData.isEmpty() && yearData != null && !yearData.isEmpty()) {
@@ -74,6 +105,12 @@ public class PaymentValidator {
         return isExpirationDateValid;
     }
 
+    /**
+     * Validate cvv code boolean.
+     *
+     * @param cvvCodeData the cvv code data
+     * @return the boolean
+     */
     public static boolean validateCvvCode(String cvvCodeData) {
         boolean isCvvCodeValid = false;
         if (cvvCodeData != null && !cvvCodeData.isEmpty()) {

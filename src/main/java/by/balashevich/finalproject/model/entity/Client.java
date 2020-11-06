@@ -2,13 +2,28 @@ package by.balashevich.finalproject.model.entity;
 
 import java.util.Arrays;
 
+/**
+ * The type Client.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class Client extends User {
 
+    /**
+     * The enum Status.
+     */
     public enum Status {
         PENDING,
         ACTIVE,
         BLOCKED;
 
+        /**
+         * Gets client status.
+         *
+         * @param index the index
+         * @return the client status
+         */
         public static Status getClientStatus(int index) {
             return Arrays.stream(Status.values()).filter(s -> s.ordinal() == index).findFirst().get();
         }
@@ -20,42 +35,92 @@ public class Client extends User {
     private long phoneNumber;
     private Status status;
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets second name.
+     *
+     * @return the second name
+     */
     public String getSecondName() {
         return secondName;
     }
 
+    /**
+     * Sets second name.
+     *
+     * @param secondName the second name
+     */
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
 
+    /**
+     * Gets driver license.
+     *
+     * @return the driver license
+     */
     public String getDriverLicense() {
         return driverLicense;
     }
 
+    /**
+     * Sets driver license.
+     *
+     * @param driverLicense the driver license
+     */
     public void setDriverLicense(String driverLicense) {
         this.driverLicense = driverLicense;
     }
 
+    /**
+     * Gets phone number.
+     *
+     * @return the phone number
+     */
     public long getPhoneNumber() {
         return phoneNumber;
     }
 
+    /**
+     * Sets phone number.
+     *
+     * @param phoneNumber the phone number
+     */
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
     public Status getStatus() {
         return status;
     }
 
+    /**
+     * Sets status.
+     *
+     * @param status the status
+     */
     public void setStatus(Status status) {
         this.status = status;
     }

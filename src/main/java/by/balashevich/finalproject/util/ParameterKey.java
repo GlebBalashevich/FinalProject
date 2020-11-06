@@ -1,5 +1,11 @@
 package by.balashevich.finalproject.util;
 
+/**
+ * The type Parameter key.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class ParameterKey {
     public static final String USERS = "users";                         //table users
     public static final String USER_ID = "user_id";                     //table users

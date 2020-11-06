@@ -1,6 +1,13 @@
 package by.balashevich.finalproject.controller.command;
 
+/**
+ * The type Attribute key.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class AttributeKey {
+
     public static final String USER = "user";                                           //session parameter
     public static final String LOCALE = "locale";                                       //session parameter
     public static final String USER_ROLE = "userRole";                                  //session parameter

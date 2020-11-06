@@ -5,7 +5,16 @@ import java.util.Set;
 
 import static by.balashevich.finalproject.controller.command.CommandType.*;
 
+/**
+ * The enum Command role access.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public enum CommandRoleAccess {
+    /**
+     * Guest command role access.
+     */
     GUEST(EnumSet.of(MOVE_LOGIN_PAGE,
             MOVE_REGISTER_PAGE,
             LOG_IN_USER,
@@ -17,6 +26,9 @@ public enum CommandRoleAccess {
             FIND_AVAILABLE_CARS,
             PAGINATION)),
 
+    /**
+     * Client command role access.
+     */
     CLIENT(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
             MOVE_CAR_CARD_PAGE,
@@ -31,6 +43,9 @@ public enum CommandRoleAccess {
             UPDATE_ORDER_STATUS,
             PAGINATION)),
 
+    /**
+     * Admin command role access.
+     */
     ADMIN(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
             MOVE_USERS_PAGE,
@@ -54,6 +69,11 @@ public enum CommandRoleAccess {
         this.accessCommands = accessCommands;
     }
 
+    /**
+     * Get access commands set.
+     *
+     * @return the set
+     */
     public Set<CommandType> getAccessCommands(){
         return this.accessCommands;
     }

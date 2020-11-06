@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Jsp security filter.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = "/jsp/*")
 public class JspSecurityFilter implements Filter {
     public void destroy() {

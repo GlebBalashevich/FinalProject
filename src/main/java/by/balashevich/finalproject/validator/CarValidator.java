@@ -6,6 +6,12 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Car validator.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class CarValidator {
     private static final String PRICE_PATTERN = "\\d{2,3};\\d{2,3}";
     private static final String MODEL_PATTERN = "^[а-яА-Яa-zA-Z0-9\\s-]{2,100}$";
@@ -26,6 +32,12 @@ public class CarValidator {
     private CarValidator() {
     }
 
+    /**
+     * Validate car parameters boolean.
+     *
+     * @param carParameters the car parameters
+     * @return the boolean
+     */
     public static boolean validateCarParameters(Map<String, String> carParameters) {
         boolean isParametersCorrect = true;
 
@@ -61,6 +73,12 @@ public class CarValidator {
         return isParametersCorrect;
     }
 
+    /**
+     * Validate model boolean.
+     *
+     * @param model the model
+     * @return the boolean
+     */
     public static boolean validateModel(String model) {
         boolean isModelValid = false;
 
@@ -71,6 +89,12 @@ public class CarValidator {
         return isModelValid;
     }
 
+    /**
+     * Validate type boolean.
+     *
+     * @param carTypeData the car type data
+     * @return the boolean
+     */
     public static boolean validateType(String carTypeData) {
         boolean isCarTypeValid = false;
 
@@ -86,6 +110,12 @@ public class CarValidator {
         return isCarTypeValid;
     }
 
+    /**
+     * Validate number seats boolean.
+     *
+     * @param numberSeatsData the number seats data
+     * @return the boolean
+     */
     public static boolean validateNumberSeats(String numberSeatsData) {
         boolean isNumberSeatsValid = false;
 
@@ -99,6 +129,12 @@ public class CarValidator {
         return isNumberSeatsValid;
     }
 
+    /**
+     * Validate rent cost boolean.
+     *
+     * @param carRentCostData the car rent cost data
+     * @return the boolean
+     */
     public static boolean validateRentCost(String carRentCostData) {
         boolean isRentCostValid = false;
 
@@ -112,6 +148,12 @@ public class CarValidator {
         return isRentCostValid;
     }
 
+    /**
+     * Validate fuel type boolean.
+     *
+     * @param fuelTypeData the fuel type data
+     * @return the boolean
+     */
     public static boolean validateFuelType(String fuelTypeData) {
         boolean isFuelTypeValid = false;
 
@@ -127,6 +169,12 @@ public class CarValidator {
         return isFuelTypeValid;
     }
 
+    /**
+     * Validate fuel consumption boolean.
+     *
+     * @param fuelConsumptionData the fuel consumption data
+     * @return the boolean
+     */
     public static boolean validateFuelConsumption(String fuelConsumptionData) {
         boolean isFuelConsumptionValid = false;
 
@@ -141,6 +189,12 @@ public class CarValidator {
         return isFuelConsumptionValid;
     }
 
+    /**
+     * Validate price range data boolean.
+     *
+     * @param priceRangeData the price range data
+     * @return the boolean
+     */
     public static boolean validatePriceRangeData(String priceRangeData) {
         boolean isPriceRangeValid = false;
 
@@ -156,6 +210,12 @@ public class CarValidator {
         return isPriceRangeValid;
     }
 
+    /**
+     * Validate available boolean.
+     *
+     * @param carAvailableData the car available data
+     * @return the boolean
+     */
     public static boolean validateAvailable(String carAvailableData) {
         boolean isCarAvailableValid = false;
 

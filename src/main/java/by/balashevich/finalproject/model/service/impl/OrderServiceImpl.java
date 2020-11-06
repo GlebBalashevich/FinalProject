@@ -21,7 +21,16 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Order service.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class OrderServiceImpl implements OrderService {
+    /**
+     * The Order dao.
+     */
     OrderDao orderDao = OrderDaoImpl.getInstance();
     private static final int DURING_DAY = 1;
 

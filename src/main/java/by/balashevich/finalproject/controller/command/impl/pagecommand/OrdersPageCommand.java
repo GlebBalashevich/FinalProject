@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The type Orders page command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class OrdersPageCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

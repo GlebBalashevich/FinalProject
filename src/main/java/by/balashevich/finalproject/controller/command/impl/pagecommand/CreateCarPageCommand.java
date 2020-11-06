@@ -6,6 +6,12 @@ import by.balashevich.finalproject.controller.command.PageName;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Create car page command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class CreateCarPageCommand implements ActionCommand {
     @Override
     public Router execute(HttpServletRequest request) {

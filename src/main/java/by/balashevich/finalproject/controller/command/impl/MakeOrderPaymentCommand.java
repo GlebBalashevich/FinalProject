@@ -19,6 +19,12 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Make order payment command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class MakeOrderPaymentCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

@@ -9,6 +9,12 @@ import by.balashevich.finalproject.model.entity.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The type Home page command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class HomePageCommand implements ActionCommand {
     private static final String DEFAULT_LOCALE = "en";
 

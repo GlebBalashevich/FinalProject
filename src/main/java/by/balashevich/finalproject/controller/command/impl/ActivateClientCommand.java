@@ -16,6 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Activate client command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class ActivateClientCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

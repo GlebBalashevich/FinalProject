@@ -15,6 +15,12 @@ import java.io.IOException;
 
 import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 
+/**
+ * The type Process controller.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @WebServlet(urlPatterns = "/process_controller")
 public class ProcessController extends HttpServlet {
 
@@ -26,6 +32,14 @@ public class ProcessController extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * Process request.
+     *
+     * @param request  the request
+     * @param response the response
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ActionCommand command = CommandProvider.defineCommand(request.getParameter(ParameterKey.COMMAND));
         Router router = command.execute(request);

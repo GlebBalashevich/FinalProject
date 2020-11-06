@@ -22,6 +22,12 @@ import java.util.List;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Decline order command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class DeclineOrderCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

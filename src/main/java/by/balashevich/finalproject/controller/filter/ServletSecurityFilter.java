@@ -13,6 +13,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * The type Servlet security filter.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 @WebFilter(urlPatterns = "/CarBook")
 public class ServletSecurityFilter implements Filter {
     public void destroy() {

@@ -7,10 +7,22 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type User builder.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class UserBuilder {
     private UserBuilder() {
     }
 
+    /**
+     * Build user user.
+     *
+     * @param userParameters the user parameters
+     * @return the user
+     */
     public static User buildUser(Map<String, Object> userParameters) {
         User.Role role = (User.Role) userParameters.get(ROLE);
         User buildingUser;

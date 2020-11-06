@@ -23,6 +23,12 @@ import java.util.Map;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type Find available cars command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class FindAvailableCarsCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

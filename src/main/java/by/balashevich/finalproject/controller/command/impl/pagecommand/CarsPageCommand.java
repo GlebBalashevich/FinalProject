@@ -9,6 +9,12 @@ import by.balashevich.finalproject.model.entity.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The type Cars page command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class CarsPageCommand implements ActionCommand {
     @Override
     public Router execute(HttpServletRequest request) {

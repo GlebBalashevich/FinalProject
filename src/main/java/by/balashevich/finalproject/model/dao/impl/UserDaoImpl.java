@@ -15,6 +15,12 @@ import java.util.*;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
+/**
+ * The type User dao.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class UserDaoImpl implements UserDao {
     private static UserDaoImpl userDao;
     private static final String ADD_CLIENT = "INSERT INTO users(email, password, user_role, first_name, " +
@@ -33,6 +39,11 @@ public class UserDaoImpl implements UserDao {
     private UserDaoImpl(){
     }
 
+    /**
+     * Get instance user dao.
+     *
+     * @return the user dao
+     */
     public static UserDaoImpl getInstance(){
         if (userDao == null){
             userDao = new UserDaoImpl();

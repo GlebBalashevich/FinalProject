@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
+/**
+ * The type Update order status command.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class UpdateOrderStatusCommand implements ActionCommand {
     private static final Logger logger = LogManager.getLogger();
 

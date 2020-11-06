@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * The type Mail sender.
+ *
+ * @author Balashevich Gleb
+ * @version 1.0
+ */
 public class MailSender {
     private static final Logger logger = LogManager.getLogger();
     private static final String CONFIG_FILEPATH = "config/mail.properties";
@@ -20,6 +26,13 @@ public class MailSender {
     private MailSender() {
     }
 
+    /**
+     * Send mail.
+     *
+     * @param recipientAddress the recipient address
+     * @param subject          the subject
+     * @param text             the text
+     */
     public static void sendMail(String recipientAddress, String subject, String text) {
         try {
             Properties properties = getProperties();
