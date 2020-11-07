@@ -14,7 +14,7 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
  */
 public class CarValidator {
     private static final String PRICE_PATTERN = "\\d{2,3};\\d{2,3}";
-    private static final String MODEL_PATTERN = "^[а-яА-Яa-zA-Z0-9\\s-]{2,100}$";
+    private static final String MODEL_PATTERN = "^[a-zA-Z0-9\\s-]{2,100}$";
     private static final String RENT_COST_PATTERN = "^\\d{2,3}$";
     private static final int RENT_COST_MIN = 10;
     private static final int RENT_COST_MAX = 200;
@@ -202,8 +202,10 @@ public class CarValidator {
             String[] prices = priceRangeData.split(PRICE_DELIMITER);
             int priceFrom = Integer.parseInt(prices[0]);
             int priceTo = Integer.parseInt(prices[1]);
-            if (priceFrom <= priceTo) {
-                isPriceRangeValid = true;
+            if (priceFrom >= RENT_COST_MIN && priceTo <= RENT_COST_MAX) {
+                if (priceFrom <= priceTo) {
+                    isPriceRangeValid = true;
+                }
             }
         }
 

@@ -65,8 +65,11 @@ public class MailSender {
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
+                String passwordGlobal = (String) properties.get(USER_PASSWORD);
+                String passwordValue = System.getenv(passwordGlobal);
+
                 return new PasswordAuthentication((String) properties.get(USER_NAME),
-                        (String) properties.get(USER_PASSWORD));
+                        passwordValue);
             }
         });
 

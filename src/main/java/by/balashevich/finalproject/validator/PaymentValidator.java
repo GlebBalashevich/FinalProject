@@ -90,7 +90,7 @@ public class PaymentValidator {
             if (monthData.matches(DATE_PART_PATTERN) && yearData.matches(DATE_PART_PATTERN)) {
                 LocalDate currentDate = LocalDate.now();
                 int currentMonth = currentDate.getMonth().getValue();
-                int currentYear = currentDate.getYear() - 2000;
+                int currentYear = currentDate.getYear() % 2000;
                 int month = Integer.parseInt(monthData);
                 int year = Integer.parseInt(yearData);
                 if (year > currentYear) {
