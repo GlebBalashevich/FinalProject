@@ -2,7 +2,6 @@ package by.balashevich.finalproject.model.service.impl;
 
 import by.balashevich.finalproject.exception.DaoProjectException;
 import by.balashevich.finalproject.exception.ServiceProjectException;
-import by.balashevich.finalproject.model.dao.BaseDao;
 import by.balashevich.finalproject.model.dao.impl.CarDaoImpl;
 import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.util.ParameterKey;
@@ -25,7 +24,7 @@ import static org.testng.Assert.*;
 
 @PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*", "org.w3c.*",
         "com.sun.org.apache.xalan.*", "javax.management.*"})
-@PrepareForTest({LogManager.class, BaseDao.class, CarDaoImpl.class})
+@PrepareForTest({LogManager.class, CarDaoImpl.class})
 public class CarServiceImplTest {
     CarDaoImpl carDao;
     Logger logger;

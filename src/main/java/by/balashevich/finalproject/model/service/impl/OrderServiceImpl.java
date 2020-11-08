@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * The Order dao.
      */
-    OrderDao orderDao = OrderDaoImpl.getInstance();
+    private OrderDao orderDao = OrderDaoImpl.getInstance();
     private static final int DURING_DAY = 1;
 
     @Override
