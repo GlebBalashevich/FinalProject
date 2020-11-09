@@ -55,7 +55,7 @@
                            onchange="this.setCustomValidity('')"
                            onkeyup="checkPasses()" title="<fmt:message key="register.password"/>">
                 </div>
-                <div class="col-sm-4 input-column" style="display: none">
+                <div class="col-sm-4 input-column" style="display: none" id="not_valid">
                     <label class="alert-danger"><fmt:message key="register.invalid_passwords"/></label>
                 </div>
             </div>

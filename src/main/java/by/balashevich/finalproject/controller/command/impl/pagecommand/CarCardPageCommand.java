@@ -42,17 +42,19 @@ public class CarCardPageCommand implements ActionCommand {
 
         try {
             Optional<Car> orderingCar = carService.findCarById(carId);
-            if (orderingCar.isPresent() && OrderValidator.validateDate(dateFromData)
-                    && OrderValidator.validateDate(dateToData)) {
-                LocalDate dateFrom = LocalDate.parse(dateFromData);
-                LocalDate dateTo = LocalDate.parse(dateToData);
+            if (orderingCar.isPresent()) {
                 Car car = orderingCar.get();
-                int orderAmount = orderService.calculateOrderAmount(car.getRentCost(), dateFrom, dateTo);
-                request.setAttribute(AttributeKey.ORDER_AMOUNT, orderAmount);
-                request.setAttribute(AttributeKey.CAR, orderingCar.get());
-                request.setAttribute(AttributeKey.DATE_FROM, dateFrom);
-                request.setAttribute(AttributeKey.DATE_TO, dateTo);
-                router = new Router(PageName.CAR_CARD.getPath());
+                int orderAmount = orderService.calculateOrderAmount(car.getRentCost(), dateFromData, dateToData);
+                if (orderAmount > 0) {
+                    request.setAttribute(AttributeKey.ORDER_AMOUNT, orderAmount);
+                    request.setAttribute(AttributeKey.CAR, orderingCar.get());
+                    request.setAttribute(AttributeKey.DATE_FROM, dateFromData);
+                    request.setAttribute(AttributeKey.DATE_TO, dateToData);
+                    router = new Router(PageName.CAR_CARD.getPath());
+                } else{
+                    request.setAttribute(AttributeKey.NEGATIVE_AMOUNT, true);
+                    router = new Router(PageName.NOTIFICATION.getPath());
+                }
             } else {
                 request.setAttribute(AttributeKey.CAR_FOUND, false);
                 router = new Router(PageName.NOTIFICATION.getPath());

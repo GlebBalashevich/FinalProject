@@ -8,7 +8,7 @@ import static org.testng.Assert.*;
 public class OrderValidatorTest {
 
     @DataProvider(name = "dateData")
-    public Object[][] createDateData(){
+    public Object[][] createDateData() {
         return new Object[][]{
                 {"2020-12-31", true},
                 {"2020-02-29", true},
@@ -21,15 +21,14 @@ public class OrderValidatorTest {
         };
     }
 
-    @Test (dataProvider = "dateData")
+    @Test(dataProvider = "dateData")
     public void validateDateTest(String date, boolean expected) {
         boolean actual = OrderValidator.validateDate(date);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "statusData")
-    public Object[][] createStatusData(){
+    public Object[][] createStatusData() {
         return new Object[][]{
                 {"pending", true},
                 {"AWAITING_PAYMENT", true},
@@ -40,10 +39,9 @@ public class OrderValidatorTest {
         };
     }
 
-    @Test (dataProvider = "statusData")
+    @Test(dataProvider = "statusData")
     public void validateStatusTest(String status, boolean expected) {
         boolean actual = OrderValidator.validateStatus(status);
-
         assertEquals(actual, expected);
     }
 }

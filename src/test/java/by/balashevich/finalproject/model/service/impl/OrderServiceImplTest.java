@@ -4,19 +4,17 @@ import by.balashevich.finalproject.exception.DaoProjectException;
 import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.dao.impl.OrderDaoImpl;
 import by.balashevich.finalproject.model.entity.Order;
+import by.balashevich.finalproject.util.ParameterKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.easymock.EasyMock;
-import org.powermock.api.easymock.PowerMock;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.testng.PowerMockObjectFactory;
 import org.testng.IObjectFactory;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.ObjectFactory;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,20 +38,18 @@ public class OrderServiceImplTest {
 
     @BeforeMethod
     public void setUp() {
-        PowerMock.mockStatic(OrderDaoImpl.class);
-        PowerMock.mockStatic(LogManager.class);
-        logger = EasyMock.mock(Logger.class);
-        orderDao = EasyMock.mock(OrderDaoImpl.class);
-        EasyMock.expect(LogManager.getLogger(EasyMock.anyObject(Class.class))).andReturn(logger).anyTimes();
-        EasyMock.expect(OrderDaoImpl.getInstance()).andReturn(orderDao).anyTimes();
+        PowerMockito.mockStatic(OrderDaoImpl.class);
+        PowerMockito.mockStatic(LogManager.class);
+        logger = Mockito.mock(Logger.class);
+        orderDao = Mockito.mock(OrderDaoImpl.class);
+        Mockito.when(LogManager.getLogger()).thenReturn(logger);
+        Mockito.when(OrderDaoImpl.getInstance()).thenReturn(orderDao);
     }
 
     @Test
     public void addTest() {
         try {
-            EasyMock.expect(orderDao.add(EasyMock.anyObject())).andReturn(true);
-            PowerMock.replayAll();
-            EasyMock.replay(orderDao);
+            Mockito.when(orderDao.add(Mockito.any())).thenReturn(true);
 
             OrderServiceImpl orderService = new OrderServiceImpl();
             Map<String, String> orderParameters = new HashMap<>();
@@ -72,9 +68,7 @@ public class OrderServiceImplTest {
     @Test(expectedExceptions = ServiceProjectException.class)
     public void addExceptionTest() throws DaoProjectException, ServiceProjectException {
         DaoProjectException daoProjectException = new DaoProjectException();
-        EasyMock.expect(orderDao.add(EasyMock.anyObject())).andThrow(daoProjectException);
-        PowerMock.replayAll();
-        EasyMock.replay(orderDao);
+        Mockito.when(orderDao.add(Mockito.any())).thenThrow(daoProjectException);
 
         OrderServiceImpl orderService = new OrderServiceImpl();
         Map<String, String> orderParameters = new HashMap<>();
@@ -89,9 +83,7 @@ public class OrderServiceImplTest {
     @Test
     public void declineOrderTest() {
         try {
-            EasyMock.expect(orderDao.remove(EasyMock.anyObject())).andReturn(true);
-            PowerMock.replayAll();
-            EasyMock.replay(orderDao);
+            Mockito.when(orderDao.remove(Mockito.any())).thenReturn(true);
 
             OrderServiceImpl orderService = new OrderServiceImpl();
             Order order = new Order();
@@ -105,74 +97,151 @@ public class OrderServiceImplTest {
     @Test(expectedExceptions = ServiceProjectException.class)
     public void declineOrderExceptionTest() throws DaoProjectException, ServiceProjectException {
         DaoProjectException daoProjectException = new DaoProjectException();
-        EasyMock.expect(orderDao.remove(EasyMock.anyObject())).andThrow(daoProjectException);
-        PowerMock.replayAll();
-        EasyMock.replay(orderDao);
+        Mockito.when(orderDao.remove(Mockito.any())).thenThrow(daoProjectException);
 
         OrderServiceImpl orderService = new OrderServiceImpl();
         Order order = new Order();
         orderService.declineOrder(order);
     }
 
-    @Test
-    public void manageOrdersTest() {
-        try {
-            Order order1 = new Order();
-            Order order2 = new Order();
-            Order order3 = new Order();
-            Order order4 = new Order();
-            Order order5 = new Order();
-            order1.setStatus(Order.Status.PENDING);
-            order1.setDateFrom(LocalDate.now());
-            order2.setStatus(Order.Status.AWAITING_PAYMENT);
-            order2.setDateFrom(LocalDate.parse("1974-12-10"));
-            order3.setStatus(Order.Status.ACTIVE);
-            order3.setDateTo(LocalDate.parse("1974-12-10"));
-            order4.setStatus(Order.Status.PENDING);
-            order4.setDateFrom(LocalDate.parse("2045-12-31"));
-            order5.setStatus(Order.Status.COMPLETED);
-            List<Order> inspectingOrders = new ArrayList<>(List.of(order1, order2, order3, order4, order5));
+    @DataProvider(name = "orderStatusData")
+    public Object[][] createOrderStatusData() {
+        return new Object[][]{
+                {"AWAITING_PAYMENT", true},
+                {"wrong", false},
+        };
+    }
 
-            ClientNotificationServiceImpl notificationService = PowerMock.createMock(ClientNotificationServiceImpl.class);
-            PowerMock.expectNew(ClientNotificationServiceImpl.class).andReturn(notificationService);
-            notificationService.completeOrderNotification(EasyMock.anyObject());
-            EasyMock.expectLastCall().anyTimes();
-            notificationService.expiredOrderNotification(EasyMock.anyObject());
-            EasyMock.expectLastCall().anyTimes();
-            EasyMock.expect(orderDao.findWaitingActionOrders()).andReturn(inspectingOrders);
-            EasyMock.expect(orderDao.remove(EasyMock.anyObject())).andReturn(true);
-            EasyMock.expect(orderDao.updateOrderStatus(EasyMock.anyLong(), EasyMock.anyObject())).andReturn(true);
-            PowerMock.replayAll();
-            PowerMock.replay(notificationService);
-            EasyMock.replay(orderDao);
+    @Test(dataProvider = "orderStatusData")
+    public void updateOrderStatusTest(String statusData, boolean expected) {
+        try {
+            Mockito.when(orderDao.updateOrderStatus(Mockito.anyLong(), Mockito.any())).thenReturn(true);
 
             OrderServiceImpl orderService = new OrderServiceImpl();
-            int actual = orderService.manageOrders();
-            assertEquals(actual, 3);
+            Order order = new Order();
+            boolean actual = orderService.updateOrderStatus(order, statusData);
+            assertEquals(actual, expected);
         } catch (DaoProjectException | ServiceProjectException e) {
-            fail(e.getMessage());
-        } catch (Exception e) {
             fail(e.getMessage());
         }
     }
 
-    @Test
-    public void updateOrderStatusTest() {
+    @Test(expectedExceptions = ServiceProjectException.class)
+    public void updateOrderStatusExceptionTest() throws DaoProjectException, ServiceProjectException {
+        DaoProjectException daoProjectException = new DaoProjectException();
+        Mockito.when(orderDao.updateOrderStatus(Mockito.anyLong(), Mockito.any())).thenThrow(daoProjectException);
+
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        Order order = new Order();
+        orderService.updateOrderStatus(order, "AWAITING_PAYMENT");
     }
 
     @Test
     public void orderPaymentTest() {
+        try {
+            Mockito.when(orderDao.updateOrderStatus(Mockito.anyLong(), Mockito.any())).thenReturn(true);
+
+            Order order = new Order();
+            Map<String, String> paymentParameters = new HashMap<>();
+            paymentParameters.put(ParameterKey.CARD_HOLDER, "Ivanov Ivan");
+            paymentParameters.put(ParameterKey.CARD_NUMBER, "1111222233334444");
+            paymentParameters.put(ParameterKey.CARD_EXPIRATION_MONTH, "12");
+            paymentParameters.put(ParameterKey.CARD_EXPIRATION_YEAR, "40");
+            paymentParameters.put(ParameterKey.CARD_CVV_CODE, "123");
+            OrderServiceImpl orderService = new OrderServiceImpl();
+            boolean actual = orderService.orderPayment(order, paymentParameters);
+            assertTrue(actual);
+        } catch (DaoProjectException | ServiceProjectException e) {
+            fail(e.getMessage());
+        }
     }
 
-    @Test
-    public void findOrdersByParametersTest() {
+    @Test(expectedExceptions = ServiceProjectException.class)
+    public void orderPaymentExceptionTest() throws DaoProjectException, ServiceProjectException {
+        DaoProjectException daoProjectException = new DaoProjectException();
+        Mockito.when(orderDao.updateOrderStatus(Mockito.anyLong(), Mockito.any())).thenThrow(daoProjectException);
+
+        Order order = new Order();
+        Map<String, String> paymentParameters = new HashMap<>();
+        paymentParameters.put(ParameterKey.CARD_HOLDER, "Ivanov Ivan");
+        paymentParameters.put(ParameterKey.CARD_NUMBER, "1111222233334444");
+        paymentParameters.put(ParameterKey.CARD_EXPIRATION_MONTH, "12");
+        paymentParameters.put(ParameterKey.CARD_EXPIRATION_YEAR, "40");
+        paymentParameters.put(ParameterKey.CARD_CVV_CODE, "123");
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        orderService.orderPayment(order, paymentParameters);
+    }
+
+    @DataProvider(name = "orderParametersData")
+    public Object[][] createOrderParametersData() {
+        return new Object[][]{
+                {new HashMap<>(Map.of(ORDER_STATUS, "AWAITING_PAYMENT"))},
+                {new HashMap<>()},
+        };
+    }
+
+    @Test(dataProvider = "orderParametersData")
+    public void findOrdersByParametersTest(Map<String, String> orderParameters) {
+        try {
+            List<Order> expected = new ArrayList<>();
+            Mockito.when(orderDao.findAll()).thenReturn(expected);
+            Mockito.when(orderDao.findOrdersByParameters(Mockito.any())).thenReturn(expected);
+
+            OrderServiceImpl orderService = new OrderServiceImpl();
+            List<Order> actual = orderService.findOrdersByParameters(orderParameters);
+            assertEquals(actual, expected);
+        } catch (DaoProjectException | ServiceProjectException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expectedExceptions = ServiceProjectException.class, dataProvider = "orderParametersData")
+    public void findOrdersByParametersExceptionTest(Map<String, String> orderParameters) throws DaoProjectException, ServiceProjectException {
+        DaoProjectException daoProjectException = new DaoProjectException();
+        Mockito.when(orderDao.findAll()).thenThrow(daoProjectException);
+        Mockito.when(orderDao.findOrdersByParameters(Mockito.any())).thenThrow(daoProjectException);
+
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        orderService.findOrdersByParameters(orderParameters);
     }
 
     @Test
     public void findClientOrdersTest() {
+        try {
+            List<Order> expected = new ArrayList<>();
+            Mockito.when(orderDao.findClientOrders(Mockito.anyLong())).thenReturn(expected);
+
+            OrderServiceImpl orderService = new OrderServiceImpl();
+            List<Order> actual = orderService.findClientOrders(1L);
+            assertEquals(actual, expected);
+        } catch (DaoProjectException | ServiceProjectException e) {
+            fail(e.getMessage());
+        }
     }
 
-    @Test
-    public void testCalculateOrderAmountTest() {
+    @Test(expectedExceptions = ServiceProjectException.class)
+    public void findClientOrdersExceptionTest() throws DaoProjectException, ServiceProjectException {
+        DaoProjectException daoProjectException = new DaoProjectException();
+        Mockito.when(orderDao.findClientOrders(Mockito.anyLong())).thenThrow(daoProjectException);
+
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        orderService.findClientOrders(1L);
+    }
+
+    @DataProvider(name = "orderAmountData")
+    public Object[][] createOrderAmountData() {
+        return new Object[][]{
+                {120, "2020-02-28", "2020-03-01", 360},
+                {120, "2020-10-31", "2020-10-31", 120},
+                {120, "2020-01-10", "2020-01-05", -1},
+                {120, null, "2020-01-05", -1},
+        };
+    }
+
+    @Test(dataProvider = "orderAmountData")
+    public void testCalculateOrderAmountTest(int rentCost, String dateFromData, String dateToData, int expected) {
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        int actual = orderService.calculateOrderAmount(rentCost, dateFromData, dateToData);
+        assertEquals(actual, expected);
     }
 }

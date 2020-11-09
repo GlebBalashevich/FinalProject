@@ -21,12 +21,11 @@ public class UserValidatorTest {
         clientParameters.put(ParameterKey.SECOND_NAME, "Petrov");
         clientParameters.put(ParameterKey.DRIVER_LICENSE, "7AB123456");
         clientParameters.put(ParameterKey.PHONE_NUMBER, "375292020327");
-
         assertTrue(UserValidator.validateClientParameters(clientParameters));
     }
 
     @DataProvider(name = "emailData")
-    public Object[][] createEmailData(){
+    public Object[][] createEmailData() {
         return new Object[][]{
                 {"user@bestcompany.by", true},
                 {"1234@105.by", true},
@@ -40,12 +39,11 @@ public class UserValidatorTest {
     @Test(dataProvider = "emailData")
     public void validateEmailTest(String email, boolean expected) {
         boolean actual = UserValidator.validateEmail(email);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "passwordsData")
-    public Object[][] createPasswordsData(){
+    public Object[][] createPasswordsData() {
         return new Object[][]{
                 {"Admin1234", "Admin1234", true},
                 {"Admin1234", "anyElse1234", false},
@@ -55,19 +53,18 @@ public class UserValidatorTest {
                 {"Admin1234", null, false},
                 {null, "Admin1234", false},
                 {"Admin1234", "", false},
-                {"", "Admin1234",  false},
+                {"", "Admin1234", false},
         };
     }
 
     @Test(dataProvider = "passwordsData")
     public void validatePasswordsTest(String password, String confrimPassword, boolean expected) {
         boolean actual = UserValidator.validatePasswords(password, confrimPassword);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "nameData")
-    public Object[][] createNameData(){
+    public Object[][] createNameData() {
         return new Object[][]{
                 {"Petr", true},
                 {"Petr1", false},
@@ -78,15 +75,14 @@ public class UserValidatorTest {
         };
     }
 
-    @Test (dataProvider = "nameData")
+    @Test(dataProvider = "nameData")
     public void validateNameTest(String name, boolean expected) {
         boolean actual = UserValidator.validateName(name);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "driverLicenseData")
-    public Object[][] createDriverLicenseData(){
+    public Object[][] createDriverLicenseData() {
         return new Object[][]{
                 {"7AB123456", true},
                 {"AB123456", true},
@@ -98,15 +94,14 @@ public class UserValidatorTest {
         };
     }
 
-    @Test (dataProvider = "driverLicenseData")
+    @Test(dataProvider = "driverLicenseData")
     public void validateDriverLicenseTest(String driverLicense, boolean expected) {
         boolean actual = UserValidator.validateDriverLicense(driverLicense);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "phoneNumberData")
-    public Object[][] createPhoneNumberData(){
+    public Object[][] createPhoneNumberData() {
         return new Object[][]{
                 {"+375292020327", true},
                 {"+375(29)202-03-27", true},
@@ -118,15 +113,14 @@ public class UserValidatorTest {
         };
     }
 
-    @Test (dataProvider = "phoneNumberData")
+    @Test(dataProvider = "phoneNumberData")
     public void validatePhoneNumberTest(String phoneNumber, boolean expected) {
         boolean actual = UserValidator.validatePhoneNumber(phoneNumber);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "clientStatusData")
-    public Object[][] createClientStatusData(){
+    public Object[][] createClientStatusData() {
         return new Object[][]{
                 {"pending", true},
                 {"BLOCKED", true},
@@ -139,10 +133,9 @@ public class UserValidatorTest {
         };
     }
 
-    @Test (dataProvider = "clientStatusData")
+    @Test(dataProvider = "clientStatusData")
     public void validateClientStatusTest(String clientStatus, boolean expected) {
         boolean actual = UserValidator.validateClientStatus(clientStatus);
-
         assertEquals(actual, expected);
     }
 }

@@ -52,9 +52,12 @@
             <c:if test="${accountBlocked}">
                 <label class="alert-danger"><fmt:message key="notification.account_blocked"/></label>
             </c:if>
-                <c:if test="${not empty noCar && !noCar}">
-                    <label class="alert-danger"><fmt:message key="notification.car_not_found"/></label>
-                </c:if>
+            <c:if test="${not empty noCar && !noCar}">
+                <label class="alert-danger"><fmt:message key="notification.car_not_found"/></label>
+            </c:if>
+            <c:if test="${negativeAmount}">
+                <label class="alert-danger"><fmt:message key="notification.order_amount_error"/></label>
+            </c:if>
             </div>
         </div>
     </div>

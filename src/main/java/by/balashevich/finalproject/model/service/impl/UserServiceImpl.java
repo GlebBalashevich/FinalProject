@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     /**
      * The User dao.
      */
-    UserDaoImpl userDao = UserDaoImpl.getInstance();
+    private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     @Override
     public boolean add(Map<String, String> clientParameters) throws ServiceProjectException {
@@ -60,14 +60,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateClientStatus(String email, Client.Status status) throws ServiceProjectException {
+    public boolean activateClient(String email) throws ServiceProjectException {
         boolean isParameterUpdated = false;
 
         try {
             Client.Status currentStatus = userDao.findStatusByEmail(email);
             if (currentStatus != null) {
                 if (currentStatus == Client.Status.PENDING) {
-                    isParameterUpdated = userDao.updateClientStatus(email, status);
+                    isParameterUpdated = userDao.updateClientStatus(email, Client.Status.ACTIVE);
                 }
             }
         } catch (DaoProjectException e) {

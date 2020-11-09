@@ -28,11 +28,10 @@ public interface UserService {
      * Update client status boolean.
      *
      * @param email  the email
-     * @param status the status
      * @return the boolean
      * @throws ServiceProjectException the service project exception
      */
-    boolean updateClientStatus(String email, Client.Status status) throws ServiceProjectException;
+    boolean activateClient(String email) throws ServiceProjectException;
 
     /**
      * Update client status boolean.

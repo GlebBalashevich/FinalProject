@@ -7,8 +7,9 @@ import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.util.ParameterKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.easymock.EasyMock;
-import org.powermock.api.easymock.PowerMock;
+import org.mockito.Mockito;
+
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.testng.PowerMockObjectFactory;
@@ -36,20 +37,18 @@ public class CarServiceImplTest {
 
     @BeforeMethod
     public void setUp() {
-        PowerMock.mockStatic(CarDaoImpl.class);
-        PowerMock.mockStatic(LogManager.class);
-        logger = EasyMock.mock(Logger.class);
-        carDao = EasyMock.mock(CarDaoImpl.class);
-        EasyMock.expect(LogManager.getLogger(EasyMock.anyObject(Class.class))).andReturn(logger).anyTimes();
-        EasyMock.expect(CarDaoImpl.getInstance()).andReturn(carDao).anyTimes();
+        PowerMockito.mockStatic(CarDaoImpl.class);
+        PowerMockito.mockStatic(LogManager.class);
+        logger = Mockito.mock(Logger.class);
+        carDao = Mockito.mock(CarDaoImpl.class);
+        Mockito.when(LogManager.getLogger()).thenReturn(logger);
+        Mockito.when(CarDaoImpl.getInstance()).thenReturn(carDao);
     }
 
     @Test
     public void addCarTest() {
         try {
-            EasyMock.expect(carDao.add(EasyMock.anyObject())).andReturn(true);
-            PowerMock.replayAll();
-            EasyMock.replay(carDao);
+            Mockito.when(carDao.add(Mockito.any())).thenReturn(true);
 
             CarServiceImpl carService = new CarServiceImpl();
             Map<String, String> carParameters = new HashMap<>();
@@ -70,9 +69,7 @@ public class CarServiceImplTest {
     @Test(expectedExceptions = ServiceProjectException.class)
     public void addCarExceptionTest() throws DaoProjectException, ServiceProjectException {
         DaoProjectException daoProjectException = new DaoProjectException();
-        EasyMock.expect(carDao.add(EasyMock.anyObject())).andThrow(daoProjectException);
-        PowerMock.replayAll();
-        EasyMock.replay(carDao);
+        Mockito.when(carDao.add(Mockito.any())).thenThrow(daoProjectException);
 
         CarServiceImpl carService = new CarServiceImpl();
         Map<String, String> carParameters = new HashMap<>();
@@ -89,9 +86,7 @@ public class CarServiceImplTest {
     @Test
     public void updateCarTest() {
         try {
-            EasyMock.expect(carDao.update(EasyMock.anyObject())).andReturn(true);
-            PowerMock.replayAll();
-            EasyMock.replay(carDao);
+            Mockito.when(carDao.update(Mockito.any())).thenReturn(true);
 
             CarServiceImpl carService = new CarServiceImpl();
             Map<String, String> carParameters = new HashMap<>();
@@ -108,9 +103,7 @@ public class CarServiceImplTest {
     @Test(expectedExceptions = ServiceProjectException.class)
     public void updateCarExceptionTest() throws ServiceProjectException, DaoProjectException {
         DaoProjectException daoProjectException = new DaoProjectException();
-        EasyMock.expect(carDao.update(EasyMock.anyObject())).andThrow(daoProjectException);
-        PowerMock.replayAll();
-        EasyMock.replay(carDao);
+        Mockito.when(carDao.update(Mockito.any())).thenThrow(daoProjectException);
 
         CarServiceImpl carService = new CarServiceImpl();
         Map<String, String> carParameters = new HashMap<>();
@@ -122,12 +115,10 @@ public class CarServiceImplTest {
     public void findCarByIdTest() {
         try {
             Optional<Car> expected = Optional.of(new Car());
-            EasyMock.expect(carDao.findById(EasyMock.anyLong())).andReturn(expected);
-            PowerMock.replayAll();
-            EasyMock.replay(carDao);
+            Mockito.when(carDao.findById(Mockito.anyLong())).thenReturn(expected);
 
             CarServiceImpl carService = new CarServiceImpl();
-            Optional<Car> actual = carService.findCarById(1l);
+            Optional<Car> actual = carService.findCarById(1L);
             assertEquals(actual, expected);
         } catch (DaoProjectException | ServiceProjectException e) {
             fail(e.getMessage());
@@ -137,12 +128,10 @@ public class CarServiceImplTest {
     @Test(expectedExceptions = ServiceProjectException.class)
     public void findCarByIdExceptionTest() throws DaoProjectException, ServiceProjectException {
         DaoProjectException daoProjectException = new DaoProjectException();
-        EasyMock.expect(carDao.findById(EasyMock.anyLong())).andThrow(daoProjectException);
-        PowerMock.replayAll();
-        EasyMock.replay(carDao);
+        Mockito.when(carDao.findById(Mockito.anyLong())).thenThrow(daoProjectException);
 
         CarServiceImpl carService = new CarServiceImpl();
-        carService.findCarById(1l);
+        carService.findCarById(1L);
     }
 
     @DataProvider(name = "orderCarsData")
@@ -166,9 +155,7 @@ public class CarServiceImplTest {
     @Test(dataProvider = "orderCarsData")
     public void findAvailableOrderCarsTest(Map<String, String> orderCarsParameters, List<Car> expected) {
         try {
-            EasyMock.expect(carDao.findAvailableOrderCars(EasyMock.anyObject())).andReturn(new ArrayList<>());
-            PowerMock.replayAll();
-            EasyMock.replay(carDao);
+            Mockito.when(carDao.findAvailableOrderCars(Mockito.any())).thenReturn(new ArrayList<>());
 
             CarServiceImpl carService = new CarServiceImpl();
             List<Car> actual = carService.findAvailableOrderCars(orderCarsParameters);
@@ -181,9 +168,7 @@ public class CarServiceImplTest {
     @Test(expectedExceptions = ServiceProjectException.class)
     public void findAvailableOrderCarsExceptionTest() throws DaoProjectException, ServiceProjectException {
         DaoProjectException daoProjectException = new DaoProjectException();
-        EasyMock.expect(carDao.findAvailableOrderCars(EasyMock.anyObject())).andThrow(daoProjectException);
-        PowerMock.replayAll();
-        EasyMock.replay(carDao);
+        Mockito.when(carDao.findAvailableOrderCars(Mockito.any())).thenThrow(daoProjectException);
 
         CarServiceImpl carService = new CarServiceImpl();
         Map<String, String> orderCarsParameters = new HashMap<>();
@@ -196,9 +181,7 @@ public class CarServiceImplTest {
     public void findCarsByParametersTest() {
         try {
             List<Car> expected = new ArrayList<>();
-            EasyMock.expect(carDao.findCarsByParameters(EasyMock.anyObject())).andReturn(expected);
-            PowerMock.replayAll();
-            EasyMock.replay(carDao);
+            Mockito.when(carDao.findCarsByParameters(Mockito.any())).thenReturn(expected);
 
             CarServiceImpl carService = new CarServiceImpl();
             Map<String, String> carParameters = new HashMap<>();
@@ -214,9 +197,7 @@ public class CarServiceImplTest {
     @Test(expectedExceptions = ServiceProjectException.class)
     public void findCarsByParametersExceptionTest() throws DaoProjectException, ServiceProjectException {
         DaoProjectException daoProjectException = new DaoProjectException();
-        EasyMock.expect(carDao.findCarsByParameters(EasyMock.anyObject())).andThrow(daoProjectException);
-        PowerMock.replayAll();
-        EasyMock.replay(carDao);
+        Mockito.when(carDao.findCarsByParameters(Mockito.any())).thenThrow(daoProjectException);
 
         CarServiceImpl carService = new CarServiceImpl();
         Map<String, String> carParameters = new HashMap<>();

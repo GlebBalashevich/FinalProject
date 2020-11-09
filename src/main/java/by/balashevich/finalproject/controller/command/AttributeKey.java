@@ -33,6 +33,7 @@ public class AttributeKey {
     public static final String CAR_UPDATED = "carUpdated";                              //request parameter
     public static final String CARS_FOUND = "noCars";                                   //request parameter
     public static final String CAR_FOUND = "noCar";                                     //request parameter
+    public static final String NEGATIVE_AMOUNT = "negativeAmount";                      //request parameter
     public static final String ORDERS_FOUND = "noOrders";                               //request parameter
     public static final String CLIENTS_FOUND = "noClients";                             //request parameter
     public static final String ORDER_DECLINED = "orderDeclined";                        //request parameter

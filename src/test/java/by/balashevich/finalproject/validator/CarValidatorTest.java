@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.testng.Assert.*;
 
-public class CarValidatorTest{
+public class CarValidatorTest {
 
     @Test
     public void validateCarParametersTest() {
@@ -22,12 +22,11 @@ public class CarValidatorTest{
         carParameters.put(ParameterKey.FUEL_TYPE, "diesel");
         carParameters.put(ParameterKey.FUEL_CONSUMPTION, "8");
         boolean actual = CarValidator.validateCarParameters(carParameters);
-
         assertTrue(actual);
     }
 
     @DataProvider(name = "modelData")
-    public Object[][] createModelData(){
+    public Object[][] createModelData() {
         return new Object[][]{
                 {"Volvo XC90", true},
                 {"A", false},
@@ -40,12 +39,11 @@ public class CarValidatorTest{
     @Test(dataProvider = "modelData")
     public void validateModelTest(String model, boolean expected) {
         boolean actual = CarValidator.validateModel(model);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "typeData")
-    public Object[][] createTypeData(){
+    public Object[][] createTypeData() {
         return new Object[][]{
                 {"SUV", true},
                 {"Sedan", true},
@@ -56,15 +54,14 @@ public class CarValidatorTest{
         };
     }
 
-    @Test (dataProvider = "typeData")
+    @Test(dataProvider = "typeData")
     public void validateTypeTest(String type, boolean expected) {
         boolean actual = CarValidator.validateType(type);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "numberSeatsData")
-    public Object[][] createNumberSeatsData(){
+    public Object[][] createNumberSeatsData() {
         return new Object[][]{
                 {"1", true},
                 {"50", true},
@@ -77,15 +74,14 @@ public class CarValidatorTest{
         };
     }
 
-    @Test (dataProvider = "numberSeatsData")
+    @Test(dataProvider = "numberSeatsData")
     public void validateNumberSeatsTest(String numberSeats, boolean expected) {
         boolean actual = CarValidator.validateNumberSeats(numberSeats);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "rentCostData")
-    public Object[][] createRentCostData(){
+    public Object[][] createRentCostData() {
         return new Object[][]{
                 {"50", true},
                 {"10", true},
@@ -99,15 +95,14 @@ public class CarValidatorTest{
         };
     }
 
-    @Test (dataProvider = "rentCostData")
+    @Test(dataProvider = "rentCostData")
     public void validateRentCostTest(String rentCost, boolean expected) {
         boolean actual = CarValidator.validateRentCost(rentCost);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "fuelTypeData")
-    public Object[][] createFuelTypeData(){
+    public Object[][] createFuelTypeData() {
         return new Object[][]{
                 {"diesel", true},
                 {"PETROL", true},
@@ -119,15 +114,14 @@ public class CarValidatorTest{
         };
     }
 
-    @Test (dataProvider = "fuelTypeData")
+    @Test(dataProvider = "fuelTypeData")
     public void validateFuelTypeTest(String fuelType, boolean expected) {
         boolean actual = CarValidator.validateFuelType(fuelType);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "fuelConsumptionData")
-    public Object[][] createFuelConsumptionData(){
+    public Object[][] createFuelConsumptionData() {
         return new Object[][]{
                 {"1", true},
                 {"50", true},
@@ -140,15 +134,14 @@ public class CarValidatorTest{
         };
     }
 
-    @Test (dataProvider = "fuelConsumptionData")
+    @Test(dataProvider = "fuelConsumptionData")
     public void validateFuelConsumptionTest(String fuelConsumption, boolean expected) {
         boolean actual = CarValidator.validateFuelConsumption(fuelConsumption);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "priceRangeData")
-    public Object[][] createPriceRangeData(){
+    public Object[][] createPriceRangeData() {
         return new Object[][]{
                 {"10;200", true},
                 {"1;20", false},
@@ -161,15 +154,14 @@ public class CarValidatorTest{
         };
     }
 
-    @Test (dataProvider = "priceRangeData")
+    @Test(dataProvider = "priceRangeData")
     public void validatePriceRangeDataTest(String priceRange, boolean expected) {
         boolean actual = CarValidator.validatePriceRangeData(priceRange);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "isAvailableData")
-    public Object[][] createIsAvailableData(){
+    public Object[][] createIsAvailableData() {
         return new Object[][]{
                 {"true", true},
                 {"false", true},
@@ -182,10 +174,9 @@ public class CarValidatorTest{
         };
     }
 
-    @Test (dataProvider = "isAvailableData")
+    @Test(dataProvider = "isAvailableData")
     public void validateAvailable(String availableData, boolean expected) {
         boolean actual = CarValidator.validateAvailable(availableData);
-
         assertEquals(actual, expected);
     }
 }

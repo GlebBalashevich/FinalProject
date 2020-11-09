@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int manageOrders() throws ServiceProjectException {
-        ClientNotificationService notificationService = new ClientNotificationServiceImpl();
+        ClientNotificationServiceImpl notificationService = new ClientNotificationServiceImpl();
         List<Order> inspectingOrders;
         int numberManagedOrders = 0;
 
@@ -90,13 +90,14 @@ public class OrderServiceImpl implements OrderService {
                             }
                         }
                     }
-                    if (inspectingOrder.getStatus() == Order.Status.ACTIVE)
+                    if (inspectingOrder.getStatus() == Order.Status.ACTIVE) {
                         if (today.toEpochDay() > inspectingOrder.getDateTo().toEpochDay()) {
                             if (orderDao.updateOrderStatus(inspectingOrder.getOrderId(), Order.Status.COMPLETED)) {
                                 notificationService.completeOrderNotification(inspectingOrder);
                                 numberManagedOrders++;
                             }
                         }
+                    }
                 }
             }
         } catch (DaoProjectException e) {
@@ -189,10 +190,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int calculateOrderAmount(int costPerDay, LocalDate dateFrom, LocalDate dateTo) {
-        Period period = Period.between(dateFrom, dateTo);
-        int rentDays = period.getDays() + DURING_DAY;
-        int rentCost = costPerDay * rentDays;
+    public int calculateOrderAmount(int costPerDay, String dateFromData, String dateToData) {
+        int rentCost = -1;
+
+        if (OrderValidator.validateDate(dateFromData) && OrderValidator.validateDate(dateToData)) {
+            LocalDate dateFrom = LocalDate.parse(dateFromData);
+            LocalDate dateTo = LocalDate.parse(dateToData);
+
+            Period period = Period.between(dateFrom, dateTo);
+            int rentDays = period.getDays() + DURING_DAY;
+            rentCost = (rentDays > 0) ? costPerDay * rentDays : -1;
+        }
 
         return rentCost;
     }

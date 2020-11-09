@@ -64,11 +64,11 @@ public interface OrderService {
      * Calculate order amount int.
      *
      * @param costPerDay the cost per day
-     * @param dateFrom   the date from
-     * @param dateTo     the date to
+     * @param dateFromData   the date from
+     * @param dateToData     the date to
      * @return the int
      */
-    int calculateOrderAmount(int costPerDay, LocalDate dateFrom, LocalDate dateTo);
+    int calculateOrderAmount(int costPerDay, String dateFromData, String dateToData);
 
     /**
      * Find orders by parameters list.

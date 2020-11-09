@@ -20,12 +20,11 @@ public class PaymentValidatorTest {
         paymentParameters.put(ParameterKey.CARD_EXPIRATION_YEAR, "40");
         paymentParameters.put(ParameterKey.CARD_CVV_CODE, "123");
         boolean actual = PaymentValidator.validatePaymentParameters(paymentParameters);
-
         assertTrue(actual);
     }
 
     @DataProvider(name = "cardHolderData")
-    public Object[][] createCardHolderData(){
+    public Object[][] createCardHolderData() {
         return new Object[][]{
                 {"Ivan Ivanov", true},
                 {"1234 1234", false},
@@ -34,15 +33,14 @@ public class PaymentValidatorTest {
         };
     }
 
-    @Test (dataProvider = "cardHolderData")
+    @Test(dataProvider = "cardHolderData")
     public void validateCardHolderTest(String cardHolder, boolean expected) {
         boolean actual = PaymentValidator.validateCardHolder(cardHolder);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "cardNumberData")
-    public Object[][] createCardNumberData(){
+    public Object[][] createCardNumberData() {
         return new Object[][]{
                 {"1234567887654321", true},
                 {"1234ABCD43211234", false},
@@ -52,15 +50,14 @@ public class PaymentValidatorTest {
         };
     }
 
-    @Test (dataProvider = "cardNumberData")
+    @Test(dataProvider = "cardNumberData")
     public void validateCardNumberTest(String cardNumber, boolean expected) {
         boolean actual = PaymentValidator.validateCardNumber(cardNumber);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "expirationDateData")
-    public Object[][] createExpirationDateData(){
+    public Object[][] createExpirationDateData() {
         return new Object[][]{
                 {"12", "45", true},
                 {"14", "45", false},
@@ -77,12 +74,11 @@ public class PaymentValidatorTest {
     @Test(dataProvider = "expirationDateData")
     public void validateExpirationDateTest(String month, String year, boolean expected) {
         boolean actual = PaymentValidator.validateExpirationDate(month, year);
-
         assertEquals(actual, expected);
     }
 
     @DataProvider(name = "cvvCodeData")
-    public Object[][] createCvvCodeData(){
+    public Object[][] createCvvCodeData() {
         return new Object[][]{
                 {"123", true},
                 {"320", true},
@@ -92,10 +88,9 @@ public class PaymentValidatorTest {
         };
     }
 
-    @Test (dataProvider = "cvvCodeData")
+    @Test(dataProvider = "cvvCodeData")
     public void validateCvvCodeTest(String cvvCode, boolean expected) {
         boolean actual = PaymentValidator.validateCvvCode(cvvCode);
-
         assertEquals(actual, expected);
     }
 }

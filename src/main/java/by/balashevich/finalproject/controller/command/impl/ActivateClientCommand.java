@@ -32,7 +32,7 @@ public class ActivateClientCommand implements ActionCommand {
         Router router;
 
         try {
-            if (userService.updateClientStatus(clientEmail, Client.Status.ACTIVE)) {
+            if (userService.activateClient(clientEmail)) {
                 request.setAttribute(AttributeKey.SUCCESSFUL_ACTIVATION, true);
             } else {
                 request.setAttribute(AttributeKey.SUCCESSFUL_ACTIVATION, false);
