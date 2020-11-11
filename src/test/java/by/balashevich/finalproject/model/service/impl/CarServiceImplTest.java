@@ -25,10 +25,9 @@ import static org.testng.Assert.*;
 
 @PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*", "org.w3c.*",
         "com.sun.org.apache.xalan.*", "javax.management.*"})
-@PrepareForTest({LogManager.class, CarDaoImpl.class})
+@PrepareForTest({CarDaoImpl.class})
 public class CarServiceImplTest {
     CarDaoImpl carDao;
-    Logger logger;
 
     @ObjectFactory
     public IObjectFactory setObjectFactory() {
@@ -38,10 +37,7 @@ public class CarServiceImplTest {
     @BeforeMethod
     public void setUp() {
         PowerMockito.mockStatic(CarDaoImpl.class);
-        PowerMockito.mockStatic(LogManager.class);
-        logger = Mockito.mock(Logger.class);
         carDao = Mockito.mock(CarDaoImpl.class);
-        Mockito.when(LogManager.getLogger()).thenReturn(logger);
         Mockito.when(CarDaoImpl.getInstance()).thenReturn(carDao);
     }
 

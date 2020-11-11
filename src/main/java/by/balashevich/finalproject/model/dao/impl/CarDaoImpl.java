@@ -74,10 +74,9 @@ public class CarDaoImpl implements CarDao {
         PreparedStatement carViewStatement = null;
 
         try {
-            connection.setAutoCommit(false);
+            autocommit(connection, false);
             carStatement = connection.prepareStatement(ADD_CAR);
             carViewStatement = connection.prepareStatement(ADD_CAR_VIEW);
-
             carStatement.setString(1, (String) parameters.get(MODEL));
             carStatement.setInt(2, ((Car.Type) parameters.get(CAR_TYPE)).ordinal());
             carStatement.setInt(3, (int) parameters.get(NUMBER_SEATS));
@@ -92,14 +91,12 @@ public class CarDaoImpl implements CarDao {
                 carViewStatement.setString(3, (String) parameters.get(INTERIOR));
                 isCarAdded = carViewStatement.executeUpdate() > 0;
             }
+            connection.commit();
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException throwables) {
-                logger.log(Level.ERROR, "Error while rollback committing car data", throwables);
-            }
+            rollback(connection);
             throw new DaoProjectException("Error executing the query when adding a car", e);
         } finally {
+            autocommit(connection, true);
             close(carStatement);
             close(carViewStatement);
             close(connection);

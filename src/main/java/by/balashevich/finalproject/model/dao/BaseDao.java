@@ -72,6 +72,36 @@ public interface BaseDao<T extends Entity> {
     List<T> findAll() throws DaoProjectException;
 
     /**
+     * autocommit.
+     *
+     * @param connection the connection
+     */
+    default void autocommit(Connection connection, boolean type){
+        if (connection != null){
+            try{
+                connection.setAutoCommit(type);
+            } catch (SQLException e) {
+                logger.log(Level.ERROR, "Error occurred while changing autocommit to " + type, e);
+            }
+        }
+    }
+
+    /**
+     * rollback.
+     *
+     * @param connection the connection
+     */
+    default void rollback(Connection connection){
+        if (connection != null){
+            try{
+                connection.rollback();
+            } catch (SQLException e) {
+                logger.log(Level.ERROR, "Error while rollback committing car data", e);
+            }
+        }
+    }
+
+    /**
      * Close.
      *
      * @param statement the statement

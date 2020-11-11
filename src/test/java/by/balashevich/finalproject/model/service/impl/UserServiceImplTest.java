@@ -25,10 +25,9 @@ import static org.testng.Assert.*;
 
 @PowerMockIgnore({"com.sun.org.apache.xerces.*", "javax.xml.*", "org.xml.*", "org.w3c.*",
         "com.sun.org.apache.xalan.*", "javax.management.*"})
-@PrepareForTest({LogManager.class, UserDaoImpl.class})
+@PrepareForTest({UserDaoImpl.class})
 public class UserServiceImplTest {
     UserDaoImpl userDao;
-    Logger logger;
 
     @ObjectFactory
     public IObjectFactory setObjectFactory() {
@@ -38,10 +37,7 @@ public class UserServiceImplTest {
     @BeforeMethod
     public void setUp() {
         PowerMockito.mockStatic(UserDaoImpl.class);
-        PowerMockito.mockStatic(LogManager.class);
-        logger = Mockito.mock(Logger.class);
         userDao = Mockito.mock(UserDaoImpl.class);
-        Mockito.when(LogManager.getLogger()).thenReturn(logger);
         Mockito.when(UserDaoImpl.getInstance()).thenReturn(userDao);
     }
 

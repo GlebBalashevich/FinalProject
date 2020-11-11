@@ -33,6 +33,7 @@ public class AdminCarsPaginationTag extends TagSupport {
     private static final String RENT_COST = "admin_cars.cost";
     private static final String IS_AVAILABLE = "admin_cars.is_available";
     private static final String IS_AVAILABLE_NOW = "admin_cars.avail_now";
+    private static final String INVALID_PRICE = "admin_cars.invalid_price";
     private static final String AVAILABLE_TRUE = "admin_cars.avail_change_to_true";
     private static final String AVAILABLE_FALSE = "admin_cars.avail_change_to_false";
     private static final String EDIT_CAR_BUTTON_TITLE = "admin_cars.edit";
@@ -71,7 +72,8 @@ public class AdminCarsPaginationTag extends TagSupport {
                 out.write("<td>");
                 out.write("<input class=\"form-control\" name=\"rent_cost\" type=\"number\" " +
                         "minlength=\"1\" maxlength=\"2\" min=\"10\" max=\"200\" " +
-                        "value=\"" + car.getRentCost() + "\">");
+                        "value=\"" + car.getRentCost() + "\" oninvalid=\"this.setCustomValidity('" +
+                        bundle.getString(INVALID_PRICE) + "')\" onchange=\"this.setCustomValidity('')\"/>");
                 out.write("</td>");
                 out.write("<td>" + bundle.getString(IS_AVAILABLE) + "</td>");
                 out.write("<td colspan=\"2\">" +
