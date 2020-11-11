@@ -32,7 +32,7 @@
                         <label class="col-form-label"><fmt:message key="cars.date_from"/></label></div>
                     <div class="col-7 input-column">
                         <input class="form-control form-control--date" type="date" name="date_from" id="df"
-                               value="${sessionScope.carParameters.get("date_from")}" required
+                               value="${sessionScope.carParameters.get("date_from")}" required onchange="this.setCustomValidity('')"
                                oninvalid="this.setCustomValidity('<fmt:message key="cars.date_from.validation"/>')">
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         <label class="col-form-label"><fmt:message key="cars.date_to"/></label></div>
                     <div class="col-7 input-column">
                         <input class="form-control form-control--date" type="date" name="date_to"  id="dt"
-                               value="${sessionScope.carParameters.get("date_to")}" required
+                               value="${sessionScope.carParameters.get("date_to")}" required onchange="this.setCustomValidity('')"
                                oninvalid="this.setCustomValidity('<fmt:message key="cars.date_to.validation"/>')">
                     </div>
                 </div>

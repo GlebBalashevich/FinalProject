@@ -3,6 +3,7 @@ package by.balashevich.finalproject.controller.command.impl;
 import by.balashevich.finalproject.controller.Router;
 import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
+import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.util.ParameterKey;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class PaginationCommand implements ActionCommand {
         String paginationDirection = request.getParameter(ParameterKey.PAGINATION_DIRECTION);
         String pageType = request.getParameter(ParameterKey.PAGINATION_SUBJECT);
         int pageNumber = (int) session.getAttribute(pageType);
+        String pageName = (String) session.getAttribute(AttributeKey.CURRENT_PAGE);
 
         if (paginationDirection.equals(ParameterKey.NEXT_PAGE)) {
             session.setAttribute(pageType, ++pageNumber);
@@ -30,6 +32,13 @@ public class PaginationCommand implements ActionCommand {
             session.setAttribute(pageType, --pageNumber);
         }
 
-        return new Router((String) session.getAttribute(AttributeKey.CURRENT_PAGE));
+        if (pageName.equals(PageName.CAR_CARD.getPath())){
+            pageName = PageName.CLIENT_CARS.getPath();
+        }
+        if (pageName.equals(PageName.CLIENT_PAYMENT.getPath())){
+            pageName = PageName.CLIENT_ORDERS.getPath();
+        }
+
+        return new Router(pageName);
     }
 }

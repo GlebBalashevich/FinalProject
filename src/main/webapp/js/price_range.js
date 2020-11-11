@@ -4,8 +4,8 @@ $(document).ready(function () {
         grid: false,
         min: 10,
         max: 200,
-        from: 10,
-        to: 200,
+        // from: 10,
+        // to: 200,
         prefix: "$"
     });
 });

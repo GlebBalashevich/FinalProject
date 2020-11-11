@@ -18,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static by.balashevich.finalproject.util.ParameterKey.*;
@@ -36,8 +38,9 @@ public class CarCardPageCommand implements ActionCommand {
         CarService carService = new CarServiceImpl();
         OrderService orderService = new OrderServiceImpl();
         long carId = Long.parseLong(request.getParameter(CAR_ID));
-        String dateFromData = request.getParameter(DATE_FROM);
-        String dateToData = request.getParameter(DATE_TO);
+        Map<String, String> orderCarParameters = (HashMap) request.getSession().getAttribute(AttributeKey.CAR_PARAMETERS);
+        String dateFromData = orderCarParameters.get(DATE_FROM);
+        String dateToData = orderCarParameters.get(DATE_TO);
         Router router;
 
         try {

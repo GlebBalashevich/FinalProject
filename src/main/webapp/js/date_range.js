@@ -32,12 +32,16 @@ function dateInputs() {
             let formattedDepartureDate = formattedDate(defaultDepartureDate, optionsFormattedDate);
 
             currentItem.attr('min', formattedDepartureDate);
-            currentItem.val(formattedDepartureDate);
+            if (currentItem.value < formattedDepartureDate) {
+                currentItem.val(formattedDepartureDate);
+            }
         } else {
             let defaultArrivalDate = formattedDate(dateNow, optionsFormattedDate);
 
             currentItem.attr('min', defaultArrivalDate);
-            currentItem.val(defaultArrivalDate);
+            if (currentItem.value <= defaultArrivalDate) {
+                currentItem.val(defaultArrivalDate);
+            }
         }
     });
 
@@ -52,7 +56,9 @@ function dateInputs() {
             let formattedDepartureNextDate = formattedDate(departureNextDate, optionsFormattedDate);
 
             departureInput.attr('min', formattedDepartureNextDate);
-            departureInput.val(formattedDepartureNextDate);
+            if (departureInput.value < formattedDepartureNextDate) {
+                departureInput.val(formattedDepartureNextDate);
+            }
         } else {
             return false;
         }
