@@ -24,7 +24,14 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Find available cars command.
+ * The Find available cars command.
+ * <p>
+ * Processes a request received from a client to search for cars available
+ * for order according to the parameters passed (dateFrom, dateTo, type (Car),
+ * price range). After processing the request, the client is forwarding to
+ * the cars page (version for the client), which displays the list of
+ * requested cars. In the event that no cars were found according to these
+ * criteria, an appropriate message is displayed to the client.
  *
  * @author Balashevich Gleb
  * @version 1.0

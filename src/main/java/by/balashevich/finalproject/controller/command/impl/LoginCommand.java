@@ -19,7 +19,15 @@ import javax.servlet.http.HttpSession;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Login command.
+ * The Login command.
+ * <p>
+ * Processes a request from a user with the guest role for authorization.
+ * The entered authorization parameters are sent to the service for processing.
+ * If the data is correct, the user object is retrieved from the database,
+ * his role is determined and the role and data of the user are recorded in the session,
+ * the already authorized user is forwarding to the home page.
+ * If authorization was not successful, the user is forwarding to the login page with
+ * a message about unsuccessful authorization.
  *
  * @author Balashevich Gleb
  * @version 1.0

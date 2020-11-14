@@ -25,7 +25,12 @@ import java.util.Optional;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Car card page command.
+ * The Car card page command.
+ * <p>
+ * The command responsible for forwarding client to the car card page
+ * to view detailed information about the car and its subsequent order
+ * if the car has become unavailable, the forwarding is carried out to the notification page
+ * in case of an error in receiving data, it will be forwarding to the error page
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -54,7 +59,7 @@ public class CarCardPageCommand implements ActionCommand {
                     request.setAttribute(AttributeKey.DATE_FROM, dateFromData);
                     request.setAttribute(AttributeKey.DATE_TO, dateToData);
                     router = new Router(PageName.CAR_CARD.getPath());
-                } else{
+                } else {
                     request.setAttribute(AttributeKey.NEGATIVE_AMOUNT, true);
                     router = new Router(PageName.NOTIFICATION.getPath());
                 }

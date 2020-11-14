@@ -131,7 +131,7 @@ public class UserValidator {
     public static boolean validatePhoneNumber(String phoneNumber) {
         boolean isPhoneNumberCorrect = false;
 
-        if (phoneNumber == null){
+        if (phoneNumber == null) {
             isPhoneNumberCorrect = true;
         }
         if (phoneNumber != null && !phoneNumber.isEmpty()) {

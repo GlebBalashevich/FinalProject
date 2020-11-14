@@ -7,7 +7,9 @@ import by.balashevich.finalproject.controller.command.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * The type Login page command.
+ * The Login page command.
+ * <p>
+ * Forwarding a user to the login page.
  *
  * @author Balashevich Gleb
  * @version 1.0

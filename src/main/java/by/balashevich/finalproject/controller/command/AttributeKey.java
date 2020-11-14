@@ -47,6 +47,6 @@ public class AttributeKey {
     public static final String DATE_FROM = "date_from";                                 //request parameter
     public static final String DATE_TO = "date_to";                                     //request parameter
 
-    private AttributeKey(){
+    private AttributeKey() {
     }
 }

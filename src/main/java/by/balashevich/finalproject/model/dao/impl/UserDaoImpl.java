@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
     private static final String CHANGE_STATUS = "UPDATE users SET client_status = (?) where email=(?)";
     private static final String EMPTY_VALUE = "";
 
-    private UserDaoImpl(){
+    private UserDaoImpl() {
     }
 
     /**
@@ -44,8 +44,8 @@ public class UserDaoImpl implements UserDao {
      *
      * @return the user dao
      */
-    public static UserDaoImpl getInstance(){
-        if (userDao == null){
+    public static UserDaoImpl getInstance() {
+        if (userDao == null) {
             userDao = new UserDaoImpl();
         }
 
@@ -76,22 +76,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean remove(User user){
+    public boolean remove(User user) {
         throw new UnsupportedOperationException("Operation Remove not allowed with user");
     }
 
     @Override
-    public boolean update(User user){
+    public boolean update(User user) {
         throw new UnsupportedOperationException("Operation Update not allowed with user");
     }
 
     @Override
-    public Optional<User> findById(long id){
+    public Optional<User> findById(long id) {
         throw new UnsupportedOperationException("Operation FindById not allowed with user");
     }
 
     @Override
-    public List<User> findAll(){
+    public List<User> findAll() {
         throw new UnsupportedOperationException("Operation FindAll not allowed with user");
     }
 

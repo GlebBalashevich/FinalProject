@@ -65,7 +65,7 @@ public enum CommandRoleAccess {
 
     private Set<CommandType> accessCommands;
 
-    CommandRoleAccess(Set<CommandType> accessCommands){
+    CommandRoleAccess(Set<CommandType> accessCommands) {
         this.accessCommands = accessCommands;
     }
 
@@ -74,7 +74,7 @@ public enum CommandRoleAccess {
      *
      * @return the set
      */
-    public Set<CommandType> getAccessCommands(){
+    public Set<CommandType> getAccessCommands() {
         return this.accessCommands;
     }
 }

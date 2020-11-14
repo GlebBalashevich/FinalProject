@@ -22,7 +22,14 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Filter orders command.
+ * The Filter orders command.
+ * <p>
+ * Processes a request from the administrator for the selection of orders that
+ * meet the requested parameters (email, model, status). After processing the
+ * request, the administrator is forwarding to the orders page (version for
+ * the administrator), which displays the list of requested orders. In the
+ * event that no orders were found according to these criteria, an appropriate
+ * message is displayed to the administrator.
  *
  * @author Balashevich Gleb
  * @version 1.0

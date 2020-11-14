@@ -18,7 +18,13 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
- * The type Update order status command.
+ * The Update order status command.
+ * <p>
+ * Processes a request to change the status of a specific order. The parameters
+ * of the order status to be set and its index in the list are extracted from
+ * the request and sent to the service for processing. After processing, the user
+ * is forwarding to the current page where he is informed about the successful or
+ * unsuccessful change of the order status.
  *
  * @author Balashevich Gleb
  * @version 1.0

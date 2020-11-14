@@ -21,7 +21,13 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Update car property command.
+ * The Update car property command.
+ * <p>
+ * Processes the administrator's request to change the parameters (rentCost, available)
+ * of a specific car. The parameters extracted from the request are sent to the service
+ * for processing. After processing, the administrator is forwarding to the cars page
+ * (version for the administrator) with a corresponding message about the successful
+ * or unsuccessful change of the car parameters.
  *
  * @author Balashevich Gleb
  * @version 1.0

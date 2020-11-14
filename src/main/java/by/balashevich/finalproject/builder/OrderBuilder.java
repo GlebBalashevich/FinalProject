@@ -23,7 +23,6 @@ public class OrderBuilder {
      *
      * @param orderParameters the order parameters
      * @return the order
-     *
      * @author Balashevich Gleb
      */
     public static Order buildOrder(Map<String, Object> orderParameters) {

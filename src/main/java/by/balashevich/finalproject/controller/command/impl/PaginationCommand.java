@@ -32,11 +32,14 @@ public class PaginationCommand implements ActionCommand {
             session.setAttribute(pageType, --pageNumber);
         }
 
-        if (pageName.equals(PageName.CAR_CARD.getPath())){
+        if (pageName.equals(PageName.CAR_CARD.getPath())) {
             pageName = PageName.CLIENT_CARS.getPath();
         }
-        if (pageName.equals(PageName.CLIENT_PAYMENT.getPath())){
+        if (pageName.equals(PageName.CLIENT_PAYMENT.getPath())) {
             pageName = PageName.CLIENT_ORDERS.getPath();
+        }
+        if (pageName.equals(PageName.CREATE_CAR.getPath())) {
+            pageName = PageName.ADMIN_CARS.getPath();
         }
 
         return new Router(pageName);

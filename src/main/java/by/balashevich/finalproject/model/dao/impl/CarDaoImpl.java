@@ -6,9 +6,6 @@ import by.balashevich.finalproject.model.dao.CarDao;
 import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
 import by.balashevich.finalproject.util.DateConverter;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +23,6 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
  * @version 1.0
  */
 public class CarDaoImpl implements CarDao {
-    private static final Logger logger = LogManager.getLogger();
     private static CarDaoImpl carDao;
     private static final String ADD_CAR = "INSERT INTO cars (model, car_type, number_seats, rent_cost," +
             "fuel_type, fuel_consumption, is_available) VALUES (?, ?, ?, ?, ?, ?, ?)";

@@ -18,7 +18,13 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
- * The type Update client status command.
+ * The  Update client status command.
+ * <p>
+ * Processes an administrator's request to change the status of a specific client.
+ * The parameters of the client's installed status and its index in the list are
+ * extracted from the request and sent to the service for processing.
+ * After processing, the administrator is forwarding to the users page where
+ * he is informed about the successful or unsuccessful status change to the client.
  *
  * @author Balashevich Gleb
  * @version 1.0

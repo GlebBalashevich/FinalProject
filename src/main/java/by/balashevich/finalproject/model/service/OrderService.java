@@ -63,9 +63,9 @@ public interface OrderService {
     /**
      * Calculate order amount int.
      *
-     * @param costPerDay the cost per day
-     * @param dateFromData   the date from
-     * @param dateToData     the date to
+     * @param costPerDay   the cost per day
+     * @param dateFromData the date from
+     * @param dateToData   the date to
      * @return the int
      */
     int calculateOrderAmount(int costPerDay, String dateFromData, String dateToData);

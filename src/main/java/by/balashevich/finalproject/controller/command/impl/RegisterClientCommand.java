@@ -21,7 +21,15 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Register client command.
+ * The Register client command.
+ * <p>
+ * Processes a user's registration request. The parameters necessary for
+ * registration are extracted from the request and sent to the service for processing.
+ * If the data is correct and the processing has ended successfully, the user is
+ * forwarding to the notification page with the appropriate message. The user is
+ * also sent an email with a link to activate the account. If the data has
+ * not been verified, the user is redirected back to the registration page to re-enter
+ * the incorrectly entered parameters.
  *
  * @author Balashevich Gleb
  * @version 1.0

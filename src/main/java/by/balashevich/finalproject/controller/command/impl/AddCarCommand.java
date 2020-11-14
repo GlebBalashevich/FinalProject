@@ -19,7 +19,14 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Add car command.
+ * The Add car command.
+ * <p>
+ * Processes the received request from the administrator to add a new car to the service database.
+ * Parameters are extracted from the request and sent to the service for processing.
+ * If the car is successfully added to the database, the stored car parameters necessary for adding
+ * a car are deleted from the session and the administrator is forwarding to the cars page
+ * (version for the administrator). If the car was not added, the administrator is forwarding back
+ * to the create car page.
  *
  * @author Balashevich Gleb
  * @version 1.0

@@ -7,7 +7,9 @@ import by.balashevich.finalproject.controller.command.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * The type Users page command.
+ * The Users page command.
+ * <p>
+ * Forwarding admin to the users page.
  *
  * @author Balashevich Gleb
  * @version 1.0

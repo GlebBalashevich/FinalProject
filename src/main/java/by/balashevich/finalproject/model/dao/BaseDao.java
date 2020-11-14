@@ -17,7 +17,6 @@ import java.util.Optional;
  * The interface Base dao.
  *
  * @param <T> the type parameter
- *
  * @author Balashevich Gleb
  * @version 1.0
  */
@@ -76,9 +75,9 @@ public interface BaseDao<T extends Entity> {
      *
      * @param connection the connection
      */
-    default void autocommit(Connection connection, boolean type){
-        if (connection != null){
-            try{
+    default void autocommit(Connection connection, boolean type) {
+        if (connection != null) {
+            try {
                 connection.setAutoCommit(type);
             } catch (SQLException e) {
                 logger.log(Level.ERROR, "Error occurred while changing autocommit to " + type, e);
@@ -91,9 +90,9 @@ public interface BaseDao<T extends Entity> {
      *
      * @param connection the connection
      */
-    default void rollback(Connection connection){
-        if (connection != null){
-            try{
+    default void rollback(Connection connection) {
+        if (connection != null) {
+            try {
                 connection.rollback();
             } catch (SQLException e) {
                 logger.log(Level.ERROR, "Error while rollback committing car data", e);

@@ -27,7 +27,7 @@ public interface UserService {
     /**
      * Update client status boolean.
      *
-     * @param email  the email
+     * @param email the email
      * @return the boolean
      * @throws ServiceProjectException the service project exception
      */

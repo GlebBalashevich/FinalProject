@@ -21,7 +21,13 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Filter cars command.
+ * The Filter cars command.
+ * <p>
+ * Processes a request from the administrator for the selection of cars that
+ * meet the requested parameters (type, available). After processing the request,
+ * the administrator is forwarding to the cars page (version for the administrator),
+ * which displays the list of requested cars. In the event that no cars were found
+ * according to these criteria, an appropriate message is displayed to the administrator.
  *
  * @author Balashevich Gleb
  * @version 1.0

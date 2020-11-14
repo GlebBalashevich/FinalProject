@@ -17,7 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Activate client command.
+ * The Activate client command.
+ * <p>
+ * Processes a request from registered users to activate an account.
+ * After the activation request has been processed by the service method,
+ * the user is redirected to the notifications page where he is informed
+ * about the successful or not activation of the account.
+ * Account activation provides the user with full use of the resource.
  *
  * @author Balashevich Gleb
  * @version 1.0

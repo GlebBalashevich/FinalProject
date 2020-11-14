@@ -23,7 +23,13 @@ import java.util.List;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Decline order command.
+ * The Decline order command.
+ * <p>
+ * Processes a request from a service administrator to decline an order placed by a client.
+ * After processing the request, the administrator is redirected to the orders page,
+ * where he is notified about the successful or unsuccessful declining of the order.
+ * In the event that the declining of the order was successful, the client is notified that his
+ * order has been declined.
  *
  * @author Balashevich Gleb
  * @version 1.0

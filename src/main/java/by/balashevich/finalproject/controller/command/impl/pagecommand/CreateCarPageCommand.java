@@ -7,7 +7,9 @@ import by.balashevich.finalproject.controller.command.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * The type Create car page command.
+ * The Create car page command.
+ * <p>
+ * forwarding a user with the admin role to the create car page
  *
  * @author Balashevich Gleb
  * @version 1.0

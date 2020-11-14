@@ -18,7 +18,13 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * The type Filter users command.
+ * The Filter users command.
+ * <p>
+ * Processes a request from the administrator for the selection of users that
+ * meet the requested parameter (status). After processing the request, the administrator
+ * is forwarding to the users page, which displays the list of requested users.
+ * In the event that no users were found according to these criteria,
+ * an appropriate message is displayed to the administrator.
  *
  * @author Balashevich Gleb
  * @version 1.0

@@ -20,7 +20,15 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Make order payment command.
+ * The Make order payment command.
+ * <p>
+ * Processes the customer's request to pay for the order. The card data required for
+ * making a payment is extracted from the request and sent to the service for processing.
+ * In case of successful payment, the status of the client's order is updated to ACTIVE
+ * and the client is forwarding to the orders page (version for the client) where he is
+ * informed about the successful payment of the order. If the payment fails, the client
+ * is redirected back to the payment page with a message about an unsuccessful attempt
+ * to make a payment.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -32,7 +40,7 @@ public class MakeOrderPaymentCommand implements ActionCommand {
     public Router execute(HttpServletRequest request) {
         OrderService orderService = new OrderServiceImpl();
         HttpSession session = request.getSession();
-        Order payableOrder = (Order)session.getAttribute(AttributeKey.PAYABLE_ORDER);
+        Order payableOrder = (Order) session.getAttribute(AttributeKey.PAYABLE_ORDER);
         Map<String, String> paymentParameters = new HashMap<>();
         paymentParameters.put(CARD_HOLDER, request.getParameter(CARD_HOLDER));
         paymentParameters.put(CARD_NUMBER, request.getParameter(CARD_NUMBER));
@@ -41,16 +49,16 @@ public class MakeOrderPaymentCommand implements ActionCommand {
         paymentParameters.put(CARD_CVV_CODE, request.getParameter(CARD_CVV_CODE));
         Router router;
 
-        try{
-            if (orderService.orderPayment(payableOrder, paymentParameters)){
+        try {
+            if (orderService.orderPayment(payableOrder, paymentParameters)) {
                 session.removeAttribute(AttributeKey.PAYABLE_ORDER);
                 request.setAttribute(AttributeKey.ORDER_STATUS_UPDATED, true);
                 router = new Router(PageName.CLIENT_ORDERS.getPath());
-            } else{
+            } else {
                 router = new Router(PageName.CLIENT_PAYMENT.getPath());
                 request.setAttribute(AttributeKey.PAYMENT_FAILED, true);
             }
-        } catch (ServiceProjectException e){
+        } catch (ServiceProjectException e) {
             logger.log(Level.ERROR, "Order Id" + payableOrder, e);
             session.removeAttribute(AttributeKey.PAYABLE_ORDER);
             router = new Router(PageName.ERROR_500.getPath());

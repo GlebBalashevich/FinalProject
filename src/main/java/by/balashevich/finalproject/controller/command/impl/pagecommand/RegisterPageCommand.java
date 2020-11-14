@@ -7,7 +7,9 @@ import by.balashevich.finalproject.controller.command.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * The type Register page command.
+ * The Register page command.
+ * <p>
+ * Forwarding not authorized and not registered user to the register page.
  *
  * @author Balashevich Gleb
  * @version 1.0

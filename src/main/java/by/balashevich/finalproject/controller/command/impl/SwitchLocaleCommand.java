@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * The type Switch locale command.
+ * The Switch locale command.
+ * <p>
+ * Processes a request to change the site locale. After changing the locale,
+ * a forwarding to the current page occurs.
  *
  * @author Balashevich Gleb
  * @version 1.0

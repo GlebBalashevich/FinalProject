@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * The type Cars page command.
+ * The Cars page command.
+ * <p>
+ * The command responsible for forwarding user to the cars page
+ * if the user is an administrator, forwarding occurs to admin version of cars page
+ * if the user is an client or guest, forwarding occurs to client version of cars page
  *
  * @author Balashevich Gleb
  * @version 1.0

@@ -24,7 +24,13 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Order car command.
+ * The Order car command.
+ * <p>
+ * Processes a customer's request to create a new order. The data required for the order
+ * (dateFrom, dateTo, carId, userId, amount) is extracted from the request and sent
+ * to the service for processing. After the order is processed, the customer is forwarding
+ * to a notification page with a message about the successful or unsuccessful
+ * placing of the order.
  *
  * @author Balashevich Gleb
  * @version 1.0

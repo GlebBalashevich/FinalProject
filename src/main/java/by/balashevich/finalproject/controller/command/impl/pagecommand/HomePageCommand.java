@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * The type Home page command.
+ * The Home page command.
+ * <p>
+ * Forwarding a user to the home page.
  *
  * @author Balashevich Gleb
  * @version 1.0

@@ -37,8 +37,8 @@
     <filter-mapping>
         <filter-name>ServletSecurityFilter</filter-name>
         <url-pattern>/CarBook</url-pattern>
-
     </filter-mapping>
+
     <error-page>
         <error-code>400</error-code>
         <location>/jsp/error/error404.jsp</location>

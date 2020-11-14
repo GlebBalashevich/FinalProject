@@ -12,7 +12,11 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
- * The type Payment page command.
+ * The Payment page command.
+ * <p>
+ * Forwarding the client to the payment page.
+ * Before forwarding receive index of paid order from session
+ * find order from order list and put it into session for further processing.
  *
  * @author Balashevich Gleb
  * @version 1.0

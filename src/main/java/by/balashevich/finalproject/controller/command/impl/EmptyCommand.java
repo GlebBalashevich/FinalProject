@@ -7,7 +7,10 @@ import by.balashevich.finalproject.controller.command.PageName;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * The type Empty command.
+ * The Empty command.
+ * <p>
+ * It is called if it was not possible to determine the command
+ * received in the request. User is forwarding to the error404 page.
  *
  * @author Balashevich Gleb
  * @version 1.0

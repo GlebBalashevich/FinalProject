@@ -9,6 +9,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  * The type Logout command.
+ * <p>
+ * Processes a request to terminate a session with a user. The session is
+ * no longer valid, the user is forwarding to the home page.
  *
  * @author Balashevich Gleb
  * @version 1.0
