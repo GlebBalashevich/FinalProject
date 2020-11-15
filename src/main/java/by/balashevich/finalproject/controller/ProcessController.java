@@ -16,7 +16,9 @@ import java.io.IOException;
 import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 
 /**
- * The type Process controller.
+ * The Process controller.
+ *
+ * Controller for processing requests coming from the client side.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -34,6 +36,10 @@ public class ProcessController extends HttpServlet {
 
     /**
      * Process request.
+     * Receives a request from the client, retrieves the name of the requested command,
+     * searches for this command from the list of existing ones, and redirects the
+     * request to the command for processing. Based on the processing results, it
+     * generates a response and redirects or forwards to the required page.
      *
      * @param request  the request
      * @param response the response

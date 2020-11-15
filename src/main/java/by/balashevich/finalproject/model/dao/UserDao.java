@@ -10,13 +10,16 @@ import java.util.Optional;
 /**
  * The interface User dao.
  *
- * @author Balashevich Gleb
+ * Extends the interface of the {@code BaseDao}, supplementing it with specific
+ * methods for the interaction of the application with User entities in the database.
+ *
+ * @see BaseDao * @author Balashevich Gleb
  * @version 1.0
  */
 public interface UserDao extends BaseDao<User> {
 
     /**
-     * Update client status boolean.
+     * Update the user's status with a specific email address.
      *
      * @param targetEmail the target email
      * @param status      the status
@@ -26,7 +29,7 @@ public interface UserDao extends BaseDao<User> {
     boolean updateClientStatus(String targetEmail, Client.Status status) throws DaoProjectException;
 
     /**
-     * Find by email optional.
+     * Find a user in the database by email address
      *
      * @param targetEmail the target email
      * @return the optional
@@ -35,7 +38,7 @@ public interface UserDao extends BaseDao<User> {
     Optional<User> findByEmail(String targetEmail) throws DaoProjectException;
 
     /**
-     * Find all clients list.
+     * Find all clients in database.
      *
      * @return the list
      * @throws DaoProjectException the dao project exception
@@ -43,7 +46,7 @@ public interface UserDao extends BaseDao<User> {
     List<Client> findAllClients() throws DaoProjectException;
 
     /**
-     * Find status by email client . status.
+     * Find a client status in the database by email address.
      *
      * @param targetEmail the target email
      * @return the client . status
@@ -52,7 +55,7 @@ public interface UserDao extends BaseDao<User> {
     Client.Status findStatusByEmail(String targetEmail) throws DaoProjectException;
 
     /**
-     * Find clients by status list.
+     * Find clients by specific status.
      *
      * @param clientStatus the client status
      * @return the list
@@ -61,7 +64,7 @@ public interface UserDao extends BaseDao<User> {
     List<Client> findClientsByStatus(Client.Status clientStatus) throws DaoProjectException;
 
     /**
-     * Find password by email string.
+     * Find user password by email.
      *
      * @param targetEmail the target email
      * @return the string
@@ -70,7 +73,7 @@ public interface UserDao extends BaseDao<User> {
     String findPasswordByEmail(String targetEmail) throws DaoProjectException;
 
     /**
-     * Exist email string.
+     * Determines the presence of a specific email address in the database.
      *
      * @param targetEmail the target email
      * @return the string

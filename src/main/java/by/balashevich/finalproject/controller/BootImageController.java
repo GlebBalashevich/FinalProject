@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The type Boot image controller.
+ * The Boot image controller.
+ *
+ * Process a request to upload an image to the server
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -41,6 +43,17 @@ public class BootImageController extends HttpServlet {
         processRequest(request, response);
     }
 
+    /**
+     * Process request.
+     *
+     * Gets from the servletContext of the request object the directory for loading the image,
+     * forms the path to the image on the server and loads.
+     *
+     * @param request  the request
+     * @param response the response
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String applicationFileDirectory = request.getServletContext().getInitParameter(UPLOAD_LOCATION);
         HttpSession session = request.getSession();

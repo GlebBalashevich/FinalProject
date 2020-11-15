@@ -9,6 +9,10 @@ import java.util.Map;
 /**
  * The interface Car dao.
  *
+ * Extends the interface of the {@code BaseDao}, supplementing it with specific
+ * methods for the interaction of the application with Car entities in the database
+ *
+ * @see BaseDao
  * @author Balashevich Gleb
  * @version 1.0
  */

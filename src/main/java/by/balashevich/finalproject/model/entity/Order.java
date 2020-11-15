@@ -4,7 +4,11 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
- * The type Order.
+ * The Order.
+ *
+ * Provided for booking a car for a certain range of dates, monitoring the correctness
+ * of booking cars, for financial reporting, to track the work of the service.
+ * The main unit of the business logic of the application.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -26,7 +30,7 @@ public class Order extends Entity {
         }
 
         /**
-         * Gets title.
+         * Gets status title.
          *
          * @return the title
          */
@@ -35,7 +39,7 @@ public class Order extends Entity {
         }
 
         /**
-         * Gets status.
+         * Gets status by index.
          *
          * @param index the index
          * @return the status
@@ -54,7 +58,7 @@ public class Order extends Entity {
     private Car car;
 
     /**
-     * Gets order id.
+     * Gets orderId.
      *
      * @return the order id
      */
@@ -63,7 +67,7 @@ public class Order extends Entity {
     }
 
     /**
-     * Sets order id.
+     * Sets orderId.
      *
      * @param orderId the order id
      */
@@ -72,7 +76,7 @@ public class Order extends Entity {
     }
 
     /**
-     * Gets date from.
+     * Gets dateFrom.
      *
      * @return the date from
      */
@@ -81,7 +85,7 @@ public class Order extends Entity {
     }
 
     /**
-     * Sets date from.
+     * Sets dateFrom.
      *
      * @param dateFrom the date from
      */
@@ -90,7 +94,7 @@ public class Order extends Entity {
     }
 
     /**
-     * Gets date to.
+     * Gets dateTo.
      *
      * @return the date to
      */
@@ -99,7 +103,7 @@ public class Order extends Entity {
     }
 
     /**
-     * Sets date to.
+     * Sets dateTo.
      *
      * @param dateTo the date to
      */

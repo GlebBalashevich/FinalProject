@@ -9,13 +9,17 @@ import java.util.Map;
 /**
  * The interface Order dao.
  *
+ * Extends the interface of the {@code BaseDao}, supplementing it with specific
+ * methods for the interaction of the application with Order entities in the database.
+ *
+ * @see BaseDao
  * @author Balashevich Gleb
  * @version 1.0
  */
 public interface OrderDao extends BaseDao<Order> {
 
     /**
-     * Update order status boolean.
+     * Update specific order status.
      *
      * @param orderId the order id
      * @param status  the status
@@ -25,7 +29,7 @@ public interface OrderDao extends BaseDao<Order> {
     boolean updateOrderStatus(long orderId, Order.Status status) throws DaoProjectException;
 
     /**
-     * Find waiting action orders list.
+     * Find all orders in the database waiting action
      *
      * @return the list
      * @throws DaoProjectException the dao project exception
@@ -33,7 +37,7 @@ public interface OrderDao extends BaseDao<Order> {
     List<Order> findWaitingActionOrders() throws DaoProjectException;
 
     /**
-     * Find orders by parameters list.
+     * Find orders by parameters.
      *
      * @param orderParameters the order parameters
      * @return the list
@@ -42,7 +46,7 @@ public interface OrderDao extends BaseDao<Order> {
     List<Order> findOrdersByParameters(Map<String, Object> orderParameters) throws DaoProjectException;
 
     /**
-     * Find client orders list.
+     * Find all specific client orders in database.
      *
      * @param clientId the client id
      * @return the list

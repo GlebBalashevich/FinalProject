@@ -5,6 +5,11 @@ import java.util.Arrays;
 /**
  * The type Client.
  *
+ * Extends the user class to describe clients using the service. Supplemented
+ * with the necessary information for the implementation of actions to order cars,
+ * access to various application options.
+ *
+ * @see User
  * @author Balashevich Gleb
  * @version 1.0
  */
@@ -12,6 +17,7 @@ public class Client extends User {
 
     /**
      * The enum Status.
+     * Used to differentiate client access rights.
      */
     public enum Status {
         PENDING,
@@ -19,7 +25,7 @@ public class Client extends User {
         BLOCKED;
 
         /**
-         * Gets client status.
+         * Gets client status by index.
          *
          * @param index the index
          * @return the client status
@@ -72,7 +78,7 @@ public class Client extends User {
     }
 
     /**
-     * Gets driver license.
+     * Gets driverLicense.
      *
      * @return the driver license
      */
@@ -81,7 +87,7 @@ public class Client extends User {
     }
 
     /**
-     * Sets driver license.
+     * Sets driverLicense.
      *
      * @param driverLicense the driver license
      */
@@ -90,7 +96,7 @@ public class Client extends User {
     }
 
     /**
-     * Gets phone number.
+     * Gets phoneNumber.
      *
      * @return the phone number
      */
@@ -99,7 +105,7 @@ public class Client extends User {
     }
 
     /**
-     * Sets phone number.
+     * Sets phoneNumber.
      *
      * @param phoneNumber the phone number
      */

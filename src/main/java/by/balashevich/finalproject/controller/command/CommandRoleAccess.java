@@ -8,12 +8,18 @@ import static by.balashevich.finalproject.controller.command.CommandType.*;
 /**
  * The enum Command role access.
  *
+ * This enum is described to differentiate the user's access levels to the elements
+ * of the application, depending on its roles. Today the user has one of the
+ * roles: GUEST, ADMIN, CLIENT ({@code User.Role}). Depending on the role,
+ * the web filter {@code ServletSecurityFilter} can pass requests to execute a particular
+ * command {@code CommandType} or block access.
+ *
  * @author Balashevich Gleb
  * @version 1.0
  */
 public enum CommandRoleAccess {
     /**
-     * Guest command role access.
+     * Available commands for user role GUEST.
      */
     GUEST(EnumSet.of(MOVE_LOGIN_PAGE,
             MOVE_REGISTER_PAGE,
@@ -27,7 +33,7 @@ public enum CommandRoleAccess {
             PAGINATION)),
 
     /**
-     * Client command role access.
+     * Available commands for user role CLIENT.
      */
     CLIENT(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
@@ -44,7 +50,7 @@ public enum CommandRoleAccess {
             PAGINATION)),
 
     /**
-     * Admin command role access.
+     * Available commands for user role ADMIN.
      */
     ADMIN(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
@@ -70,7 +76,7 @@ public enum CommandRoleAccess {
     }
 
     /**
-     * Get access commands set.
+     * Returns the set of available commands according to the corresponding role value
      *
      * @return the set
      */

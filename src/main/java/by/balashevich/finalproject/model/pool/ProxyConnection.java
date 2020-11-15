@@ -6,7 +6,9 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * The type Proxy connection.
+ * The Proxy connection.
+ *
+ * Described to protect the connection from unauthorized closing.
  *
  * @author Balashevich Gleb
  * @version 1.0

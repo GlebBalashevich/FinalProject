@@ -3,7 +3,9 @@ package by.balashevich.finalproject.model.entity;
 import java.util.Arrays;
 
 /**
- * The type User.
+ * The User.
+ *
+ * Describes the basic characteristics of a user who interacts directly with the application.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -12,6 +14,8 @@ public class User extends Entity {
 
     /**
      * The enum Role.
+     * Depending on the role assigned to the user, the level of access
+     * to service elements is determined.
      */
     public enum Role {
         GUEST,
@@ -19,7 +23,7 @@ public class User extends Entity {
         ADMIN;
 
         /**
-         * Gets user role.
+         * Gets userRole by index.
          *
          * @param index the index
          * @return the user role
@@ -34,7 +38,7 @@ public class User extends Entity {
     private Role role;
 
     /**
-     * Gets user id.
+     * Gets userId.
      *
      * @return the user id
      */
@@ -43,7 +47,7 @@ public class User extends Entity {
     }
 
     /**
-     * Sets user id.
+     * Sets userId.
      *
      * @param userId the user id
      */

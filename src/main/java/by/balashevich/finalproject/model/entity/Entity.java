@@ -3,7 +3,9 @@ package by.balashevich.finalproject.model.entity;
 import java.io.Serializable;
 
 /**
- * The type Entity.
+ * The Entity.
+ *
+ * Base class-marker for identifying the ownership of objects in the current application.
  *
  * @author Balashevich Gleb
  * @version 1.0

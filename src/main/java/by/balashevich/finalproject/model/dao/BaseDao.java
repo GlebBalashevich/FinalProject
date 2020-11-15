@@ -16,6 +16,10 @@ import java.util.Optional;
 /**
  * The interface Base dao.
  *
+ * The base interface denoting the main methods of interaction between the
+ * application and the database (CRUD). Has default implementations of methods
+ * for closing a connection, statement, change autocommit and rolling back a transaction.
+ *
  * @param <T> the type parameter
  * @author Balashevich Gleb
  * @version 1.0
@@ -27,7 +31,7 @@ public interface BaseDao<T extends Entity> {
     Logger logger = LogManager.getLogger();
 
     /**
-     * Add boolean.
+     * Adding a new entity to the database based on the parameters passed to the method.
      *
      * @param parameters the parameters
      * @return the boolean
@@ -36,7 +40,7 @@ public interface BaseDao<T extends Entity> {
     boolean add(Map<String, Object> parameters) throws DaoProjectException;
 
     /**
-     * Remove boolean.
+     * Removes an entity from the database
      *
      * @param t the t
      * @return the boolean
@@ -45,7 +49,7 @@ public interface BaseDao<T extends Entity> {
     boolean remove(T t) throws DaoProjectException;
 
     /**
-     * Update boolean.
+     * Updating an entity in the database
      *
      * @param t the t
      * @return the boolean
@@ -54,7 +58,7 @@ public interface BaseDao<T extends Entity> {
     boolean update(T t) throws DaoProjectException;
 
     /**
-     * Find by id optional.
+     * Find entity by Id in database.
      *
      * @param id the id
      * @return the optional
@@ -63,7 +67,7 @@ public interface BaseDao<T extends Entity> {
     Optional<T> findById(long id) throws DaoProjectException;
 
     /**
-     * Find all list.
+     * Find all entities in database.
      *
      * @return the list
      * @throws DaoProjectException the dao project exception
@@ -71,7 +75,7 @@ public interface BaseDao<T extends Entity> {
     List<T> findAll() throws DaoProjectException;
 
     /**
-     * autocommit.
+     * Changing the autocommit value of the Connection object
      *
      * @param connection the connection
      */
@@ -86,7 +90,7 @@ public interface BaseDao<T extends Entity> {
     }
 
     /**
-     * rollback.
+     * Rollback a connection transaction
      *
      * @param connection the connection
      */
@@ -101,7 +105,7 @@ public interface BaseDao<T extends Entity> {
     }
 
     /**
-     * Close.
+     * Close statement.
      *
      * @param statement the statement
      */
@@ -116,7 +120,7 @@ public interface BaseDao<T extends Entity> {
     }
 
     /**
-     * Close.
+     * Close connection.
      *
      * @param connection the connection
      */

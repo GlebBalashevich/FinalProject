@@ -8,12 +8,18 @@ import static by.balashevich.finalproject.controller.command.CommandType.*;
 /**
  * The enum Command client status access.
  *
+ * This enum is described to differentiate the client's access levels to the elements
+ * of the application, depending on its status. Today the client has one of the
+ * statuses: PENDING, ACTIVE, BLOCKED ({@code Client.Status}). Depending on the status,
+ * the web filter {@code ClientStatusSecurityFilter} can pass requests to execute a particular
+ * command {@code CommandType} or block access.
+ *
  * @author Balashevich Gleb
  * @version 1.0
  */
 public enum CommandClientStatusAccess {
     /**
-     * Pending command client status access.
+     * Available commands for client status PENDING
      */
     PENDING(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
@@ -23,7 +29,7 @@ public enum CommandClientStatusAccess {
             FIND_AVAILABLE_CARS,
             PAGINATION)),
     /**
-     * Active command client status access.
+     * Available commands for client status ACTIVE
      */
     ACTIVE(EnumSet.of(MOVE_HOME_PAGE,
             MOVE_CARS_PAGE,
@@ -38,7 +44,7 @@ public enum CommandClientStatusAccess {
             UPDATE_ORDER_STATUS,
             PAGINATION)),
     /**
-     * Blocked command client status access.
+     * Available commands for client status BLOCKED
      */
     BLOCKED(EnumSet.of(MOVE_HOME_PAGE,
             LOG_OUT_USER,
@@ -51,7 +57,7 @@ public enum CommandClientStatusAccess {
     }
 
     /**
-     * Gets access commands.
+     * Returns the set of available commands according to the corresponding status value
      *
      * @return the access commands
      */

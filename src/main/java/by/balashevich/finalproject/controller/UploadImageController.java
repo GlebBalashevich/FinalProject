@@ -10,7 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * The type Upload image controller.
+ * The Upload image controller.
+ *
+ * Loads an image into a page to display it to the client
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -31,7 +33,8 @@ public class UploadImageController extends HttpServlet {
 
     /**
      * Process request.
-     *
+     * Process a request to upload an image to a page. The method determines which image
+     * needs to be uploaded from the server storage to the page, loads it in response
      * @param request  the request
      * @param response the response
      * @throws IOException the io exception

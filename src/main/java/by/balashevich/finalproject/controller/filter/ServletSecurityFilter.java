@@ -14,7 +14,18 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * The type Servlet security filter.
+ * The Servlet security filter.
+ *
+ * Filter of the user's access level to the command sent to the
+ * controller based on the current role. The filter intercepts
+ * the request sent to {@code ProcessController}.
+ * The user's role and command name are retrieved from the {@code HttpServletRequest}.
+ * If the user's role is null then the session is invalidated and the user is redirected
+ * to the index page. If not then the command that the request wants to call is determined.
+ * The role is retrieved from the {@code HttpSession}, and based on it, a set of commands available
+ * for processing by the user with this role is obtained. The command, received from
+ * the request is searched for in the received set, if such a command is found, control
+ * is passed to the next filter, if not, it is redirected to the notification page.
  *
  * @author Balashevich Gleb
  * @version 1.0

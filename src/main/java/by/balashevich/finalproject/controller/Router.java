@@ -1,7 +1,11 @@
 package by.balashevich.finalproject.controller;
 
 /**
- * The type Router.
+ * The Router.
+ *
+ * Used to store the path to the page to which the controller will redirect.
+ * In addition to the path, the router contains information about the type
+ * of transition redirect or forward
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -45,7 +49,7 @@ public class Router {
     }
 
     /**
-     * Gets transition.
+     * Gets transition type.
      *
      * @return the transition
      */
@@ -54,7 +58,7 @@ public class Router {
     }
 
     /**
-     * Gets page.
+     * Gets page path.
      *
      * @return the page
      */
@@ -63,7 +67,7 @@ public class Router {
     }
 
     /**
-     * Sets page.
+     * Sets page path.
      *
      * @param page the page
      */

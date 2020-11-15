@@ -1,7 +1,11 @@
 package by.balashevich.finalproject.model.entity;
 
 /**
- * The type Car view.
+ * The Car view.
+ *
+ * To provide more detailed information to the client and to help
+ * him with the choice of a car, View stores data on the images
+ * of a particular car to provide visualization on the client side.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -12,7 +16,7 @@ public class CarView {
     private String interior;
 
     /**
-     * Gets exterior small.
+     * Gets exteriorSmall.
      *
      * @return the exterior small
      */
@@ -21,7 +25,7 @@ public class CarView {
     }
 
     /**
-     * Sets exterior small.
+     * Sets exteriorSmall.
      *
      * @param exteriorSmall the exterior small
      */

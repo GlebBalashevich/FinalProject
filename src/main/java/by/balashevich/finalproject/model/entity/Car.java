@@ -3,9 +3,10 @@ package by.balashevich.finalproject.model.entity;
 import java.util.Arrays;
 
 /**
- * The type Car.
+ * The Car.
+ *
  * Is the subject area of the service.
- * Describes the vehicles rented by clients
+ * Describes the cars rented by clients
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -13,6 +14,7 @@ import java.util.Arrays;
 public class Car extends Entity {
     /**
      * The enum Type.
+     * Describes the types of cars.
      */
     public enum Type {
         SUV("Suv"),
@@ -26,7 +28,7 @@ public class Car extends Entity {
         }
 
         /**
-         * Gets title.
+         * Gets car type title.
          *
          * @return the title
          */
@@ -35,7 +37,7 @@ public class Car extends Entity {
         }
 
         /**
-         * Gets type.
+         * Gets type by index.
          *
          * @param index the index
          * @return the type
@@ -47,6 +49,7 @@ public class Car extends Entity {
 
     /**
      * The enum Fuel type.
+     * Describes the fuel types of cars.
      */
     public enum FuelType {
         DIESEL("Diesel"),
@@ -59,7 +62,7 @@ public class Car extends Entity {
         }
 
         /**
-         * Gets title.
+         * Gets fuel type title.
          *
          * @return the title
          */
@@ -68,7 +71,7 @@ public class Car extends Entity {
         }
 
         /**
-         * Gets fuel type.
+         * Gets fuel type by index.
          *
          * @param index the index
          * @return the fuel type
@@ -89,7 +92,7 @@ public class Car extends Entity {
     private boolean available;
 
     /**
-     * Gets car id.
+     * Gets carId.
      *
      * @return the car id
      */
@@ -98,7 +101,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Sets car id.
+     * Sets carId.
      *
      * @param carId the car id
      */
@@ -143,7 +146,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Gets number seats.
+     * Gets numberSeats.
      *
      * @return the number seats
      */
@@ -152,7 +155,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Sets number seats.
+     * Sets numberSeats.
      *
      * @param numberSeats the number seats
      */
@@ -161,7 +164,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Gets rent cost.
+     * Gets rentCost.
      *
      * @return the rent cost
      */
@@ -170,7 +173,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Sets rent cost.
+     * Sets rentCost.
      *
      * @param rentCost the rent cost
      */
@@ -179,7 +182,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Gets fuel type.
+     * Gets fuelType.
      *
      * @return the fuel type
      */
@@ -188,7 +191,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Sets fuel type.
+     * Sets fuelType.
      *
      * @param fuelType the fuel type
      */
@@ -197,7 +200,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Gets fuel consumption.
+     * Gets fuelConsumption.
      *
      * @return the fuel consumption
      */
@@ -206,7 +209,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Sets fuel consumption.
+     * Sets fuelConsumption.
      *
      * @param fuelConsumption the fuel consumption
      */
@@ -215,7 +218,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Gets car view.
+     * Gets carView.
      *
      * @return the car view
      */
@@ -224,7 +227,7 @@ public class Car extends Entity {
     }
 
     /**
-     * Sets car view.
+     * Sets carView.
      *
      * @param carView the car view
      */

@@ -15,7 +15,18 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * The type Client status security filter.
+ * The Client status security filter.
+ *
+ * Filter of the client's access level to the command sent to the
+ * controller based on the current status. The filter intercepts
+ * the request sent to {@code ProcessController}.
+ * The user's role and command name are retrieved from the {@code HttpServletRequest}.
+ * If the user's role is defined and the user is a client, then the client object is retrieved
+ * from the {@code HttpSession}. The command that the request wants to call is determined.
+ * The status is retrieved from the client, and based on it, a set of commands available
+ * for processing by the client with this status is obtained. The command received from
+ * the request is searched for in the received set, if such a command is found, control
+ * is passed to the next filter, if not, it is redirected to the notification page.
  *
  * @author Balashevich Gleb
  * @version 1.0

@@ -6,6 +6,9 @@ import by.balashevich.finalproject.controller.command.impl.pagecommand.*;
 /**
  * The enum Command type.
  *
+ * Describes all commands available for processing by the application.
+ * Used by the {@code CommandProvider}
+ *
  * @author Balashevich Gleb
  * @version 1.0
  */
@@ -45,7 +48,7 @@ public enum CommandType {
     }
 
     /**
-     * Gets command.
+     * Returns the {@code ActionCommand} object corresponding to the enum object
      *
      * @return the command
      */

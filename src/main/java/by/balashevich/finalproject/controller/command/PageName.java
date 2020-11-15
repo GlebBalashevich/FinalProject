@@ -3,6 +3,9 @@ package by.balashevich.finalproject.controller.command;
 /**
  * The enum Page name.
  *
+ * An enumeration that describes all pages used by the application to
+ * provide forwarding as a result of request processing
+ *
  * @author Balashevich Gleb
  * @version 1.0
  */
@@ -30,7 +33,7 @@ public enum PageName {
     }
 
     /**
-     * Gets path.
+     * Returns the path of the page
      *
      * @return the path
      */
