@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * The interface Action command.
- *
+ * <p>
  * This interface should be implemented by those classes that are designed
  * to process requests from the client to the server.
  * Using the implementation of the methods of this interface, dependency
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Balashevich Gleb
  * @version 1.0
  */
-public interface ActionCommand{
+public interface ActionCommand {
     /**
      * The method is designed to process a {@code HttpServletRequest} from a controller.
      * The result of processing is an object of the {@code Router} class.

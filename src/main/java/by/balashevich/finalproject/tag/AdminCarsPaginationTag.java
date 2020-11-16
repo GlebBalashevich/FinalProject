@@ -16,7 +16,10 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * The type Admin cars pagination tag.
+ * The Admin cars pagination tag.
+ * <p>
+ * Custom tag. Processes a list of cars for displaying them to the administrator,
+ * adds a pagination view for more convenient viewing of the list.
  *
  * @author Balashevich Gleb
  * @version 1.0

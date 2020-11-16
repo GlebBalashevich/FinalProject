@@ -2,7 +2,7 @@ package by.balashevich.finalproject.model.entity;
 
 /**
  * The Car view.
- *
+ * <p>
  * To provide more detailed information to the client and to help
  * him with the choice of a car, View stores data on the images
  * of a particular car to provide visualization on the client side.

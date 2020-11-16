@@ -9,13 +9,17 @@ import java.util.Map;
 
 /**
  * The interface Order service.
+ * <p>
+ * Indicates methods for processing information related to orders.
  *
  * @author Balashevich Gleb
  * @version 1.0
  */
 public interface OrderService {
     /**
-     * Add boolean.
+     * Performs actions to add a new entity order to the system, also checks
+     * the correctness of the received parameters, the result of adding
+     * is presented by a boolean.
      *
      * @param orderParameters the order parameters
      * @return the boolean
@@ -24,7 +28,8 @@ public interface OrderService {
     boolean add(Map<String, String> orderParameters) throws ServiceProjectException;
 
     /**
-     * Decline order boolean.
+     * Deletes an order from the system, the result of the
+     * deletion is represented by a boolean variable.
      *
      * @param decliningOrder the declining order
      * @return the boolean
@@ -33,7 +38,9 @@ public interface OrderService {
     boolean declineOrder(Order decliningOrder) throws ServiceProjectException;
 
     /**
-     * Manage orders int.
+     * Carries out actions to manage existing orders in the system, controls
+     * the timing of updating order statuses. Returned value - number
+     * of changed orders.
      *
      * @return the int
      * @throws ServiceProjectException the service project exception
@@ -41,7 +48,7 @@ public interface OrderService {
     int manageOrders() throws ServiceProjectException;
 
     /**
-     * Update order status boolean.
+     * Updates the status of an order existing in the system.
      *
      * @param updatingOrder the updating order
      * @param statusData    the status data
@@ -51,7 +58,9 @@ public interface OrderService {
     boolean updateOrderStatus(Order updatingOrder, String statusData) throws ServiceProjectException;
 
     /**
-     * Order payment boolean.
+     * Carries out an operation to pay for an existing order.
+     * To make a payment, the order must have a status
+     * AWAITING_PAYMENT.
      *
      * @param payableOrder      the payable order
      * @param paymentParameters the payment parameters
@@ -61,7 +70,7 @@ public interface OrderService {
     boolean orderPayment(Order payableOrder, Map<String, String> paymentParameters) throws ServiceProjectException;
 
     /**
-     * Calculate order amount int.
+     * Based on the car order period, this method calculates the order amount.
      *
      * @param costPerDay   the cost per day
      * @param dateFromData the date from
@@ -71,7 +80,8 @@ public interface OrderService {
     int calculateOrderAmount(int costPerDay, String dateFromData, String dateToData);
 
     /**
-     * Find orders by parameters list.
+     * Finding for orders in the system according to the specified parameters.
+     * The parameters are pre-checked for correctness.
      *
      * @param orderParameters the order parameters
      * @return the list
@@ -80,7 +90,7 @@ public interface OrderService {
     List<Order> findOrdersByParameters(Map<String, String> orderParameters) throws ServiceProjectException;
 
     /**
-     * Find client orders list.
+     * Finding for all orders in the system of a specific client.
      *
      * @param clientId the client id
      * @return the list

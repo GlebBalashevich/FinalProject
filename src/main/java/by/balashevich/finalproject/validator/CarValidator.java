@@ -7,7 +7,10 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Car validator.
+ * The Car validator.
+ * <p>
+ * Checks the parameters of the Car entity for their
+ * compliance with certain criteria.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -33,7 +36,8 @@ public class CarValidator {
     }
 
     /**
-     * Validate car parameters boolean.
+     * Validate the map of car parameters. Used mainly when adding a new entity to
+     * the system. Uses separate methods to test each specific parameter.
      *
      * @param carParameters the car parameters
      * @return the boolean
@@ -74,7 +78,8 @@ public class CarValidator {
     }
 
     /**
-     * Validate model boolean.
+     * Validate the model parameter for the existence of the
+     * data and if it matches a regular expression.
      *
      * @param model the model
      * @return the boolean
@@ -90,7 +95,9 @@ public class CarValidator {
     }
 
     /**
-     * Validate type boolean.
+     * Validate the type parameter for the existence of the
+     * data and the existence of such a type in the
+     * corresponding enum.
      *
      * @param carTypeData the car type data
      * @return the boolean
@@ -111,7 +118,9 @@ public class CarValidator {
     }
 
     /**
-     * Validate number seats boolean.
+     * Validate the number seats parameter for the existence of the
+     * data, if it matches a regular expression and whether
+     * the value is in a specific range.
      *
      * @param numberSeatsData the number seats data
      * @return the boolean
@@ -130,7 +139,9 @@ public class CarValidator {
     }
 
     /**
-     * Validate rent cost boolean.
+     * Validate the rent cost parameter for the existence of the
+     * data, if it matches a regular expression and whether
+     * the value is in a specific range.
      *
      * @param carRentCostData the car rent cost data
      * @return the boolean
@@ -149,7 +160,9 @@ public class CarValidator {
     }
 
     /**
-     * Validate fuel type boolean.
+     * Validate the fuel type parameter for the existence of the
+     * data and the existence of such a type in the
+     * corresponding enum.
      *
      * @param fuelTypeData the fuel type data
      * @return the boolean
@@ -170,7 +183,9 @@ public class CarValidator {
     }
 
     /**
-     * Validate fuel consumption boolean.
+     * Validate the fuel consumption parameter for the existence of the
+     * data, if it matches a regular expression and whether
+     * the value is in a specific range.
      *
      * @param fuelConsumptionData the fuel consumption data
      * @return the boolean
@@ -190,7 +205,9 @@ public class CarValidator {
     }
 
     /**
-     * Validate price range data boolean.
+     * Validate the price range parameter for the existence of the
+     * data, if it matches a regular expression and whether
+     * the value is in a specific range.
      *
      * @param priceRangeData the price range data
      * @return the boolean
@@ -213,7 +230,8 @@ public class CarValidator {
     }
 
     /**
-     * Validate available boolean.
+     * Validate the available parameter for the existence of the
+     * data and if it boolean value.
      *
      * @param carAvailableData the car available data
      * @return the boolean

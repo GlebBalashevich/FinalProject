@@ -7,7 +7,7 @@ import java.util.concurrent.Executor;
 
 /**
  * The Proxy connection.
- *
+ * <p>
  * Described to protect the connection from unauthorized closing.
  *
  * @author Balashevich Gleb

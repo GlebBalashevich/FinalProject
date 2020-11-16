@@ -20,9 +20,9 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
  * The Car dao.
  * {@code CarDao} interface implementation
  *
- * @see CarDao
  * @author Balashevich Gleb
  * @version 1.0
+ * @see CarDao
  */
 public class CarDaoImpl implements CarDao {
     private static CarDaoImpl carDao;
@@ -53,6 +53,7 @@ public class CarDaoImpl implements CarDao {
     /**
      * Gets instance.
      * Returns a class object {@code CarDaoImpl}
+     *
      * @return the instance
      */
     public static CarDaoImpl getInstance() {

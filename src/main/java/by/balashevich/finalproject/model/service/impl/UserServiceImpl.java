@@ -17,18 +17,18 @@ import java.util.Optional;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type User service.
+ * The User service.
+ * <p>
+ * Implements an interface UserService for processing user-related data
  *
  * @author Balashevich Gleb
  * @version 1.0
+ * @see UserService
  */
 public class UserServiceImpl implements UserService {
+    private UserDaoImpl userDao = UserDaoImpl.getInstance();
     private static final String EMPTY_VALUE = "";
     private static final String PUNCTUATION = "[\\p{Punct}\\p{Space}]";
-    /**
-     * The User dao.
-     */
-    private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     @Override
     public boolean add(Map<String, String> clientParameters) throws ServiceProjectException {

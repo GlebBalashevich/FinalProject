@@ -9,6 +9,8 @@ import java.util.Optional;
 
 /**
  * The interface Car service.
+ * <p>
+ * Indicates methods for processing information related to cars.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -16,7 +18,8 @@ import java.util.Optional;
 public interface CarService {
 
     /**
-     * Add car boolean.
+     * Performs actions to add a new entity Car to the application,
+     * the result of the addition is determined by the boolean variable.
      *
      * @param carParameters the car parameters
      * @return the boolean
@@ -25,7 +28,7 @@ public interface CarService {
     boolean addCar(Map<String, String> carParameters) throws ServiceProjectException;
 
     /**
-     * Find car by id optional.
+     * Finding for a car in the system by its Id with preliminary data validation.
      *
      * @param carId the car id
      * @return the optional
@@ -34,7 +37,8 @@ public interface CarService {
     Optional<Car> findCarById(long carId) throws ServiceProjectException;
 
     /**
-     * Find available order cars list.
+     * Finding for cars available for order in the system with preliminary
+     * check of search parameters.
      *
      * @param carParametersData the car parameters data
      * @return the list
@@ -43,7 +47,8 @@ public interface CarService {
     List<Car> findAvailableOrderCars(Map<String, String> carParametersData) throws ServiceProjectException;
 
     /**
-     * Find cars by parameters list.
+     * Finding for cars in the system according to the specified parameters,
+     * with their preliminary check for correctness.
      *
      * @param carParametersData the car parameters data
      * @return the list
@@ -52,7 +57,8 @@ public interface CarService {
     List<Car> findCarsByParameters(Map<String, String> carParametersData) throws ServiceProjectException;
 
     /**
-     * Update car boolean.
+     * Updates the parameters of a specific car in the system, with a
+     * preliminary check of the changed parameters for correctness.
      *
      * @param updatingCar   the updating car
      * @param carParameters the car parameters

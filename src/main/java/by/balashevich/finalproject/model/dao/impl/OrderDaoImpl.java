@@ -20,9 +20,9 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
  * The type Order dao.
  * {@code OrderDao} interface implementation
  *
- * @see OrderDao
  * @author Balashevich Gleb
  * @version 1.0
+ * @see OrderDao
  */
 public class OrderDaoImpl implements OrderDao {
     private static OrderDaoImpl orderDao;
@@ -51,6 +51,7 @@ public class OrderDaoImpl implements OrderDao {
     /**
      * Gets instance.
      * Returns a class object {@code OrderDaoImpl}
+     *
      * @return the instance
      */
     public static OrderDaoImpl getInstance() {

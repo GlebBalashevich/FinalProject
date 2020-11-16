@@ -2,7 +2,7 @@ package by.balashevich.finalproject.controller.command;
 
 /**
  * The Attribute key.
- *
+ * <p>
  * The class is used to store the names of the attributes placed in the {@code HttpSession}
  * or in the {@code HttpServletRequest} when processing the request.
  *

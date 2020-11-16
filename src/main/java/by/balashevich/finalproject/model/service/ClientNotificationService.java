@@ -5,6 +5,8 @@ import by.balashevich.finalproject.model.entity.Order;
 
 /**
  * The interface Client notification service.
+ * <p>
+ * Indicates methods for sending notifications to users.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -12,7 +14,8 @@ import by.balashevich.finalproject.model.entity.Order;
 public interface ClientNotificationService {
 
     /**
-     * Register mail notification.
+     * Create a notification about user registration and sends it
+     * to the email address specified in the registration data.
      *
      * @param clientEmail     the client email
      * @param clientFirstName the client first name
@@ -22,7 +25,8 @@ public interface ClientNotificationService {
     void registerMailNotification(String clientEmail, String clientFirstName, String link) throws ServiceProjectException;
 
     /**
-     * Create order notification.
+     * Creates a notification that the client has successfully created
+     * a new order in the system.
      *
      * @param clientEmail the client email
      * @throws ServiceProjectException the service project exception
@@ -30,7 +34,8 @@ public interface ClientNotificationService {
     void createOrderNotification(String clientEmail) throws ServiceProjectException;
 
     /**
-     * Decline order notification.
+     * Creates a declining notification for a client order previously
+     * created by him.
      *
      * @param decliningOrder the declining order
      * @throws ServiceProjectException the service project exception
@@ -38,7 +43,8 @@ public interface ClientNotificationService {
     void declineOrderNotification(Order decliningOrder) throws ServiceProjectException;
 
     /**
-     * Expired order notification.
+     * Creates a notification about a expiration in order confirmation
+     * by the administrator or payment of a confirmed order.
      *
      * @param expiredOrder the expired order
      * @throws ServiceProjectException the service project exception
@@ -46,7 +52,8 @@ public interface ClientNotificationService {
     void expiredOrderNotification(Order expiredOrder) throws ServiceProjectException;
 
     /**
-     * Complete order notification.
+     * Creates a notification about the successful completion of a
+     * client's car rental order.
      *
      * @param completedOrder the completed order
      * @throws ServiceProjectException the service project exception

@@ -2,7 +2,7 @@ package by.balashevich.finalproject.controller.command;
 
 /**
  * The enum Page name.
- *
+ * <p>
  * An enumeration that describes all pages used by the application to
  * provide forwarding as a result of request processing
  *

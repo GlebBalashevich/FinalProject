@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * The Car.
- *
+ * <p>
  * Is the subject area of the service.
  * Describes the cars rented by clients
  *

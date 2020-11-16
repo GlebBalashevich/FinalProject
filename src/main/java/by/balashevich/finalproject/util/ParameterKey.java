@@ -1,7 +1,9 @@
 package by.balashevich.finalproject.util;
 
 /**
- * The type Parameter key.
+ * The Parameter key.
+ * <p>
+ * Describes the parameter names of entity objects
  *
  * @author Balashevich Gleb
  * @version 1.0

@@ -7,7 +7,7 @@ import static by.balashevich.finalproject.controller.command.CommandType.*;
 
 /**
  * The enum Command role access.
- *
+ * <p>
  * This enum is described to differentiate the user's access levels to the elements
  * of the application, depending on its roles. Today the user has one of the
  * roles: GUEST, ADMIN, CLIENT ({@code User.Role}). Depending on the role,

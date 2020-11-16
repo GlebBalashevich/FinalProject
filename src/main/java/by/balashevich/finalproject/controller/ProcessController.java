@@ -17,7 +17,7 @@ import static by.balashevich.finalproject.controller.command.AttributeKey.*;
 
 /**
  * The Process controller.
- *
+ * <p>
  * Controller for processing requests coming from the client side.
  *
  * @author Balashevich Gleb

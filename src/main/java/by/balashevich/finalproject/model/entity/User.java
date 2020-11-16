@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * The User.
- *
+ * <p>
  * Describes the basic characteristics of a user who interacts directly with the application.
  *
  * @author Balashevich Gleb

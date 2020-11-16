@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * The Command provider.
- *
+ * <p>
  * The main task of this class is to provide command objects that implement
  * the {@code ActionCommand} interface, expected by the controller to perform
  * operations with the requests of the application clients.

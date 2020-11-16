@@ -15,7 +15,7 @@ import java.util.Set;
 
 /**
  * The Servlet security filter.
- *
+ * <p>
  * Filter of the user's access level to the command sent to the
  * controller based on the current role. The filter intercepts
  * the request sent to {@code ProcessController}.

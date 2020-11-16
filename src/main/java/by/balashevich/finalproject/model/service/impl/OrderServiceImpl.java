@@ -22,15 +22,15 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Order service.
+ * The Order service.
+ * <p>
+ * Implements an interface OrderService for processing order-related data.
  *
  * @author Balashevich Gleb
  * @version 1.0
+ * @see OrderService
  */
 public class OrderServiceImpl implements OrderService {
-    /**
-     * The Order dao.
-     */
     private OrderDao orderDao = OrderDaoImpl.getInstance();
     private static final int DURING_DAY = 1;
 
@@ -40,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Object> preparedOrderParameters = new HashMap<>();
         LocalDate dateFrom = LocalDate.parse(orderParameters.get(DATE_FROM));
         LocalDate dateTo = LocalDate.parse(orderParameters.get(DATE_TO));
-
         preparedOrderParameters.put(DATE_FROM, DateConverter.convertToLong(dateFrom));
         preparedOrderParameters.put(DATE_TO, DateConverter.convertToLong(dateTo));
         preparedOrderParameters.put(CAR_ID, Long.parseLong(orderParameters.get(CAR_ID)));
@@ -149,7 +148,6 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrdersByParameters(Map<String, String> orderParameters) throws ServiceProjectException {
         List<Order> targetOrders;
         Map<String, Object> orderParametersChecked = new HashMap<>();
-
         String statusData = orderParameters.get(ORDER_STATUS);
         String clientEmailData = orderParameters.get(EMAIL);
         String carModelData = orderParameters.get(MODEL);

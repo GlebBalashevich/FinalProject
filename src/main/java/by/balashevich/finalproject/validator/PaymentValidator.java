@@ -6,7 +6,9 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Payment validator.
+ * The Payment validator.
+ * <p>
+ * Verifies the payment data entered by the client when paying for the order.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -21,7 +23,7 @@ public class PaymentValidator {
     }
 
     /**
-     * Validate payment parameters boolean.
+     * Validate all payment parameters. Divided into by element check.
      *
      * @param paymentParameters the payment parameters
      * @return the boolean
@@ -46,7 +48,8 @@ public class PaymentValidator {
     }
 
     /**
-     * Validate card holder boolean.
+     * Validate card holder parameter for the existence of the
+     * data and if it matches a regular expression.
      *
      * @param cardHolderData the card holder data
      * @return the boolean
@@ -61,7 +64,9 @@ public class PaymentValidator {
     }
 
     /**
-     * Validate card number boolean.
+     * Validate card number parameter for the existence of the
+     * data, if it matches a regular expression and if value
+     * more than zero.
      *
      * @param cardNumberData the card number data
      * @return the boolean
@@ -78,7 +83,9 @@ public class PaymentValidator {
     }
 
     /**
-     * Validate expiration date boolean.
+     * Validate card expiration date parameter for the existence of the
+     * data, and if the data matches the month value and the year number.
+     * That's values must be more than current date.
      *
      * @param monthData the month data
      * @param yearData  the year data
@@ -106,7 +113,8 @@ public class PaymentValidator {
     }
 
     /**
-     * Validate cvv code boolean.
+     * Validate cvv code  parameter for the existence of the
+     * data, and if it matches a regular expression.
      *
      * @param cvvCodeData the cvv code data
      * @return the boolean

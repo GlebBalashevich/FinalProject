@@ -6,7 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The type Order validator.
+ * The Order validator.
+ * <p>
+ * Checks the parameters of the Order entity for their
+ * compliance with certain criteria.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -18,7 +21,7 @@ public class OrderValidator {
     }
 
     /**
-     * Validate date boolean.
+     * Validate date value for existence and correctness.
      *
      * @param dateData the date data
      * @return the boolean
@@ -49,7 +52,9 @@ public class OrderValidator {
     }
 
     /**
-     * Validate status boolean.
+     * Validate the status parameter for the existence of the
+     * data and the existence of such a type in the
+     * corresponding enum.
      *
      * @param orderStatusData the order status data
      * @return the boolean

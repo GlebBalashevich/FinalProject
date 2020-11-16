@@ -9,12 +9,12 @@ import java.util.Optional;
 
 /**
  * The interface User dao.
- *
+ * <p>
  * Extends the interface of the {@code BaseDao}, supplementing it with specific
  * methods for the interaction of the application with User entities in the database.
  *
- * @see BaseDao * @author Balashevich Gleb
  * @version 1.0
+ * @see BaseDao * @author Balashevich Gleb
  */
 public interface UserDao extends BaseDao<User> {
 

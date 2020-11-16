@@ -12,7 +12,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * The type Mail sender.
+ * The Mail sender.
+ * <p>
+ * Sends letters from the e-mail of the booking service to the e-mail of users.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -27,7 +29,8 @@ public class MailSender {
     }
 
     /**
-     * Send mail.
+     * Prepares a connection to an email client, generates a
+     * message and sends it to the user to the specified email address.
      *
      * @param recipientAddress the recipient address
      * @param subject          the subject

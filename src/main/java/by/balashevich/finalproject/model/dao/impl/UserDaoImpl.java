@@ -20,9 +20,9 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
  * The type User dao.
  * {@code UserDao} interface implementation
  *
- * @see UserDao
  * @author Balashevich Gleb
  * @version 1.0
+ * @see UserDao
  */
 public class UserDaoImpl implements UserDao {
     private static UserDaoImpl userDao;
@@ -45,6 +45,7 @@ public class UserDaoImpl implements UserDao {
     /**
      * Get instance user dao.
      * Returns a class object {@code UserDaoImpl}
+     *
      * @return the user dao
      */
     public static UserDaoImpl getInstance() {

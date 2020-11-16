@@ -4,14 +4,14 @@ import java.util.Arrays;
 
 /**
  * The type Client.
- *
+ * <p>
  * Extends the user class to describe clients using the service. Supplemented
  * with the necessary information for the implementation of actions to order cars,
  * access to various application options.
  *
- * @see User
  * @author Balashevich Gleb
  * @version 1.0
+ * @see User
  */
 public class Client extends User {
 

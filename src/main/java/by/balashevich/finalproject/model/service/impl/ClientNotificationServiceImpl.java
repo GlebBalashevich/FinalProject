@@ -8,10 +8,13 @@ import java.util.ResourceBundle;
 import java.util.StringJoiner;
 
 /**
- * The type Client notification service.
+ * The Client notification service.
+ * <p>
+ * Implements an interface ClientNotificationService for sending notifications to users.
  *
  * @author Balashevich Gleb
  * @version 1.0
+ * @see ClientNotificationService
  */
 public class ClientNotificationServiceImpl implements ClientNotificationService {
     private static final String MESSAGE_FILENAME = "/prop/notification_message";

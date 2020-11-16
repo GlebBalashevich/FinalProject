@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 /**
  * The Order.
- *
+ * <p>
  * Provided for booking a car for a certain range of dates, monitoring the correctness
  * of booking cars, for financial reporting, to track the work of the service.
  * The main unit of the business logic of the application.

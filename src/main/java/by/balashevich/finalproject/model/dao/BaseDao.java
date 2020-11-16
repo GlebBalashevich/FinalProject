@@ -15,7 +15,7 @@ import java.util.Optional;
 
 /**
  * The interface Base dao.
- *
+ * <p>
  * The base interface denoting the main methods of interaction between the
  * application and the database (CRUD). Has default implementations of methods
  * for closing a connection, statement, change autocommit and rolling back a transaction.

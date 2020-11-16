@@ -10,13 +10,17 @@ import java.util.Optional;
 
 /**
  * The interface User service.
+ * <p>
+ * Indicates methods for processing information related to users.
  *
  * @author Balashevich Gleb
  * @version 1.0
  */
 public interface UserService {
     /**
-     * Add boolean.
+     * Based on the received data, it adds a new user to the system,
+     * the received data is checked for correctness before adding,
+     * the result of the addition is represented by the boolean variable.
      *
      * @param user the user
      * @return the boolean
@@ -25,7 +29,8 @@ public interface UserService {
     boolean add(Map<String, String> user) throws ServiceProjectException;
 
     /**
-     * Update client status boolean.
+     * Updates the client status to ACTIVE newly registered user,
+     * upon confirmation of registration.
      *
      * @param email the email
      * @return the boolean
@@ -34,7 +39,8 @@ public interface UserService {
     boolean activateClient(String email) throws ServiceProjectException;
 
     /**
-     * Update client status boolean.
+     * Updates the status of an existing client, the result of
+     * the update is represented by a boolean variable.
      *
      * @param updatingClient the updating client
      * @param statusData     the status data
@@ -44,7 +50,7 @@ public interface UserService {
     boolean updateClientStatus(Client updatingClient, String statusData) throws ServiceProjectException;
 
     /**
-     * Find user by email optional.
+     * Finding for a user in the system at the specified email address
      *
      * @param email the email
      * @return the optional
@@ -53,7 +59,7 @@ public interface UserService {
     Optional<User> findUserByEmail(String email) throws ServiceProjectException;
 
     /**
-     * Find clients by status list.
+     * Carries out the selection of system clients according to a certain status.
      *
      * @param clientStatusData the client status data
      * @return the list
@@ -62,7 +68,8 @@ public interface UserService {
     List<Client> findClientsByStatus(String clientStatusData) throws ServiceProjectException;
 
     /**
-     * Authorize user boolean.
+     * Authorizes a user in the system, the result of authorization
+     * is represented by a boolean variable.
      *
      * @param email    the email
      * @param password the password
@@ -72,7 +79,8 @@ public interface UserService {
     boolean authorizeUser(String email, String password) throws ServiceProjectException;
 
     /**
-     * Exist user boolean.
+     * Checks if a user exists on the system with the specified email address.
+     * The check result is represented by a boolean variable.
      *
      * @param email the email
      * @return the boolean

@@ -7,7 +7,10 @@ import java.util.Map;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type User validator.
+ * The User validator.
+ * <p>
+ * Checks the parameters of the User entity for their
+ * compliance with certain criteria.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -24,7 +27,8 @@ public class UserValidator {
     }
 
     /**
-     * Validate client parameters boolean.
+     * Validate the map of client parameters. Used mainly when adding a new entity to
+     * the system. Uses separate methods to test each specific parameter.
      *
      * @param clientParameters the client parameters
      * @return the boolean
@@ -60,7 +64,8 @@ public class UserValidator {
     }
 
     /**
-     * Validate email boolean.
+     * Validate email parameter for the existence of the
+     * data and if it matches a regular expression.
      *
      * @param email the email
      * @return the boolean
@@ -75,7 +80,9 @@ public class UserValidator {
     }
 
     /**
-     * Validate passwords boolean.
+     * Validate passwords parameters for the existence of the
+     * data, if its matches a regular expression and if it
+     * equals each other.
      *
      * @param password        the password
      * @param confirmPassword the confirm password
@@ -93,7 +100,8 @@ public class UserValidator {
     }
 
     /**
-     * Validate name boolean.
+     * Validate name parameter for the existence of the
+     * data and if it matches a regular expression.
      *
      * @param name the name
      * @return the boolean
@@ -108,7 +116,8 @@ public class UserValidator {
     }
 
     /**
-     * Validate driver license boolean.
+     * Validate driver license parameter for the existence of the
+     * data and if it matches a regular expression.
      *
      * @param driverLicense the driver license
      * @return the boolean
@@ -123,7 +132,8 @@ public class UserValidator {
     }
 
     /**
-     * Validate phone number boolean.
+     * Validate phone number parameter if it matches a regular expression.
+     * Parameter can be null.
      *
      * @param phoneNumber the phone number
      * @return the boolean
@@ -142,7 +152,9 @@ public class UserValidator {
     }
 
     /**
-     * Validate client status boolean.
+     * Validate the client status parameter for the existence of the
+     * data and the existence of such a type in the
+     * corresponding enum.
      *
      * @param statusData the status data
      * @return the boolean

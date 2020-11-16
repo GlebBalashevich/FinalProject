@@ -15,10 +15,13 @@ import java.util.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Car service.
+ * The Car service.
+ * <p>
+ * Implements interface {@code CarService} handles car data processing.
  *
  * @author Balashevich Gleb
  * @version 1.0
+ * @see CarService
  */
 public class CarServiceImpl implements CarService {
     private CarDao carDao = CarDaoImpl.getInstance();

@@ -6,7 +6,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 /**
- * The type Date converter.
+ * The Date converter.
+ * <p>
+ * Converts a {@code LocalDate} object to a long value and vice versa.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -17,7 +19,7 @@ public class DateConverter {
     }
 
     /**
-     * Convert to long long.
+     * Converts a {@code LocalDate} object to a long value.
      *
      * @param date the date
      * @return the long
@@ -29,7 +31,7 @@ public class DateConverter {
     }
 
     /**
-     * Convert to date local date.
+     * Converts a long value to {@code LocalDate} object.
      *
      * @param milliseconds the milliseconds
      * @return the local date

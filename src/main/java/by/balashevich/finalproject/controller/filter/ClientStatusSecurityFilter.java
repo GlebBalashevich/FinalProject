@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  * The Client status security filter.
- *
+ * <p>
  * Filter of the client's access level to the command sent to the
  * controller based on the current status. The filter intercepts
  * the request sent to {@code ProcessController}.

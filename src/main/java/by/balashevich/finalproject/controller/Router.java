@@ -2,7 +2,7 @@ package by.balashevich.finalproject.controller;
 
 /**
  * The Router.
- *
+ * <p>
  * Used to store the path to the page to which the controller will redirect.
  * In addition to the path, the router contains information about the type
  * of transition redirect or forward

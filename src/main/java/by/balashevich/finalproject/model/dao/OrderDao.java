@@ -8,13 +8,13 @@ import java.util.Map;
 
 /**
  * The interface Order dao.
- *
+ * <p>
  * Extends the interface of the {@code BaseDao}, supplementing it with specific
  * methods for the interaction of the application with Order entities in the database.
  *
- * @see BaseDao
  * @author Balashevich Gleb
  * @version 1.0
+ * @see BaseDao
  */
 public interface OrderDao extends BaseDao<Order> {
 

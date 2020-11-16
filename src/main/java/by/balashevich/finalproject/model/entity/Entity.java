@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * The Entity.
- *
+ * <p>
  * Base class-marker for identifying the ownership of objects in the current application.
  *
  * @author Balashevich Gleb

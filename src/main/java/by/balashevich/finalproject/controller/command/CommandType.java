@@ -5,7 +5,7 @@ import by.balashevich.finalproject.controller.command.impl.pagecommand.*;
 
 /**
  * The enum Command type.
- *
+ * <p>
  * Describes all commands available for processing by the application.
  * Used by the {@code CommandProvider}
  *

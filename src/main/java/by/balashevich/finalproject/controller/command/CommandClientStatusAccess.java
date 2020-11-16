@@ -7,7 +7,7 @@ import static by.balashevich.finalproject.controller.command.CommandType.*;
 
 /**
  * The enum Command client status access.
- *
+ * <p>
  * This enum is described to differentiate the client's access levels to the elements
  * of the application, depending on its status. Today the client has one of the
  * statuses: PENDING, ACTIVE, BLOCKED ({@code Client.Status}). Depending on the status,

@@ -14,7 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * The Connection pool.
- *
+ * <p>
  * Provides connection of the application to the database, as well as the
  * issuance of connections for processing queries to find, update, delete
  * and add items to the database.

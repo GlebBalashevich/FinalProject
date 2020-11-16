@@ -9,7 +9,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * The type Password encryption.
+ * The Password encryption.
+ * <p>
+ * Hashes the password using the SHA-256 hashing method.
  *
  * @author Balashevich Gleb
  * @version 1.0
@@ -20,18 +22,18 @@ public class PasswordEncryption {
     private static final String ELEMENT_VIEW = "%02x";
 
     /**
-     * Encrypt password string.
+     * Hashes a password and represents it as a string object.
      *
      * @param password the password
      * @return the string
      */
     public static String encryptPassword(String password) {
         StringBuilder encryptedPassword = new StringBuilder();
-        MessageDigest md;
+        MessageDigest messageDigest;
 
         try {
-            md = MessageDigest.getInstance(HASH_METHOD);
-            byte[] digestBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            messageDigest = MessageDigest.getInstance(HASH_METHOD);
+            byte[] digestBytes = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
             for (byte hexElement : digestBytes) {
                 encryptedPassword.append(String.format(ELEMENT_VIEW, hexElement));
             }

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * The Boot image controller.
- *
+ * <p>
  * Process a request to upload an image to the server
  *
  * @author Balashevich Gleb
@@ -45,7 +45,7 @@ public class BootImageController extends HttpServlet {
 
     /**
      * Process request.
-     *
+     * <p>
      * Gets from the servletContext of the request object the directory for loading the image,
      * forms the path to the image on the server and loads.
      *
