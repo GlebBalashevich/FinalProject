@@ -55,6 +55,7 @@ public class MailSender {
         Properties properties = new Properties();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream stream = loader.getResourceAsStream(CONFIG_FILEPATH);
+
         try {
             properties.load(stream);
         } catch (IOException e) {
@@ -70,7 +71,6 @@ public class MailSender {
             protected PasswordAuthentication getPasswordAuthentication() {
                 String passwordGlobal = (String) properties.get(USER_PASSWORD);
                 String passwordValue = System.getenv(passwordGlobal);
-
                 return new PasswordAuthentication((String) properties.get(USER_NAME),
                         passwordValue);
             }

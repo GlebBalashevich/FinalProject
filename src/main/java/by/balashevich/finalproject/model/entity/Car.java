@@ -271,7 +271,7 @@ public class Car extends Entity {
                 && rentCost == car.rentCost
                 && fuelType == car.fuelType
                 && fuelConsumption == car.fuelConsumption
-                && (carView == car.carView) || (carView != null && carView.equals(car.carView))
+                && (carView != null && carView.equals(car.carView))
                 && available == car.available;
     }
 
@@ -295,6 +295,7 @@ public class Car extends Entity {
     public String toString() {
         return String.format("Car %d: model %s, type %s, numberSeats %d, rentCost %d, " +
                         "fuelType %s, fuelConsumption %d, carView %s, is available %s",
-                carId, model, type.name(), numberSeats, rentCost, fuelType.name(), fuelConsumption, carView, available);
+                carId, model, type != null ? type.name() : "null", numberSeats,
+                rentCost, fuelType != null ? fuelType.name() : "null", fuelConsumption, carView, available);
     }
 }

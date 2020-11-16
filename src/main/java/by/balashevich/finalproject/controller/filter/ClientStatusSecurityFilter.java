@@ -33,6 +33,7 @@ import java.util.Set;
  */
 @WebFilter(urlPatterns = "/CarBook")
 public class ClientStatusSecurityFilter implements Filter {
+
     public void destroy() {
     }
 
@@ -70,6 +71,6 @@ public class ClientStatusSecurityFilter implements Filter {
         chain.doFilter(request, response);
     }
 
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config){
     }
 }

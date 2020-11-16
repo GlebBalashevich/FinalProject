@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  */
 public class EmptyCommand implements ActionCommand {
+
     @Override
     public Router execute(HttpServletRequest request) {
         return new Router(PageName.ERROR_404.getPath());

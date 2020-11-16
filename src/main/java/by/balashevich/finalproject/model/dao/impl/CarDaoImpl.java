@@ -128,6 +128,7 @@ public class CarDaoImpl implements CarDao {
         } catch (SQLException e) {
             throw new DaoProjectException("Error when executing a car update query", e);
         }
+
         return isCarUpdated;
     }
 

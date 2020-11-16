@@ -50,12 +50,12 @@ public class ConnectionPool {
             Class.forName(bundle.getString(DRIVER_NAME));
             freeConnections = new LinkedBlockingQueue<>(POOL_SIZE);
             givenConnections = new ArrayDeque<>(POOL_SIZE);
+
             for (int i = 0; i < POOL_SIZE; i++) {
                 Connection connection = DriverManager.getConnection(bundle.getString(URL),
                         bundle.getString(LOGIN), bundle.getString(PASSWORD));
                 freeConnections.offer(new ProxyConnection(connection));
             }
-
         } catch (ClassNotFoundException | SQLException e) {
             logger.log(Level.FATAL, "Error during connection pool creating", e);
             throw new RuntimeException("Error during connect to database", e);

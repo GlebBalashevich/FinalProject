@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pretty-Registration-Form.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 </head>
 
 <body id="page-top" style="background-color: rgb(56,55,57);">

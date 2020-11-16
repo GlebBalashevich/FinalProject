@@ -120,6 +120,6 @@ public class User extends Entity {
     @Override
     public String toString() {
         return String.format("Id %d: email %s, role %s",
-                userId, email, role.name());
+                userId, email, role != null ? role.name() : "null");
     }
 }

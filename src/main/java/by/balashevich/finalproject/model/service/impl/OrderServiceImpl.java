@@ -194,7 +194,6 @@ public class OrderServiceImpl implements OrderService {
         if (OrderValidator.validateDate(dateFromData) && OrderValidator.validateDate(dateToData)) {
             LocalDate dateFrom = LocalDate.parse(dateFromData);
             LocalDate dateTo = LocalDate.parse(dateToData);
-
             Period period = Period.between(dateFrom, dateTo);
             int rentDays = period.getDays() + DURING_DAY;
             rentCost = (rentDays > 0) ? costPerDay * rentDays : -1;

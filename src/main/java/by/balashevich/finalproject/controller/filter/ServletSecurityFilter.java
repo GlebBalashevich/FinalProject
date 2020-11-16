@@ -32,6 +32,7 @@ import java.util.Set;
  */
 @WebFilter(urlPatterns = "/CarBook")
 public class ServletSecurityFilter implements Filter {
+
     public void destroy() {
     }
 
@@ -47,7 +48,6 @@ public class ServletSecurityFilter implements Filter {
             response.sendRedirect(request.getContextPath() + PageName.INDEX.getPath());
             return;
         }
-
         ActionCommand command = CommandProvider.defineCommand(commandName);
         if (command.getClass() != EmptyCommand.class) {
             Set<CommandType> commandTypeSet = switch (role) {

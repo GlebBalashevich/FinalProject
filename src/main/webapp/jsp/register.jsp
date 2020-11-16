@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pretty-Registration-Form.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 </head>
 
 <body id="page-top" style="background-color: rgb(56,55,57);">
@@ -49,7 +50,7 @@
                 <div class="col-sm-4 label-column">
                     <label class="col-form-label"><fmt:message key="register.password"/> &#8432;</label></div>
                 <div class="col-sm-4 input-column">
-                    <input class="form-control" name="password" type="password" minlength="8" maxlength="255" id="pass"
+                    <input class="form-control" name="password" type="password" minlength="8" maxlength="30" id="pass"
                            required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
                            oninvalid="this.setCustomValidity('<fmt:message key="register.password.validation"/>')"
                            onchange="this.setCustomValidity('')"
@@ -63,7 +64,7 @@
                 <div class="col-sm-4 label-column">
                     <label class="col-form-label"><fmt:message key="register.confirm_password"/> &#8432;</label></div>
                 <div class="col-sm-4 input-column">
-                    <input class="form-control" name="confirm_password" type="password" minlength="8" maxlength="255" id="passConf"
+                    <input class="form-control" name="confirm_password" type="password" minlength="8" maxlength="30" id="passConf"
                            required pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{7,}"
                            oninvalid="this.setCustomValidity('<fmt:message key="register.password.validation"/>')"
                            onchange="this.setCustomValidity('')"

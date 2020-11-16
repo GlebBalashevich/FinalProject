@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 @SuppressWarnings("serial")
 public class AdminOrdersPaginationTag extends TagSupport {
     private static final Logger logger = LogManager.getLogger();
-    private static final int PAGE_ENTRIES = 5;
+    private static final int PAGE_ENTRIES = 10;
     private static final String CONTENT_PAGE = "/prop/contentpage";
     private static final String DECLINE_BUTTON_TITLE = "admin_orders.table.decline";
     private static final String CONFIRM_BUTTON_TITLE = "admin_orders.table.confirm";

@@ -22,6 +22,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class PaymentPageCommand implements ActionCommand {
+
     @Override
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

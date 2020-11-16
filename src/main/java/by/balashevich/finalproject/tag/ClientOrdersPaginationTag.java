@@ -54,7 +54,7 @@ public class ClientOrdersPaginationTag extends TagSupport {
                 if (order.getStatus() == Order.Status.AWAITING_PAYMENT) {
                     out.write("<form action=\"CarBook\" method=\"post\" class=\"shadow-lg custom-form\">");
                     out.write("<th>");
-                    out.write("<label class=\"custom-form\">");
+                    out.write("<label class=\"custom-form\" id=\"payBut\">");
                     out.write("<input type=\"hidden\" name=\"order_index\" value=" + i + ">");
                     out.write("<input type=\"hidden\" name=\"command\" value=\"move_payment_page\">");
                     out.write("<button class=\"submit-button\" type=\"submit\" id=\"paymentOrder\">");

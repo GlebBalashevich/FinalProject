@@ -15,9 +15,11 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
  */
 public class PaymentValidator {
     private static final String CARD_HOLDER_PATTERN = "^\\p{Alpha}{1,20} \\p{Alpha}{1,20}$";
-    private static final String CARD_NUMBER_PATTERN = "^\\p{Digit}{16}$";
+    private static final String CARD_NUMBER_PATTERN = "^(\\p{Digit}{4}\\s?){4}$";
     private static final String CARD_CVV_PATTERN = "^\\p{Digit}{3}$";
-    private static final String DATE_PART_PATTERN = "^\\p{Digit}{2}$";
+    private static final String DATE_PART_PATTERN = "^\\p{Digit}{1,2}$";
+    private static final String SPACE_PATTERN = " ";
+    private static final String EMPTY_PATTERN = "";
 
     private PaymentValidator() {
     }
@@ -56,6 +58,7 @@ public class PaymentValidator {
      */
     public static boolean validateCardHolder(String cardHolderData) {
         boolean isCardHolderValid = false;
+
         if (cardHolderData != null && !cardHolderData.isEmpty()) {
             isCardHolderValid = cardHolderData.matches(CARD_HOLDER_PATTERN);
         }
@@ -73,9 +76,10 @@ public class PaymentValidator {
      */
     public static boolean validateCardNumber(String cardNumberData) {
         boolean isCardNumberValid = false;
+
         if (cardNumberData != null && !cardNumberData.isEmpty()) {
             if (cardNumberData.matches(CARD_NUMBER_PATTERN)) {
-                isCardNumberValid = Long.parseLong(cardNumberData) > 0;
+                isCardNumberValid = Long.parseLong(cardNumberData.replaceAll(SPACE_PATTERN, EMPTY_PATTERN)) > 0;
             }
         }
 
@@ -93,6 +97,7 @@ public class PaymentValidator {
      */
     public static boolean validateExpirationDate(String monthData, String yearData) {
         boolean isExpirationDateValid = false;
+
         if (monthData != null && !monthData.isEmpty() && yearData != null && !yearData.isEmpty()) {
             if (monthData.matches(DATE_PART_PATTERN) && yearData.matches(DATE_PART_PATTERN)) {
                 LocalDate currentDate = LocalDate.now();
@@ -121,6 +126,7 @@ public class PaymentValidator {
      */
     public static boolean validateCvvCode(String cvvCodeData) {
         boolean isCvvCodeValid = false;
+
         if (cvvCodeData != null && !cvvCodeData.isEmpty()) {
             if (cvvCodeData.matches(CARD_CVV_PATTERN)) {
                 isCvvCodeValid = Integer.parseInt(cvvCodeData) > 0;

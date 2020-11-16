@@ -31,7 +31,6 @@ public class PaginationCommand implements ActionCommand {
         if (paginationDirection.equals(ParameterKey.PREVIOUS_PAGE)) {
             session.setAttribute(pageType, --pageNumber);
         }
-
         if (pageName.equals(PageName.CAR_CARD.getPath())) {
             pageName = PageName.CLIENT_CARS.getPath();
         }

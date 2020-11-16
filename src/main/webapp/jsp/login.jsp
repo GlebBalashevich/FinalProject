@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pretty-Registration-Form.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 </head>
 
 <body id="page-top" style="background-color: rgb(56,55,57);">
@@ -47,8 +48,8 @@
                 </div>
                 <div class="col-4 input-column">
                     <input class="form-control" name="password" type="password" required
-                           pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}" minlength="8"
-                           maxlength="255" onchange="this.setCustomValidity('')"
+                           pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,30}" minlength="8"
+                           maxlength="30" onchange="this.setCustomValidity('')"
                            title="<fmt:message key="login.password"/>"
                            onchange="this.setCustomValidity('')"
                            oninvalid="this.setCustomValidity('<fmt:message key="login.password.validation"/>')">

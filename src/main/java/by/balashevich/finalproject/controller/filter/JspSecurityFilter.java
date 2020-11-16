@@ -19,6 +19,7 @@ import java.io.IOException;
  */
 @WebFilter(urlPatterns = "/jsp/*")
 public class JspSecurityFilter implements Filter {
+
     public void destroy() {
     }
 

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * @version 1.0
  */
 public class SwitchLocaleCommand implements ActionCommand {
+
     @Override
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();

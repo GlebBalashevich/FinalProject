@@ -167,6 +167,6 @@ public class Client extends User {
     public String toString() {
         return String.format("Client %s, first name %s, second name %s, driver license %s, " +
                         "phone number %d, status %s", super.toString(), firstName, secondName, driverLicense,
-                phoneNumber, status.name());
+                phoneNumber, status != null ? status.name() : "null");
     }
 }

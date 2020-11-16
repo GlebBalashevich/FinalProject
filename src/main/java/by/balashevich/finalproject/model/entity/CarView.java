@@ -10,7 +10,7 @@ package by.balashevich.finalproject.model.entity;
  * @author Balashevich Gleb
  * @version 1.0
  */
-public class CarView {
+public class CarView extends Entity{
     private String exterior;
     private String exteriorSmall;
     private String interior;
@@ -74,7 +74,6 @@ public class CarView {
         if (this == o) {
             return true;
         }
-
         if (o == null || getClass() != o.getClass()) {
             return false;
         }

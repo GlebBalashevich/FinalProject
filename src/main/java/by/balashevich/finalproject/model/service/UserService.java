@@ -17,6 +17,7 @@ import java.util.Optional;
  * @version 1.0
  */
 public interface UserService {
+
     /**
      * Based on the received data, it adds a new user to the system,
      * the received data is checked for correctness before adding,

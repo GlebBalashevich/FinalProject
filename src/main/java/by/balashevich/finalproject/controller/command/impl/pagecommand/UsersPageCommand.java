@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  */
 public class UsersPageCommand implements ActionCommand {
+
     @Override
     public Router execute(HttpServletRequest request) {
         return new Router(PageName.ADMIN_USERS.getPath());

@@ -156,6 +156,10 @@
     margin-bottom: 30px;
 }
 
+#payBut{
+    margin-bottom: 0;
+}
+
 #labelPage{
     margin-left: auto;
     margin-right: auto;

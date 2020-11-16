@@ -17,7 +17,8 @@ import java.util.*;
 import static by.balashevich.finalproject.util.ParameterKey.*;
 
 /**
- * The type Order dao.
+ * The Order dao.
+ *
  * {@code OrderDao} interface implementation
  *
  * @author Balashevich Gleb
@@ -26,6 +27,7 @@ import static by.balashevich.finalproject.util.ParameterKey.*;
  */
 public class OrderDaoImpl implements OrderDao {
     private static OrderDaoImpl orderDao;
+    private static final String ORDER_BY_DATE = " ORDER BY date_from DESC";
     private static final String ADD_ORDER = "INSERT INTO orders(date_from, date_to, amount, order_status, order_car_id, " +
             "order_client_id) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String REMOVE_ORDER = "DELETE FROM orders WHERE order_id = ?";
@@ -37,7 +39,7 @@ public class OrderDaoImpl implements OrderDao {
             "users.driver_license, users.phone_number, users.client_status FROM orders JOIN cars ON order_car_id = cars.car_id " +
             "JOIN car_views ON order_car_id = car_views.cars_id JOIN users ON order_client_id = users.user_id";
     private static final String FIND_AWAITING_ACTION = FIND_ALL + " WHERE order_status != 2";
-    private static final String FIND_CLIENT_ORDERS = FIND_ALL + " WHERE order_client_id = ?";
+    private static final String FIND_CLIENT_ORDERS = FIND_ALL + " WHERE order_client_id = ? " + ORDER_BY_DATE;
     private static final String CHECK_STATUS = " order_status = ?";
     private static final String CHECK_CLIENT_EMAIL = " users.email = ?";
     private static final String CHECK_CAR_MODEL = " cars.model = ?";
@@ -131,7 +133,7 @@ public class OrderDaoImpl implements OrderDao {
         List<Order> targetOrders = new ArrayList<>();
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_ALL)) {
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL + ORDER_BY_DATE)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 targetOrders.add(createOrder(resultSet));
@@ -166,24 +168,27 @@ public class OrderDaoImpl implements OrderDao {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         List<Order> targetOrders = new ArrayList<>();
         StringBuilder findByParametersQuery = new StringBuilder(FIND_ALL);
-        if (!orderParameters.isEmpty())
+        if (!orderParameters.isEmpty()) {
             findByParametersQuery.append(WHERE_KEYWORD);
-        Iterator<Map.Entry<String, Object>> entries = orderParameters.entrySet().iterator();
-        while (entries.hasNext()) {
-            String key = entries.next().getKey();
-            if (key.equals(MODEL)) {
-                findByParametersQuery.append(CHECK_CAR_MODEL);
-            }
-            if (key.equals(EMAIL)) {
-                findByParametersQuery.append(CHECK_CLIENT_EMAIL);
-            }
-            if (key.equals(ORDER_STATUS)) {
-                findByParametersQuery.append(CHECK_STATUS);
-            }
-            if (entries.hasNext()) {
-                findByParametersQuery.append(AND_KEYWORD);
+            Iterator<Map.Entry<String, Object>> entries = orderParameters.entrySet().iterator();
+            while (entries.hasNext()) {
+                String key = entries.next().getKey();
+                if (key.equals(MODEL)) {
+                    findByParametersQuery.append(CHECK_CAR_MODEL);
+                }
+                if (key.equals(EMAIL)) {
+                    findByParametersQuery.append(CHECK_CLIENT_EMAIL);
+                }
+                if (key.equals(ORDER_STATUS)) {
+                    findByParametersQuery.append(CHECK_STATUS);
+                }
+                if (entries.hasNext()) {
+                    findByParametersQuery.append(AND_KEYWORD);
+                }
             }
         }
+        findByParametersQuery.append(ORDER_BY_DATE);
+
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement statement = connection.prepareStatement(findByParametersQuery.toString())) {
             int columnIndex = 0;

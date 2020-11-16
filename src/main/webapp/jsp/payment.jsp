@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pretty-Registration-Form.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Bootstrap-4---Payment-Form.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -43,14 +43,19 @@
                                 <form action="CarBook" method="post" role="form" class="custom-form">
                                     <div class="form-group">
                                         <label for="username"><fmt:message key="payment.label.card_holder"/></label>
-                                        <input type="text" id="username" name="card_holder" placeholder="<fmt:message key="payment.placeholder.full_name"/>" required
-                                               pattern="[a-zA-Z]{1,20} [a-zA-Z]{1,20}" class="form-control">
+                                        <input type="text" id="username" name="card_holder"
+                                               placeholder="<fmt:message key="payment.placeholder.full_name"/>" required
+                                               pattern="[a-zA-Z]{1,20} [a-zA-Z]{1,20}" class="form-control"
+                                               oninvalid="this.setCustomValidity('<fmt:message key="payment.card_holder.validation"/>')"
+                                               onchange="this.setCustomValidity('')">
                                     </div>
                                     <div class="form-group">
                                         <label for="cardNumber"><fmt:message key="payment.label.card_number"/></label>
                                         <div class="input-group">
                                             <input type="text" id="cardNumber" name="card_number" placeholder="<fmt:message key="payment.placeholder.card_number"/>"
-                                                   class="form-control" pattern="[0-9]{16}" required>
+                                                   class="form-control" pattern="([0-9]{4}\s?){4}" required
+                                                   oninvalid="this.setCustomValidity('<fmt:message key="payment.card_number.validation"/>')"
+                                                   onchange="this.setCustomValidity('')">
                                             <div class="input-group-append">
                                             <span class="input-group-text text-muted">
                                                 <i class="fa fa-cc-visa mx-1"></i>
@@ -67,10 +72,14 @@
                                                 <div class="input-group">
                                                     <input type="number" placeholder="<fmt:message key="payment.placeholder.month"/>"
                                                            name="card_exp_month" class="form-control"
-                                                           min="1" max="12" required>
+                                                           min="1" max="12" required
+                                                           oninvalid="this.setCustomValidity('<fmt:message key="payment.month.validation"/>')"
+                                                           onchange="this.setCustomValidity('')">
                                                     <input type="number" placeholder="<fmt:message key="payment.placeholder.year"/>"
                                                            name="card_exp_year" class="form-control"
-                                                           min="20" max="29" required>
+                                                           min="20" max="29" required
+                                                           oninvalid="this.setCustomValidity('<fmt:message key="payment.year.validation"/>')"
+                                                           onchange="this.setCustomValidity('')">
                                                 </div>
                                             </div>
                                         </div>
@@ -78,7 +87,9 @@
                                             <div class="form-group mb-4">
                                                 <label data-toggle="tooltip"><fmt:message key="payment.label.cvv"/></label>
                                                 <input type="text" name="card_cvv" placeholder="<fmt:message key="payment.placeholder.cvv"/>"
-                                                       pattern="[0-9]{3}" min="1" required class="form-control">
+                                                       pattern="[0-9]{3}" min="1" required class="form-control"
+                                                       oninvalid="this.setCustomValidity('<fmt:message key="payment.cvv.validation"/>')"
+                                                       onchange="this.setCustomValidity('')">
                                             </div>
                                         </div>
                                     </div>

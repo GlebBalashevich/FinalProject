@@ -80,7 +80,6 @@ public class BootImageController extends HttpServlet {
         } else {
             session.setAttribute(imageType, EMPTY);
         }
-
         request.getRequestDispatcher(PageName.CREATE_CAR.getPath()).forward(request, response);
     }
 }
