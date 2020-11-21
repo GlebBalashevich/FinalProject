@@ -3,6 +3,9 @@ package by.balashevich.finalproject.exception;
 /**
  * The type Service project exception.
  *
+ * Sub class class Exceptions. It's checked, used when exceptions
+ * occur in the Service application layer
+ *
  * @author Balashevich Gleb
  * @version 1.0
  */

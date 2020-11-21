@@ -1,7 +1,10 @@
 package by.balashevich.finalproject.exception;
 
 /**
- * The type Dao project exception.
+ * The Dao project exception.
+ *
+ * Sub class class Exceptions. It's checked, used when exceptions
+ * occur in the DAO application layer
  *
  * @author Balashevich Gleb
  * @version 1.0
