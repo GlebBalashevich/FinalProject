@@ -2,7 +2,6 @@ package by.balashevich.finalproject.model.dao.impl;
 
 import by.balashevich.finalproject.builder.OrderBuilder;
 import by.balashevich.finalproject.exception.DaoProjectException;
-import by.balashevich.finalproject.model.dao.CarDao;
 import by.balashevich.finalproject.model.dao.OrderDao;
 import by.balashevich.finalproject.model.entity.Car;
 import by.balashevich.finalproject.model.entity.Client;

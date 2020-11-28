@@ -5,7 +5,6 @@ import by.balashevich.finalproject.exception.ServiceProjectException;
 import by.balashevich.finalproject.model.dao.OrderDao;
 import by.balashevich.finalproject.model.dao.impl.OrderDaoImpl;
 import by.balashevich.finalproject.model.entity.Order;
-import by.balashevich.finalproject.model.service.ClientNotificationService;
 import by.balashevich.finalproject.model.service.OrderService;
 import by.balashevich.finalproject.util.DateConverter;
 import by.balashevich.finalproject.validator.CarValidator;

@@ -5,7 +5,6 @@ import by.balashevich.finalproject.controller.command.ActionCommand;
 import by.balashevich.finalproject.controller.command.AttributeKey;
 import by.balashevich.finalproject.controller.command.PageName;
 import by.balashevich.finalproject.exception.ServiceProjectException;
-import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.service.UserService;
 import by.balashevich.finalproject.model.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;

@@ -14,7 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +40,7 @@ public class RegisterClientCommand implements ActionCommand {
     public Router execute(HttpServletRequest request) {
         UserService userService = new UserServiceImpl();
         ClientNotificationService clientNotificationService;
-        Map<String, String> clientParameters = new HashMap();
+        Map<String, String> clientParameters = new HashMap<>();
         clientParameters.put(EMAIL, request.getParameter(EMAIL));
         clientParameters.put(PASSWORD, request.getParameter(PASSWORD));
         clientParameters.put(CONFIRM_PASSWORD, request.getParameter(CONFIRM_PASSWORD));

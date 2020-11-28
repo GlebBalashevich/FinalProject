@@ -2,7 +2,6 @@ package by.balashevich.finalproject.model.dao.impl;
 
 import by.balashevich.finalproject.exception.DaoProjectException;
 import by.balashevich.finalproject.builder.UserBuilder;
-import by.balashevich.finalproject.model.dao.OrderDao;
 import by.balashevich.finalproject.model.dao.UserDao;
 import by.balashevich.finalproject.model.entity.Client;
 import by.balashevich.finalproject.model.pool.ConnectionPool;
